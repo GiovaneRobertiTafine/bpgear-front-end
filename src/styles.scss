@@ -1,0 +1,99 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+/* SET DEFAULT ******************************************* */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+*:focus {
+    outline: none;
+}
+
+/* CUSTOM CLASS ******************************************* */
+
+/* CURSOR POINTER */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* WIDTH */
+
+/* SM breakpoint */
+@media (min-width: 576px) {
+
+    /* CUSTOM WIDTHS */
+    .w-sm-25 {
+        width: 25% !important;
+    }
+
+    .w-sm-50 {
+        width: 50% !important;
+    }
+
+    .w-sm-75 {
+        width: 75% !important;
+    }
+
+    .w-sm-100 {
+        width: 100% !important;
+    }
+
+    .w-sm-auto {
+        width: auto !important;
+    }
+}
+
+/* MD breakpoint*/
+@media (min-width: 768px) {
+
+    /* CUSTOM WIDTHS */
+    .w-md-25 {
+        width: 25% !important;
+    }
+
+    .w-md-50 {
+        width: 50% !important;
+    }
+
+    .w-md-75 {
+        width: 75% !important;
+    }
+
+    .w-md-100 {
+        width: 100% !important;
+    }
+
+    .w-md-auto {
+        width: auto !important;
+    }
+}
+
+/* LG breakpoint */
+@media (min-width: 992px) {
+
+    /* CUSTOM WIDTHS */
+    .w-lg-25 {
+        width: 25% !important;
+    }
+
+    .w-lg-50 {
+        width: 50% !important;
+    }
+
+    .w-lg-75 {
+        width: 75% !important;
+    }
+
+    .w-lg-100 {
+        width: 100% !important;
+    }
+
+    .w-lg-auto {
+        width: auto !important;
+    }
+}
