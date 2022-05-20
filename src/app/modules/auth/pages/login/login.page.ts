@@ -1,5 +1,6 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
     selector: 'bpgear-login',
@@ -8,17 +9,25 @@ import { FormBuilder } from '@angular/forms';
 })
 export class LoginPage implements OnInit {
     public loginForm = this.fb.group({
-        usuario: [''],
-        senha: [''],
+        usuario: ['', [Validators.required]],
+        senha: ['', [Validators.required]],
     });
 
-    constructor(private fb: FormBuilder) { }
+    constructor(
+        private fb: FormBuilder,
+        private authService: AuthService
+    ) { }
 
     ngOnInit(): void {
     }
 
     onSubmit(): void {
-        console.log(this.loginForm);
+        this.authService.autenticarUsuario(this.loginForm.value)
+            .subscribe(
+                (response) => {
+                    console.log(response);
+                }
+            );
     }
 
 }

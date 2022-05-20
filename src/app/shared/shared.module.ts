@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { InputPasswordComponent } from './components/input-password/input-password.component';
 
@@ -13,7 +14,8 @@ import { InputPasswordComponent } from './components/input-password/input-passwo
         CommonModule,
         FontAwesomeModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        HttpClientModule
     ],
     exports: [
         InputPasswordComponent
