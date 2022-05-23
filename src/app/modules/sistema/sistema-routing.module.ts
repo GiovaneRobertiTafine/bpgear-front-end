@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutPage } from '../pages/layout/layout.page';
+import { AuthGuardService } from 'src/app/shared/services/auth-guard.service';
+import { LayoutPage } from './pages/layout/layout.page';
 
 const routes: Routes = [
-    { path: 'sistema', pathMatch: 'full', redirectTo: 'sistema/empresas' },
     {
         path: '',
         component: LayoutPage,
-        children: [
+        canActivate: [AuthGuardService]
 
-        ]
     }
 ];
 

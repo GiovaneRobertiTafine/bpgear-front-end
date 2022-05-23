@@ -38,4 +38,9 @@ export class AuthService extends ApiService {
         return this.usuario$;
     }
 
+    setUser(usuario: Usuario): void {
+        this.usuario$.next(usuario);
+        localStorage.setItem('bpgear-usuario', JSON.stringify(usuario));
+    }
+
 }

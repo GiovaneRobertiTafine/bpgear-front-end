@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthModule } from './modules/auth/auth.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
@@ -18,7 +19,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         AppRoutingModule,
         NgbModule,
         AuthModule.forRoot(),
-
+        SharedModule,
         FontAwesomeModule
 
     ],
