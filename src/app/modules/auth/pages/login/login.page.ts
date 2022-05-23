@@ -22,7 +22,7 @@ export class LoginPage implements OnInit {
     }
 
     onSubmit(): void {
-        this.authService.autenticarUsuario(this.loginForm.value)
+        this.authService.login(this.loginForm.value)
             .subscribe(
                 (response) => {
                     console.log(response);
