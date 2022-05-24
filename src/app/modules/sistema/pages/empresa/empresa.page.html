@@ -1,0 +1,36 @@
+<h3 class="fst-italic mt-3">Empresas</h3>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover mt-3">
+        <thead class="bg-danger text-light">
+            <tr>
+                <th>CNPJ</th>
+                <th>Empresa </th>
+                <th>Razão Social</th>
+                <th>Responsável</th>
+                <th>Contato</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let emp of empresas">
+                <td>{{ emp.cnpj }}</td>
+                <td>{{ emp.nomeEmpresa }}</td>
+                <td style="white-space: nowrap;">{{ emp.razaoSocial }} Limitada Limitada Limitada Limitada</td>
+                <td>{{ emp.responsavel }}</td>
+                <td>{{ emp.telefone }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- <div class="d-flex justify-content-between p-2">
+    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+        (pageChange)="refreshCountries()">
+    </ngb-pagination>
+
+    <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshCountries()">
+        <option [ngValue]="2">2 items per page</option>
+        <option [ngValue]="4">4 items per page</option>
+        <option [ngValue]="6">6 items per page</option>
+    </select>
+</div> -->

@@ -8,7 +8,7 @@ import { IDataReturn } from '../models/data-return.model';
     providedIn: 'root'
 })
 export class ApiService {
-    protected readonly url = environment.api.auth.url;
+    protected readonly url = environment.api.url;
     private defaultHeaders: HttpHeaders = new HttpHeaders({
         'Content-Type': 'application/json',
     });
@@ -20,6 +20,12 @@ export class ApiService {
             `${this.url}/${path}`,
             body,
             { headers: this.defaultHeaders }
+        ) as Observable<T>;
+    }
+
+    protected get<T>(path: string): Observable<T> {
+        return this.httpClient.get<T>(
+            `${this.url}/${path}`
         ) as Observable<T>;
     }
 

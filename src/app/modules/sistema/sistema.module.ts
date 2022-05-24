@@ -4,12 +4,12 @@ import { CommonModule } from '@angular/common';
 import { SistemaRoutingModule } from './sistema-routing.module';
 
 import { LayoutTemplate } from './templates/layout/layout.template';
-import { EmpresasPage } from './pages/empresas/empresas.page';
+import { EmpresaPage } from './pages/empresa/empresa.page';
 
 @NgModule({
     declarations: [
         LayoutTemplate,
-        EmpresasPage
+        EmpresaPage
     ],
     imports: [
         CommonModule,

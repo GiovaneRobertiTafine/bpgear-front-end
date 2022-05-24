@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand fst-italic">Bp Gear</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -13,13 +13,13 @@
                         {{(authService.getUsuario() | async)?.nomeCompleto}}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" (click)="authService.logout()">Sair</a></li>
+                        <li><a class="dropdown-item cursor-pointer" (click)="authService.logout()">Sair</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-<div class="container-fluid">
+<div class="container-fluid px-5">
     <router-outlet></router-outlet>
 </div>

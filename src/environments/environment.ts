@@ -5,9 +5,7 @@
 export const environment = {
     production: false,
     api: {
-        auth: {
-            url: window['env']['api_auth_url'],
-        },
+        url: window['env']['api_url'],
     },
 };
 

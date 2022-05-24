@@ -19,7 +19,7 @@ export class AuthService extends ApiService {
     }
 
     public login(usuario: UsuarioAutenticar): Observable<IDataReturn<Usuario>> {
-        return this.post<IDataReturn<Usuario>>('autenticar', usuario)
+        return this.post<IDataReturn<Usuario>>('auth/autenticar', usuario)
             .pipe(
                 tap((res: any) => {
                     this.tokenService.setToken(res.data.token);
