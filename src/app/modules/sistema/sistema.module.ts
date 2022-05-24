@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { SistemaRoutingModule } from './sistema-routing.module';
 
-import { LayoutPage } from './pages/layout/layout.page';
+import { LayoutTemplate } from './templates/layout/layout.template';
 
 @NgModule({
     declarations: [
-        LayoutPage
+        LayoutTemplate
     ],
     imports: [
         CommonModule,

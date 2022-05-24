@@ -7,11 +7,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { InputPasswordComponent } from './components/input-password/input-password.component';
 import { ToastComponent } from './components/toast/toast.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
     declarations: [
         InputPasswordComponent,
-        ToastComponent
+        ToastComponent,
+        SpinnerComponent
     ],
     imports: [
         CommonModule,
@@ -23,7 +25,8 @@ import { ToastComponent } from './components/toast/toast.component';
     ],
     exports: [
         InputPasswordComponent,
-        ToastComponent
+        ToastComponent,
+        SpinnerComponent
     ]
 })
 export class SharedModule { }

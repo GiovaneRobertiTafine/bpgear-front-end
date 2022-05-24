@@ -21,7 +21,7 @@ export class TokenService {
     }
 
     validateToken(): boolean {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('bpgear-token');
 
         if (token) {
             return !this.helper.isTokenExpired(token);

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
 import { IDataReturn } from 'src/app/shared/models/data-return.model';
 import { ApiService } from 'src/app/shared/services/api.service';
@@ -13,7 +14,7 @@ import { TokenService } from './token.service';
 export class AuthService extends ApiService {
     private usuario$: BehaviorSubject<Usuario> = new BehaviorSubject(null);
 
-    constructor(httpClient: HttpClient, private tokenService: TokenService) {
+    constructor(httpClient: HttpClient, private tokenService: TokenService, private router: Router) {
         super(httpClient);
     }
 
@@ -21,9 +22,8 @@ export class AuthService extends ApiService {
         return this.post<IDataReturn<Usuario>>('autenticar', usuario)
             .pipe(
                 tap((res: any) => {
-                    console.log(res);
                     this.tokenService.setToken(res.data.token);
-                    this.usuario$.next(res.data);
+                    this.setUsuario(res.data);
                 }),
                 catchError(this.handleError<IDataReturn<Usuario>>('autenticar'))
             );
@@ -31,16 +31,33 @@ export class AuthService extends ApiService {
 
     public logout(): void {
         this.tokenService.removeToken();
-        this.usuario$.next(null);
+        this.removeUsuario();
+        this.router.navigateByUrl('/login');
     }
 
     getUsuario(): Observable<Usuario> {
         return this.usuario$;
     }
 
-    setUser(usuario: Usuario): void {
+    setUsuario(usuario: Usuario): void {
         this.usuario$.next(usuario);
         localStorage.setItem('bpgear-usuario', JSON.stringify(usuario));
+    }
+
+    removeUsuario(): void {
+        this.usuario$.next(null);
+        localStorage.removeItem('bpgear-usuario');
+    }
+
+    validateUsuario(): boolean {
+        const usuario = localStorage.getItem('bpgear-usuario');
+
+        if (usuario) {
+            !this.usuario$.value ? this.setUsuario(JSON.parse(usuario)) : null;
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

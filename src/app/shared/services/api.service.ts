@@ -27,13 +27,17 @@ export class ApiService {
         return (error: HttpErrorResponse): Observable<T> => {
             let errorMessage = '';
             console.log(error);
-            console.log(error.error instanceof ErrorEvent);
 
             // client-side error or service off
             if (error.status === 0) {
                 errorMessage = `Error Method: ${errorMethod} => Message: ${error.message}`;
                 console.log(errorMessage);
-                const resError: IDataReturn<null> = { data: null, resultStatus: { code: 0, message: "Serviço indisponível no momento" } };
+                const resError: IDataReturn<null> = { data: null, resultStatus: { code: error.status, message: "Serviço indisponível no momento." } };
+                return of(resError as unknown as T);
+            }
+
+            if (!error.error?.resultStatus?.code) {
+                const resError: IDataReturn<null> = { data: null, resultStatus: { code: error.status, message: "Erro interno." } };
                 return of(resError as unknown as T);
             }
 
