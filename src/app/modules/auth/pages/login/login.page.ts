@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { AuthService } from '../../services/auth.service';
+import { TokenService } from '../../services/token.service';
 
 @Component({
     selector: 'bpgear-login',
@@ -19,12 +20,16 @@ export class LoginPage implements OnInit {
     constructor(
         private fb: FormBuilder,
         private authService: AuthService,
+        private tokenService: TokenService,
         private spinner: SpinnerService,
         private toastService: ToastService,
         private router: Router,
     ) { }
 
     ngOnInit(): void {
+        if (this.authService.validateUsuario() && this.tokenService.validateToken()) {
+            this.router.navigateByUrl('/sistema');
+        }
     }
 
     onSubmit(): void {
