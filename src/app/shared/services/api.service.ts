@@ -43,6 +43,8 @@ export class ApiService {
             }
 
             if (!error.error?.resultStatus?.code) {
+                errorMessage = `Error Method: ${errorMethod} => Code: ${error.status}, Message: ${error.message}`;
+                console.log(errorMessage);
                 const resError: IDataReturn<null> = { data: null, resultStatus: { code: error.status, message: "Erro interno." } };
                 return of(resError as unknown as T);
             }
