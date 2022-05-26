@@ -1,0 +1,32 @@
+<div class="table-responsive">
+    <table class="table table-striped table-hover mt-3">
+        <thead class="bg-danger text-light">
+            <tr>
+                <th *ngFor="let col of dataViewConfig.colunas">{{ col.titulo }}</th>
+                <th *ngIf="dataViewConfig?.colunasAcao?.editar" class="border-start text-center">
+                    <fa-icon [icon]="iconEditar" class="cursor-pointer" [fixedWidth]="true" placement="top"
+                        ngbTooltip="Editar">
+                    </fa-icon>
+                </th>
+                <th *ngIf="dataViewConfig?.colunasAcao?.excluir" class="border-start text-center">
+                    <fa-icon [icon]="iconExcluir" class="cursor-pointer" [fixedWidth]="true" placement="top"
+                        ngbTooltip="Excluir">
+                    </fa-icon>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let obj of data">
+                <td *ngFor="let col of dataViewConfig.colunas">{{ obterValorPropriedade(obj, col.propriedade) }}</td>
+                <td *ngIf="dataViewConfig?.colunasAcao?.editar" class="cursor-pointer border-start text-center">
+                    <fa-icon [icon]="iconEditar" class="cursor-pointer" [fixedWidth]="true">
+                    </fa-icon>
+                </td>
+                <td *ngIf="dataViewConfig?.colunasAcao?.excluir" class="cursor-pointer border-start text-center">
+                    <fa-icon [icon]="iconExcluir" class="cursor-pointer" [fixedWidth]="true">
+                    </fa-icon>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InputPasswordComponent } from './components/input-password/input-password.component';
 import { ToastComponent } from './components/toast/toast.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { TableComponent } from './components/table/table.component';
 
 import { TokenInterceptor } from '../modules/auth/services/token.interceptor';
 
@@ -15,7 +16,8 @@ import { TokenInterceptor } from '../modules/auth/services/token.interceptor';
     declarations: [
         InputPasswordComponent,
         ToastComponent,
-        SpinnerComponent
+        SpinnerComponent,
+        TableComponent
     ],
     imports: [
         CommonModule,
@@ -28,7 +30,8 @@ import { TokenInterceptor } from '../modules/auth/services/token.interceptor';
     exports: [
         InputPasswordComponent,
         ToastComponent,
-        SpinnerComponent
+        SpinnerComponent,
+        TableComponent
     ],
     providers: [
         {

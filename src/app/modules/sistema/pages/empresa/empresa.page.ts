@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { DataViewConfig } from 'src/app/shared/models/data-view-config.model';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
-import { Empresa } from '../../models/empresa.model';
+import { DataViewConfigEmpresa } from '../../models/constants/empresa-data-view-config.constant';
+import { Empresa } from '../../models/interfaces/empresa.interface';
 import { EmpresaService } from '../../services/empresa.service';
 
 @Component({
@@ -11,6 +13,7 @@ import { EmpresaService } from '../../services/empresa.service';
 })
 export class EmpresaPage implements OnInit {
     empresas: Empresa[] = [];
+    dataViewConfigEmpresa = DataViewConfigEmpresa;
 
     constructor(
         private empresaService: EmpresaService,
@@ -30,6 +33,7 @@ export class EmpresaPage implements OnInit {
 
                 this.empresas = response.data;
             });
+
     }
 
 }

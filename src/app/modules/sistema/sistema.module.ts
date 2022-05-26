@@ -9,6 +9,8 @@ import { EmpresaPage } from './pages/empresa/empresa.page';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { TokenInterceptor } from '../auth/services/token.interceptor';
 
+import { SharedModule } from 'src/app/shared/shared.module';
+
 @NgModule({
     declarations: [
         LayoutTemplate,
@@ -16,7 +18,8 @@ import { TokenInterceptor } from '../auth/services/token.interceptor';
     ],
     imports: [
         CommonModule,
-        SistemaRoutingModule
+        SistemaRoutingModule,
+        SharedModule
     ]
 })
 export class SistemaModule { }
