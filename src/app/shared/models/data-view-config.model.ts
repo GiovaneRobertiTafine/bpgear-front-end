@@ -6,9 +6,10 @@ export interface DataViewConfig {
     colunasAcao?: ColunasAcao;
 }
 
-interface DataColuna {
-    titulo: string | TemplateRef<any>;
-    propriedade: string[] | TemplateRef<any>;
+export interface DataColuna {
+    titulo: string;
+    propriedade: string[];
+    template?: TemplateRef<any>;
     mascara?: Mascara;
     ordenacao?: DirecaoOrdenacao;
 }

@@ -18,11 +18,8 @@ export class TableComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    obterValorPropriedade(obj: any, prop: string[] | TemplateRef<any>): string {
-        if (!(prop instanceof TemplateRef))
-            return obj[prop.join('.')];
-
-        return "";
+    obterValorPropriedade(obj: any, prop: string[]): string {
+        return obj[prop.join('.')];
     }
 
 }

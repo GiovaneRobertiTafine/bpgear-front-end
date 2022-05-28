@@ -17,7 +17,15 @@
         </thead>
         <tbody>
             <tr *ngFor="let obj of data">
-                <td *ngFor="let col of dataViewConfig.colunas">{{ obterValorPropriedade(obj, col.propriedade) }}</td>
+                <td *ngFor="let col of dataViewConfig.colunas">
+                    <span *ngIf="!col.template; else ngContainer">{{ obterValorPropriedade(obj, col.propriedade)
+                        }}</span>
+                    <ng-template #ngContainer>
+                        <ng-container [ngTemplateOutlet]="col.template"
+                            [ngTemplateOutletContext]="{ dataCallBack: obterValorPropriedade(obj, col.propriedade)}">
+                        </ng-container>
+                    </ng-template>
+                </td>
                 <td *ngIf="dataViewConfig?.colunasAcao?.editar" class="cursor-pointer border-start text-center">
                     <fa-icon [icon]="iconEditar" class="cursor-pointer" [fixedWidth]="true">
                     </fa-icon>

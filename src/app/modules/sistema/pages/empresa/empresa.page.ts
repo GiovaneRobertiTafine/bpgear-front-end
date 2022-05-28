@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { DataViewConfig } from 'src/app/shared/models/data-view-config.model';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { DataColuna, DataViewConfig } from 'src/app/shared/models/data-view-config.model';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { DataViewConfigEmpresa } from '../../models/constants/empresa-data-view-config.constant';
@@ -11,10 +11,11 @@ import { EmpresaService } from '../../services/empresa.service';
     templateUrl: './empresa.page.html',
     styleUrls: ['./empresa.page.scss']
 })
-export class EmpresaPage implements OnInit {
+export class EmpresaPage implements OnInit, AfterViewInit {
     empresas: Empresa[] = [];
     dataViewConfigEmpresa = DataViewConfigEmpresa;
-
+    dataDanger = "";
+    @ViewChild('colTest') colTest;
     constructor(
         private empresaService: EmpresaService,
         private spinnerService: SpinnerService,
@@ -33,7 +34,15 @@ export class EmpresaPage implements OnInit {
 
                 this.empresas = response.data;
             });
+    }
 
+    ngAfterViewInit(): void {
+        // this.dataViewConfigEmpresa.colunas[2].template = this.colTest;
+
+    }
+
+    menorQue(valor: number): boolean {
+        return valor < 11212312312 ? true : false;
     }
 
 }

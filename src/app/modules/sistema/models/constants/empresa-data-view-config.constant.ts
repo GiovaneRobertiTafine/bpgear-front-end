@@ -10,6 +10,10 @@ export const DataViewConfigEmpresa: DataViewConfig = {
             titulo: "Razão Social",
             propriedade: ["razaoSocial"]
         },
+        // {
+        //     titulo: "New Column",
+        //     propriedade: ["cnpj"]
+        // },
         {
             titulo: "CNPJ",
             propriedade: ["cnpj"]
