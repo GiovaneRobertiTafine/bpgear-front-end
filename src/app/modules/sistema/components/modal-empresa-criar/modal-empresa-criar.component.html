@@ -1,0 +1,42 @@
+<div class="modal-header">
+    <h4 class="modal-title">Criar Empresa</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <form class="row g-3 needs-validation" [formGroup]="formGroup" novalidate>
+        <div class="col-md-4">
+            <label for="inputNomeEmpresa" class="form-label">Nome da Empresa:</label>
+            <input type="text" class="form-control" [class]="validateClass('nomeEmpresa')" id="inputNomeEmpresa"
+                formControlName="nomeEmpresa">
+            <small class="text-danger" formControlOnErrorItem="nomeEmpresa"></small>
+        </div>
+        <div class=" col-md-4">
+            <label for="inputCnpj" class="form-label">CNPJ:</label>
+            <input type="text" class="form-control" [class]="validateClass('cnpj')" id="inputCnpj"
+                mask="00.000.000/0000-00" formControlName="cnpj">
+            <small class="text-danger" formControlOnErrorItem="cnpj"></small>
+        </div>
+        <div class="col-md-4">
+            <label for="inputRazaoSocial" class="form-label">Razão Social:</label>
+            <input type="text" class="form-control" [class]="validateClass('razaoSocial')" id="inputRazaoSocial"
+                formControlName="razaoSocial">
+            <small class="text-danger" formControlOnErrorItem="razaoSocial"></small>
+        </div>
+        <div class="col-md-4">
+            <label for="inputResponsavel" class="form-label">Responsável:</label>
+            <input type="text" class="form-control" [class]="validateClass('responsavel')" id="inputResponsavel"
+                formControlName="responsavel">
+            <small class="text-danger" formControlOnErrorItem="responsavel"></small>
+        </div>
+        <div class="col-md-4">
+            <label for="Contato" class="form-label">Contato:</label>
+            <input type="text" class="form-control" [class]="validateClass('telefone')" id="Contato"
+                mask="(00) 0000-0000||(00) 0 0000-0000" formControlName="telefone">
+            <small class="text-danger" formControlOnErrorItem="telefone"></small>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close('Close click')">Fechar</button>
+    <button type="submit" class="btn btn-success" (click)="criarEmpresa()">Confirmar</button>
+</div>

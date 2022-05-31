@@ -1,7 +1,9 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataColuna, DataViewConfig } from 'src/app/shared/models/data-view-config.model';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { ModalEmpresaCriarComponent } from '../../components/modal-empresa-criar/modal-empresa-criar.component';
 import { DataViewConfigEmpresa } from '../../models/constants/empresa-data-view-config.constant';
 import { Empresa } from '../../models/interfaces/empresa.interface';
 import { EmpresaService } from '../../services/empresa.service';
@@ -19,10 +21,15 @@ export class EmpresaPage implements OnInit, AfterViewInit {
     constructor(
         private empresaService: EmpresaService,
         private spinnerService: SpinnerService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private modalService: NgbModal
     ) { }
 
     ngOnInit(): void {
+        this.obterEmpresas();
+    }
+
+    obterEmpresas(): void {
         this.spinnerService.show();
         this.empresaService.obterEmpresa()
             .subscribe((response) => {
@@ -43,6 +50,17 @@ export class EmpresaPage implements OnInit, AfterViewInit {
 
     menorQue(valor: number): boolean {
         return valor < 11212312312 ? true : false;
+    }
+
+    criarEmpresa(): void {
+        const modalRef = this.modalService.open(ModalEmpresaCriarComponent, { size: 'lg' });
+        modalRef.result
+            .then((res) => {
+                if (res) {
+                    this.obterEmpresas();
+                }
+            })
+            .catch((err) => err);
     }
 
 }

@@ -4,6 +4,7 @@ import { catchError, Observable } from 'rxjs';
 import { IDataReturn } from 'src/app/shared/models/data-return.model';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { Empresa } from '../models/interfaces/empresa.interface';
+import { EmpresaCriar } from '../models/request/empresa-criar.request';
 
 @Injectable({
     providedIn: 'root'
@@ -18,6 +19,13 @@ export class EmpresaService extends ApiService {
         return this.get<IDataReturn<Empresa[]>>('empresa')
             .pipe(
                 catchError(this.handleError<IDataReturn<Empresa[]>>('obterEmpresa'))
+            );
+    }
+
+    public criarEmpresa(request: EmpresaCriar): Observable<IDataReturn<null>> {
+        return this.post<IDataReturn<null>>('empresa/criar', request)
+            .pipe(
+                catchError(this.handleError<IDataReturn<null>>('criarEmpresa'))
             );
     }
 }

@@ -1,5 +1,8 @@
-<h3 class="fst-italic mt-3">Empresas</h3>
-<button class="btn ">Nova Empresa</button>
+<div class="w-100 d-inline-block mt-3">
+    <h3 class="fst-italic float-start">Empresas</h3>
+    <button class="btn btn-success float-end" (click)="criarEmpresa()">Nova Empresa</button>
+</div>
+
 <bpgear-table [dataViewConfig]="dataViewConfigEmpresa" [data]="empresas">
     <!-- <ng-template #colTest let-cel="dataCallBack">
         <span class="text-danger">{{menorQue(+cel)}}</span>

@@ -18,11 +18,11 @@
         <tbody>
             <tr *ngFor="let obj of data">
                 <td *ngFor="let col of dataViewConfig.colunas">
-                    <span *ngIf="!col.template; else ngContainer">{{ obterValorPropriedade(obj, col.propriedade)
+                    <span *ngIf="!col.template; else ngContainer">{{ obterValorPropriedade(obj, col)
                         }}</span>
                     <ng-template #ngContainer>
                         <ng-container [ngTemplateOutlet]="col.template"
-                            [ngTemplateOutletContext]="{ dataCallBack: obterValorPropriedade(obj, col.propriedade)}">
+                            [ngTemplateOutletContext]="{ dataCallBack: obterValorPropriedade(obj, col)}">
                         </ng-container>
                     </ng-template>
                 </td>

@@ -11,13 +11,18 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { TableComponent } from './components/table/table.component';
 
 import { TokenInterceptor } from '../modules/auth/services/token.interceptor';
+import { InjectorPipe } from './pipes/injector.pipe';
+import { MaskPipe } from 'ngx-mask';
+import { TelefonePipe } from './pipes/telefone.pipe';
 
 @NgModule({
     declarations: [
         InputPasswordComponent,
         ToastComponent,
         SpinnerComponent,
-        TableComponent
+        TableComponent,
+        InjectorPipe,
+        TelefonePipe
     ],
     imports: [
         CommonModule,
@@ -31,9 +36,12 @@ import { TokenInterceptor } from '../modules/auth/services/token.interceptor';
         InputPasswordComponent,
         ToastComponent,
         SpinnerComponent,
-        TableComponent
+        TableComponent,
     ],
     providers: [
+        InjectorPipe,
+        MaskPipe,
+        TelefonePipe,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptor,

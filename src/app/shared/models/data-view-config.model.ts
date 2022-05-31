@@ -16,7 +16,7 @@ export interface DataColuna {
 
 interface Mascara {
     token: Object;
-    args?: string[];
+    arg?: string;
 }
 
 interface ColunasAcao {

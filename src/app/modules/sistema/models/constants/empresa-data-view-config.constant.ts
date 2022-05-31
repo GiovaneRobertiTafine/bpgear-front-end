@@ -1,4 +1,6 @@
+import { MaskPipe } from 'ngx-mask';
 import { DataViewConfig } from "src/app/shared/models/data-view-config.model";
+import { TelefonePipe } from 'src/app/shared/pipes/telefone.pipe';
 
 export const DataViewConfigEmpresa: DataViewConfig = {
     colunas: [
@@ -16,7 +18,8 @@ export const DataViewConfigEmpresa: DataViewConfig = {
         // },
         {
             titulo: "CNPJ",
-            propriedade: ["cnpj"]
+            propriedade: ["cnpj"],
+            mascara: { token: MaskPipe, arg: "CPF_CNPJ" }
         },
         {
             titulo: "Responsável",
@@ -24,7 +27,8 @@ export const DataViewConfigEmpresa: DataViewConfig = {
         },
         {
             titulo: "Contato",
-            propriedade: ["telefone"]
+            propriedade: ["telefone"],
+            mascara: { token: TelefonePipe }
         }
     ],
     colunasAcao: {

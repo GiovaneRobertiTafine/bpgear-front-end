@@ -9,17 +9,26 @@ import { EmpresaPage } from './pages/empresa/empresa.page';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { TokenInterceptor } from '../auth/services/token.interceptor';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ModalEmpresaCriarComponent } from './components/modal-empresa-criar/modal-empresa-criar.component';
+import { NgxMaskModule } from 'ngx-mask';
+import { ReactiveFormsTypedModule } from 'reactive-forms-typed';
 
 @NgModule({
     declarations: [
         LayoutTemplate,
-        EmpresaPage
+        EmpresaPage,
+        ModalEmpresaCriarComponent
     ],
     imports: [
         CommonModule,
         SistemaRoutingModule,
-        SharedModule
+        ReactiveFormsModule,
+        SharedModule,
+        NgxMaskModule,
+        ReactiveFormsTypedModule
     ]
 })
 export class SistemaModule { }
