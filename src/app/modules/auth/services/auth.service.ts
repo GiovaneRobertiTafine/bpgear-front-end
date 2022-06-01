@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
 import { IDataReturn } from 'src/app/shared/models/data-return.model';
 import { ApiService } from 'src/app/shared/services/api.service';
-import { UsuarioAutenticar } from '../models/request/usuario-autenticar.request';
-import { Usuario } from '../models/usuario.model';
+import { UsuarioAutenticar } from '../models/requests/usuario-autenticar.request';
+import { Usuario } from '../models/interfaces/usuario.model';
 import { TokenService } from './token.service';
 
 @Injectable({

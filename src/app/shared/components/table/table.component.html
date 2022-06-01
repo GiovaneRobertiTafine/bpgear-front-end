@@ -8,8 +8,8 @@
                         ngbTooltip="Editar">
                     </fa-icon>
                 </th>
-                <th *ngIf="dataViewConfig?.colunasAcao?.excluir" class="border-start text-center">
-                    <fa-icon [icon]="iconExcluir" class="cursor-pointer" [fixedWidth]="true" placement="top"
+                <th *ngIf="dataViewConfig?.colunasAcao?.deletar" class="border-start text-center">
+                    <fa-icon [icon]="iconDeletar" class="cursor-pointer" [fixedWidth]="true" placement="top"
                         ngbTooltip="Excluir">
                     </fa-icon>
                 </th>
@@ -30,8 +30,8 @@
                     <fa-icon [icon]="iconEditar" class="cursor-pointer" [fixedWidth]="true">
                     </fa-icon>
                 </td>
-                <td *ngIf="dataViewConfig?.colunasAcao?.excluir" class="cursor-pointer border-start text-center">
-                    <fa-icon [icon]="iconExcluir" class="cursor-pointer" [fixedWidth]="true">
+                <td *ngIf="dataViewConfig?.colunasAcao?.deletar" class="cursor-pointer border-start text-center">
+                    <fa-icon [icon]="iconDeletar" class="cursor-pointer" [fixedWidth]="true" (click)="deletarItem(obj)">
                     </fa-icon>
                 </td>
             </tr>

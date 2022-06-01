@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TableComponent } from 'src/app/shared/components/table/table.component';
 import { DataColuna, DataViewConfig } from 'src/app/shared/models/data-view-config.model';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
@@ -61,6 +62,23 @@ export class EmpresaPage implements OnInit, AfterViewInit {
                 }
             })
             .catch((err) => err);
+    }
+
+    deletarEmpresa(empresa: Empresa): void {
+        this.spinnerService.show();
+        this.empresaService.deletarEmpresa(empresa.cnpj)
+            .subscribe(
+                (response) => {
+                    this.spinnerService.hide();
+                    if (response.resultStatus.code !== 200) {
+                        this.toastService.error(response.resultStatus.message);
+                        return;
+                    }
+
+                    this.toastService.success(response.resultStatus.message);
+                    this.obterEmpresas();
+                }
+            );
     }
 
 }

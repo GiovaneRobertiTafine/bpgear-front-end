@@ -3,7 +3,8 @@
     <button class="btn btn-success float-end" (click)="criarEmpresa()">Nova Empresa</button>
 </div>
 
-<bpgear-table [dataViewConfig]="dataViewConfigEmpresa" [data]="empresas">
+<bpgear-table [dataViewConfig]="dataViewConfigEmpresa" [data]="empresas" #tableEmpresa
+    (deletarItemEvent)="deletarEmpresa($event)">
     <!-- <ng-template #colTest let-cel="dataCallBack">
         <span class="text-danger">{{menorQue(+cel)}}</span>
     </ng-template> -->

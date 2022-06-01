@@ -33,6 +33,6 @@ export const DataViewConfigEmpresa: DataViewConfig = {
     ],
     colunasAcao: {
         editar: true,
-        excluir: true
-    }
+        deletar: true
+    },
 };

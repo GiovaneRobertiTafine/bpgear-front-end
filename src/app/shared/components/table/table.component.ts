@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, Output, EventEmitter } from '@angular/core';
 import { DataViewConfig, DataColuna } from '../../models/data-view-config.model';
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { InjectorPipe } from '../../pipes/injector.pipe';
@@ -10,10 +10,12 @@ import { InjectorPipe } from '../../pipes/injector.pipe';
 })
 export class TableComponent implements OnInit {
     iconEditar = faPenToSquare;
-    iconExcluir = faTrashCan;
+    iconDeletar = faTrashCan;
 
     @Input() dataViewConfig: DataViewConfig;
     @Input() data: any[];
+
+    @Output() deletarItemEvent = new EventEmitter<any>();
     constructor(private dynamicPipe: InjectorPipe) { }
 
     ngOnInit(): void {
@@ -28,6 +30,10 @@ export class TableComponent implements OnInit {
             );
         }
         return obj[col.propriedade.join('.')];
+    }
+
+    deletarItem(item: any): void {
+        this.deletarItemEvent.emit(item);
     }
 
 }

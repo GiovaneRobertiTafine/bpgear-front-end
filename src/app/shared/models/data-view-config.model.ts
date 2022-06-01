@@ -22,7 +22,7 @@ interface Mascara {
 interface ColunasAcao {
     detalhar?: boolean;
     editar?: boolean;
-    excluir?: boolean;
+    deletar?: boolean;
 }
 
 enum DirecaoOrdenacao {

@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { Empresa } from '../../models/interfaces/empresa.interface';
-import { EmpresaCriar } from '../../models/request/empresa-criar.request';
+import { EmpresaCriar } from '../../models/requests/empresa-criar.request';
 import { EmpresaService } from '../../services/empresa.service';
 
 @Component({
@@ -30,11 +30,11 @@ export class ModalEmpresaCriarComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.form = this.fb.group<Empresa>({
-            nomeEmpresa: [null, [Validators.required]],
-            cnpj: [null, [Validators.required]],
-            razaoSocial: [null, [Validators.required]],
-            responsavel: [null, [Validators.required]],
-            telefone: [null, [Validators.required, Validators.pattern(/^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/)]]
+            nomeEmpresa: ["", [Validators.required]],
+            cnpj: ["", [Validators.required]],
+            razaoSocial: ["", [Validators.required]],
+            responsavel: ["", [Validators.required]],
+            telefone: ["", [Validators.required, Validators.pattern(/^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/)]]
         });
         this.form.setFormErrors({
             nomeEmpresa: { required: "Nome da empresa é requirido." },
@@ -81,9 +81,9 @@ export class ModalEmpresaCriarComponent implements OnInit, OnDestroy {
 
     validateClass(field: string): string {
         if (this.formControl[field].errors && (this.formControl[field].dirty || this.formControl[field].touched)) {
-            return "is-invalid";
-        } else if (this.formControl[field].value) {
-            return "is-valid";
+            return "border-danger";
+        } else if (this.formControl[field].value && this.formControl[field].touched) {
+            return "border-success";
         }
         return "";
     }
