@@ -22,8 +22,8 @@ export class ModalEmpresaCriarComponent implements OnInit, OnDestroy {
     constructor(
         public activeModal: NgbActiveModal,
         private fb: FormTypeBuilder,
-        private spinner: SpinnerService,
-        private toast: ToastService,
+        private spinnerService: SpinnerService,
+        private toastService: ToastService,
         private empresaService: EmpresaService,
         private authService: AuthService
     ) { }
@@ -60,19 +60,19 @@ export class ModalEmpresaCriarComponent implements OnInit, OnDestroy {
         }
 
         const request: EmpresaCriar = { ...this.form.value, usuario: { login: this.usuario } };
-        this.spinner.show();
+        this.spinnerService.show();
         this.empresaService.criarEmpresa(request)
             .pipe(
                 takeUntil(this.unsubscribe$)
             )
             .subscribe(
                 (response) => {
-                    this.spinner.hide();
+                    this.spinnerService.hide();
                     if (response.resultStatus.code !== 201) {
-                        this.toast.error(response.resultStatus.message);
+                        this.toastService.error(response.resultStatus.message);
                         return;
                     }
-                    this.toast.success(response.resultStatus.message);
+                    this.toastService.success(response.resultStatus.message);
                     this.activeModal.close(true);
                 }
             );

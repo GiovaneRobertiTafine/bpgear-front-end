@@ -3,7 +3,6 @@ import { FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormTypeBuilder, NgTypeFormGroup } from 'reactive-forms-typed';
 import { Subject, takeUntil } from 'rxjs';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { Empresa } from '../../models/interfaces/empresa.interface';
@@ -22,10 +21,9 @@ export class ModalEmpresaEditarComponent implements OnInit, OnDestroy {
     constructor(
         public activeModal: NgbActiveModal,
         private fb: FormTypeBuilder,
-        private spinner: SpinnerService,
-        private toast: ToastService,
+        private spinnerService: SpinnerService,
+        private toastService: ToastService,
         private empresaService: EmpresaService,
-        private authService: AuthService
     ) { }
 
     ngOnInit(): void {
@@ -52,19 +50,19 @@ export class ModalEmpresaEditarComponent implements OnInit, OnDestroy {
         }
 
         const reuqest: Empresa = { ...this.form.value, id: this.empresa.id };
-        this.spinner.show();
+        this.spinnerService.show();
         this.empresaService.editarEmpresa(reuqest)
             .pipe(
                 takeUntil(this.unsubscribe$)
             )
             .subscribe(
                 (response) => {
-                    this.spinner.hide();
+                    this.spinnerService.hide();
                     if (response.resultStatus.code !== 200) {
-                        this.toast.error(response.resultStatus.message);
+                        this.toastService.error(response.resultStatus.message);
                         return;
                     }
-                    this.toast.success(response.resultStatus.message);
+                    this.toastService.success(response.resultStatus.message);
                     this.activeModal.close(true);
                 }
             );

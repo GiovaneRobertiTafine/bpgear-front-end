@@ -16,13 +16,15 @@ import { ModalEmpresaCriarComponent } from './components/modal-empresa-criar/mod
 import { NgxMaskModule } from 'ngx-mask';
 import { ReactiveFormsTypedModule } from 'reactive-forms-typed';
 import { ModalEmpresaEditarComponent } from './components/modal-empresa-editar/modal-empresa-editar.component';
+import { ModalEmpresaDeletarComponent } from './components/modal-empresa-deletar/modal-empresa-deletar.component';
 
 @NgModule({
     declarations: [
         LayoutTemplate,
         EmpresaPage,
         ModalEmpresaCriarComponent,
-        ModalEmpresaEditarComponent
+        ModalEmpresaEditarComponent,
+        ModalEmpresaDeletarComponent
     ],
     imports: [
         CommonModule,
