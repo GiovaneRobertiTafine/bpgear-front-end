@@ -22,7 +22,7 @@ import { TelefonePipe } from './pipes/telefone.pipe';
         SpinnerComponent,
         TableComponent,
         InjectorPipe,
-        TelefonePipe
+        TelefonePipe,
     ],
     imports: [
         CommonModule,
@@ -30,7 +30,7 @@ import { TelefonePipe } from './pipes/telefone.pipe';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        NgbModule
+        NgbModule,
     ],
     exports: [
         InputPasswordComponent,

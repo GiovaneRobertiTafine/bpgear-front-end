@@ -1,23 +1,23 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { NgTypeFormGroup, FormTypeBuilder } from 'reactive-forms-typed';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { FormTypeBuilder, NgTypeFormGroup } from 'reactive-forms-typed';
+import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { Empresa } from '../../models/interfaces/empresa.interface';
-import { EmpresaCriar } from '../../models/requests/empresa-criar.request';
 import { EmpresaService } from '../../services/empresa.service';
 
 @Component({
-    selector: 'bpgear-modal-empresa-criar',
-    templateUrl: './modal-empresa-criar.component.html',
-    styleUrls: ['./modal-empresa-criar.component.scss']
+    selector: 'bpgear-modal-empresa-editar',
+    templateUrl: './modal-empresa-editar.component.html',
+    styleUrls: ['./modal-empresa-editar.component.scss']
 })
-export class ModalEmpresaCriarComponent implements OnInit, OnDestroy {
+export class ModalEmpresaEditarComponent implements OnInit, OnDestroy {
     form: NgTypeFormGroup<Empresa>;
     usuario = "";
+    empresa: Empresa = null;
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
     constructor(
         public activeModal: NgbActiveModal,
@@ -30,11 +30,11 @@ export class ModalEmpresaCriarComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.form = this.fb.group<Empresa>({
-            nomeEmpresa: ["", [Validators.required]],
-            cnpj: ["", [Validators.required]],
-            razaoSocial: ["", [Validators.required]],
-            responsavel: ["", [Validators.required]],
-            telefone: ["", [Validators.required, Validators.pattern(/^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/)]]
+            nomeEmpresa: [this.empresa.nomeEmpresa, [Validators.required]],
+            cnpj: [this.empresa.cnpj, [Validators.required]],
+            razaoSocial: [this.empresa.razaoSocial, [Validators.required]],
+            responsavel: [this.empresa.responsavel, [Validators.required]],
+            telefone: [this.empresa.telefone, [Validators.required, Validators.pattern(/^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/)]]
         });
         this.form.setFormErrors({
             nomeEmpresa: { required: "Nome da empresa é requirido." },
@@ -43,32 +43,24 @@ export class ModalEmpresaCriarComponent implements OnInit, OnDestroy {
             responsavel: { required: "Reponsável é requirido." },
             telefone: { required: "Telefone é requirido.", mask: "Telefone inválido", pattern: "Telefone inválido" }
         });
-
-        this.authService.getUsuario()
-            .pipe(
-                takeUntil(this.unsubscribe$)
-            )
-            .subscribe(
-                (u) => this.usuario = u.usuario
-            );
     }
 
-    criarEmpresa(): void {
+    editarEmpresa(): void {
         if (this.form.invalid) {
             this.form.markAllAsTouched();
             return;
         }
 
-        const request: EmpresaCriar = { ...this.form.value, usuario: { login: this.usuario } };
+        const reuqest: Empresa = { ...this.form.value, id: this.empresa.id };
         this.spinner.show();
-        this.empresaService.criarEmpresa(request)
+        this.empresaService.editarEmpresa(reuqest)
             .pipe(
                 takeUntil(this.unsubscribe$)
             )
             .subscribe(
                 (response) => {
                     this.spinner.hide();
-                    if (response.resultStatus.code !== 201) {
+                    if (response.resultStatus.code !== 200) {
                         this.toast.error(response.resultStatus.message);
                         return;
                     }
@@ -76,16 +68,6 @@ export class ModalEmpresaCriarComponent implements OnInit, OnDestroy {
                     this.activeModal.close(true);
                 }
             );
-
-    }
-
-    validateClass(field: string): string {
-        // if (this.formControl[field].errors && (this.formControl[field].dirty || this.formControl[field].touched)) {
-        //     return "border-danger";
-        // } else if (this.formControl[field].value && this.formControl[field].touched) {
-        //     return "border-success";
-        // }
-        return "";
     }
 
     get formControl() { return this.form.controls; }

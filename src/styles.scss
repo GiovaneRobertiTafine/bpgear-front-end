@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
@@ -96,4 +95,13 @@
     .w-lg-auto {
         width: auto !important;
     }
+}
+
+/* Class Validator */
+input.ng-invalid.ng-touched {
+    border: 1px solid $danger;
+}
+
+input.ng-valid.ng-touched {
+    border: 1px solid $success;
 }

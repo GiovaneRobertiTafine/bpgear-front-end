@@ -16,6 +16,7 @@ export class TableComponent implements OnInit {
     @Input() data: any[];
 
     @Output() deletarItemEvent = new EventEmitter<any>();
+    @Output() editarItemEvent = new EventEmitter<any>();
     constructor(private dynamicPipe: InjectorPipe) { }
 
     ngOnInit(): void {
@@ -34,6 +35,10 @@ export class TableComponent implements OnInit {
 
     deletarItem(item: any): void {
         this.deletarItemEvent.emit(item);
+    }
+
+    editarItem(item: any): void {
+        this.editarItemEvent.emit(item);
     }
 
 }

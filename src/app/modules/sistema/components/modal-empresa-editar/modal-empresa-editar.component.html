@@ -11,31 +11,28 @@
         </div>
         <div class=" col-md-4">
             <label for="inputCnpj" class="form-label">CNPJ:</label>
-            <input type="text" class="form-control" [class]="validateClass('cnpj')" id="inputCnpj"
-                mask="00.000.000/0000-00" formControlName="cnpj">
+            <input type="text" class="form-control" id="inputCnpj" mask="00.000.000/0000-00" formControlName="cnpj">
             <small class="text-danger" formControlOnErrorItem="cnpj"></small>
         </div>
         <div class="col-md-4">
             <label for="inputRazaoSocial" class="form-label">Razão Social:</label>
-            <input type="text" class="form-control" [class]="validateClass('razaoSocial')" id="inputRazaoSocial"
-                formControlName="razaoSocial">
+            <input type="text" class="form-control" id="inputRazaoSocial" formControlName="razaoSocial">
             <small class="text-danger" formControlOnErrorItem="razaoSocial"></small>
         </div>
         <div class="col-md-4">
             <label for="inputResponsavel" class="form-label">Responsável:</label>
-            <input type="text" class="form-control" [class]="validateClass('responsavel')" id="inputResponsavel"
-                formControlName="responsavel">
+            <input type="text" class="form-control" id="inputResponsavel" formControlName="responsavel">
             <small class="text-danger" formControlOnErrorItem="responsavel"></small>
         </div>
         <div class="col-md-4">
             <label for="Contato" class="form-label">Contato:</label>
-            <input type="text" class="form-control" [class]="validateClass('telefone')" id="Contato"
-                mask="(00) 0000-0000||(00) 0 0000-0000" formControlName="telefone">
+            <input type="text" class="form-control" id="Contato" mask="(00) 0000-0000||(00) 0 0000-0000"
+                formControlName="telefone">
             <small class="text-danger" formControlOnErrorItem="telefone"></small>
         </div>
     </form>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Fechar</button>
-    <button type="submit" class="btn btn-success" (click)="criarEmpresa()">Confirmar</button>
+    <button type="submit" class="btn btn-success" (click)="editarEmpresa()">Confirmar</button>
 </div>

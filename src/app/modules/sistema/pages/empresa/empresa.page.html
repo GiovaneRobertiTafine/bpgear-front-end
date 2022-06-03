@@ -4,7 +4,7 @@
 </div>
 
 <bpgear-table [dataViewConfig]="dataViewConfigEmpresa" [data]="empresas" #tableEmpresa
-    (deletarItemEvent)="deletarEmpresa($event)">
+    (deletarItemEvent)="deletarEmpresa($event)" (editarItemEvent)="editarEmpresa($event)">
     <!-- <ng-template #colTest let-cel="dataCallBack">
         <span class="text-danger">{{menorQue(+cel)}}</span>
     </ng-template> -->

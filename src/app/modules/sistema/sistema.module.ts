@@ -15,12 +15,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ModalEmpresaCriarComponent } from './components/modal-empresa-criar/modal-empresa-criar.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { ReactiveFormsTypedModule } from 'reactive-forms-typed';
+import { ModalEmpresaEditarComponent } from './components/modal-empresa-editar/modal-empresa-editar.component';
 
 @NgModule({
     declarations: [
         LayoutTemplate,
         EmpresaPage,
-        ModalEmpresaCriarComponent
+        ModalEmpresaCriarComponent,
+        ModalEmpresaEditarComponent
     ],
     imports: [
         CommonModule,

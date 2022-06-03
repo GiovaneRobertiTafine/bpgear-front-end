@@ -5,6 +5,7 @@ import { IDataReturn } from 'src/app/shared/models/data-return.model';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { Empresa } from '../models/interfaces/empresa.interface';
 import { EmpresaCriar } from '../models/requests/empresa-criar.request';
+import { EmpresaDeletar } from '../models/requests/empresa-deletar.request';
 
 @Injectable({
     providedIn: 'root'
@@ -29,11 +30,17 @@ export class EmpresaService extends ApiService {
             );
     }
 
-    public deletarEmpresa(cnpj: string): Observable<IDataReturn<null>> {
-        console.log(cnpj);
-        return this.post<IDataReturn<null>>('empresa/deletar', `"${cnpj}"`)
+    public deletarEmpresa(request: EmpresaDeletar): Observable<IDataReturn<null>> {
+        return this.post<IDataReturn<null>>('empresa/deletar', request)
             .pipe(
                 catchError(this.handleError<IDataReturn<null>>('deletarEmpresa'))
+            );
+    }
+
+    public editarEmpresa(request: Empresa): Observable<IDataReturn<null>> {
+        return this.post<IDataReturn<null>>('empresa/editar', request)
+            .pipe(
+                catchError(this.handleError<IDataReturn<null>>('editarEmpresa'))
             );
     }
 }

@@ -27,7 +27,7 @@
                     </ng-template>
                 </td>
                 <td *ngIf="dataViewConfig?.colunasAcao?.editar" class="cursor-pointer border-start text-center">
-                    <fa-icon [icon]="iconEditar" class="cursor-pointer" [fixedWidth]="true">
+                    <fa-icon [icon]="iconEditar" class="cursor-pointer" [fixedWidth]="true" (click)="editarItem(obj)">
                     </fa-icon>
                 </td>
                 <td *ngIf="dataViewConfig?.colunasAcao?.deletar" class="cursor-pointer border-start text-center">

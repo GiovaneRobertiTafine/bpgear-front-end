@@ -5,8 +5,10 @@ import { DataColuna, DataViewConfig } from 'src/app/shared/models/data-view-conf
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { ModalEmpresaCriarComponent } from '../../components/modal-empresa-criar/modal-empresa-criar.component';
+import { ModalEmpresaEditarComponent } from '../../components/modal-empresa-editar/modal-empresa-editar.component';
 import { DataViewConfigEmpresa } from '../../models/constants/empresa-data-view-config.constant';
 import { Empresa } from '../../models/interfaces/empresa.interface';
+import { EmpresaDeletar } from '../../models/requests/empresa-deletar.request';
 import { EmpresaService } from '../../services/empresa.service';
 
 @Component({
@@ -65,8 +67,9 @@ export class EmpresaPage implements OnInit, AfterViewInit {
     }
 
     deletarEmpresa(empresa: Empresa): void {
+        const request: EmpresaDeletar = { id: empresa.id };
         this.spinnerService.show();
-        this.empresaService.deletarEmpresa(empresa.cnpj)
+        this.empresaService.deletarEmpresa(request)
             .subscribe(
                 (response) => {
                     this.spinnerService.hide();
@@ -79,6 +82,18 @@ export class EmpresaPage implements OnInit, AfterViewInit {
                     this.obterEmpresas();
                 }
             );
+    }
+
+    editarEmpresa(empresa: Empresa): void {
+        const modalRef = this.modalService.open(ModalEmpresaEditarComponent, { size: 'lg' });
+        modalRef.componentInstance.empresa = empresa;
+        modalRef.result
+            .then((res) => {
+                if (res) {
+                    this.obterEmpresas();
+                }
+            })
+            .catch((err) => err);
     }
 
 }
