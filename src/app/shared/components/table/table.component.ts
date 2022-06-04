@@ -17,6 +17,8 @@ export class TableComponent implements OnInit {
 
     @Output() deletarItemEvent = new EventEmitter<any>();
     @Output() editarItemEvent = new EventEmitter<any>();
+    @Output() eventCallBack = new EventEmitter<boolean>();
+
     constructor(private dynamicPipe: InjectorPipe) { }
 
     ngOnInit(): void {
@@ -42,6 +44,14 @@ export class TableComponent implements OnInit {
 
     editarItem(item: any): void {
         this.editarItemEvent.emit(item);
+    }
+
+    obterClassesTabela(): string {
+        return this.dataViewConfig.classes.join(' ');
+    }
+
+    emitEventCallBack(): void {
+        this.eventCallBack.emit(true);
     }
 
 }

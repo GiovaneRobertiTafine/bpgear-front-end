@@ -6,28 +6,28 @@
     <form class="row g-3 needs-validation" [formGroup]="formGroup" novalidate autocomplete="on">
         <div class="col-md-4">
             <label for="inputNomeEmpresa" class="form-label">Nome da Empresa:</label>
-            <input type="text" class="form-control validator" id="inputNomeEmpresa" value formControlName="nomeEmpresa">
+            <input type="text" class="form-control validator" id="inputNomeEmpresa" formControlName="nomeEmpresa">
             <small class="text-danger" formControlOnErrorItem="nomeEmpresa"></small>
         </div>
         <div class=" col-md-4">
             <label for="inputCnpj" class="form-label">CNPJ:</label>
-            <input type="text" class="form-control validator" id="inputCnpj" mask="00.000.000/0000-00" value
+            <input type="text" class="form-control validator" id="inputCnpj" mask="00.000.000/0000-00"
                 formControlName="cnpj">
             <small class="text-danger" formControlOnErrorItem="cnpj"></small>
         </div>
         <div class="col-md-4">
             <label for="inputRazaoSocial" class="form-label">Razão Social:</label>
-            <input type="text" class="form-control validator" id="inputRazaoSocial" value formControlName="razaoSocial">
+            <input type="text" class="form-control validator" id="inputRazaoSocial" formControlName="razaoSocial">
             <small class="text-danger" formControlOnErrorItem="razaoSocial"></small>
         </div>
         <div class="col-md-4">
             <label for="inputResponsavel" class="form-label">Responsável:</label>
-            <input type="text" class="form-control validator" id="inputResponsavel" value formControlName="responsavel">
+            <input type="text" class="form-control validator" id="inputResponsavel" formControlName="responsavel">
             <small class="text-danger" formControlOnErrorItem="responsavel"></small>
         </div>
         <div class="col-md-4">
             <label for="Contato" class="form-label">Contato:</label>
-            <input type="text" class="form-control validator" id="Contato" mask="(00) 0000-0000||(00) 0 0000-0000" value
+            <input type="text" class="form-control validator" id="Contato" mask="(00) 0000-0000||(00) 0 0000-0000"
                 formControlName="telefone">
             <small class="text-danger" formControlOnErrorItem="telefone"></small>
         </div>

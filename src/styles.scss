@@ -106,6 +106,6 @@ input.validator.ng-valid.ng-touched {
     border: 1px solid $success;
 }
 
-input.validator.ng-valid[value] {
+input.validator.ng-valid[formControlName] {
     border: 1px solid $success;
 }

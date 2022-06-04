@@ -6,11 +6,13 @@ export const DataViewConfigEmpresa: DataViewConfig = {
     colunas: [
         {
             titulo: "Empresa",
-            propriedade: ["nomeEmpresa"]
+            propriedade: ["nomeEmpresa"],
+            eventCallBack: true
         },
         {
             titulo: "Razão Social",
-            propriedade: ["razaoSocial"]
+            propriedade: ["razaoSocial"],
+            eventCallBack: true
         },
         // {
         //     titulo: "New Column",
@@ -19,22 +21,26 @@ export const DataViewConfigEmpresa: DataViewConfig = {
         {
             titulo: "CNPJ",
             propriedade: ["cnpj"],
-            mascara: { token: MaskPipe, arg: "CPF_CNPJ" }
+            mascara: { token: MaskPipe, arg: "CPF_CNPJ" },
+            eventCallBack: true
         },
         {
             titulo: "Responsável",
-            propriedade: ["responsavel"]
+            propriedade: ["responsavel"],
+            eventCallBack: true
         },
         {
             titulo: "Contato",
             propriedade: ["telefone"],
-            mascara: { token: TelefonePipe }
+            mascara: { token: TelefonePipe },
+            eventCallBack: true
         },
         // {
         //     titulo: "Acessar",
         //     propriedade: []
         // }
     ],
+    classes: ['table-empresas'],
     colunasAcao: {
         editar: true,
         deletar: true

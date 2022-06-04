@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table table-hover mt-3">
+    <table class="table table-hover mt-3" [class]="obterClassesTabela()">
         <thead class="bg-danger text-light">
             <tr>
                 <th *ngFor="let col of dataViewConfig.colunas">{{ col.titulo }}</th>
@@ -17,9 +17,10 @@
         </thead>
         <tbody>
             <tr *ngFor="let obj of data">
-                <td *ngFor="let col of dataViewConfig.colunas">
-                    <span *ngIf="!col.template; else ngContainer">{{ obterValorPropriedade(obj, col)
-                        }}</span>
+                <td *ngFor="let col of dataViewConfig.colunas" (click)="col?.eventCallBack && emitEventCallBack()">
+                    <span *ngIf="!col.template; else ngContainer">
+                        {{ obterValorPropriedade(obj, col) }}
+                    </span>
                     <ng-template #ngContainer>
                         <ng-container [ngTemplateOutlet]="col.template"
                             [ngTemplateOutletContext]="{ dataCallBack: obterValorPropriedade(obj, col)}">

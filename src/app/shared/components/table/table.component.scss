@@ -13,3 +13,16 @@ tbody {
         }
     }
 }
+
+/* CUSTOM CLASS ******************************************* */
+
+/* table-empresas */
+.table-empresas {
+    tbody>tr:hover {
+        cursor: pointer;
+
+        td:nth-child(1) {
+            text-decoration: underline;
+        }
+    }
+}

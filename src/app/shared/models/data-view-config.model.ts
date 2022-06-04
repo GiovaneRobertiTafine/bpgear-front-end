@@ -2,6 +2,7 @@ import { TemplateRef } from "@angular/core";
 
 export interface DataViewConfig {
     colunas: DataColuna[];
+    classes?: string[];
     paginacao?: boolean;
     colunasAcao?: ColunasAcao;
 }
@@ -9,6 +10,7 @@ export interface DataViewConfig {
 export interface DataColuna {
     titulo: string;
     propriedade: string[];
+    eventCallBack?: boolean;
     template?: TemplateRef<any>;
     mascara?: Mascara;
     ordenacao?: DirecaoOrdenacao;

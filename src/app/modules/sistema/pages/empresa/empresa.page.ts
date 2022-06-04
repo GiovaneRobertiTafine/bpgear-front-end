@@ -68,7 +68,7 @@ export class EmpresaPage implements OnInit, AfterViewInit {
     }
 
     deletarEmpresa(empresa: Empresa): void {
-        const modalRef = this.modalService.open(ModalEmpresaDeletarComponent, { size: 'lg' });
+        const modalRef = this.modalService.open(ModalEmpresaDeletarComponent, { size: 'md' });
         modalRef.componentInstance.empresa = empresa;
         modalRef.result
             .then((res) => {
@@ -89,6 +89,14 @@ export class EmpresaPage implements OnInit, AfterViewInit {
                 }
             })
             .catch((err) => err);
+    }
+
+    acessarEmpresa($event): void {
+        console.log($event);
+    }
+
+    logEmpresas(): void {
+        console.log('empr');
     }
 
 }
