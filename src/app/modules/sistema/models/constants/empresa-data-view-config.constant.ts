@@ -29,7 +29,11 @@ export const DataViewConfigEmpresa: DataViewConfig = {
             titulo: "Contato",
             propriedade: ["telefone"],
             mascara: { token: TelefonePipe }
-        }
+        },
+        // {
+        //     titulo: "Acessar",
+        //     propriedade: []
+        // }
     ],
     colunasAcao: {
         editar: true,

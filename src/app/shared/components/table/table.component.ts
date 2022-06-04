@@ -30,6 +30,9 @@ export class TableComponent implements OnInit {
                 col.mascara?.arg
             );
         }
+        if (col.propriedade.length === 0) {
+            return obj;
+        }
         return obj[col.propriedade.join('.')];
     }
 

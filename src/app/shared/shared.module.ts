@@ -14,6 +14,7 @@ import { TokenInterceptor } from '../modules/auth/services/token.interceptor';
 import { InjectorPipe } from './pipes/injector.pipe';
 import { MaskPipe } from 'ngx-mask';
 import { TelefonePipe } from './pipes/telefone.pipe';
+import { ValidatorClassDirective } from './directives/validator-class.directive';
 
 @NgModule({
     declarations: [
@@ -23,6 +24,7 @@ import { TelefonePipe } from './pipes/telefone.pipe';
         TableComponent,
         InjectorPipe,
         TelefonePipe,
+        ValidatorClassDirective,
     ],
     imports: [
         CommonModule,

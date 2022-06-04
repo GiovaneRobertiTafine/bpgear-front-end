@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ModalEmpresaCriarComponent } from './components/modal-empresa-criar/modal-empresa-criar.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxMaskModule } from 'ngx-mask';
 import { ReactiveFormsTypedModule } from 'reactive-forms-typed';
 import { ModalEmpresaEditarComponent } from './components/modal-empresa-editar/modal-empresa-editar.component';
@@ -32,7 +33,8 @@ import { ModalEmpresaDeletarComponent } from './components/modal-empresa-deletar
         ReactiveFormsModule,
         SharedModule,
         NgxMaskModule,
-        ReactiveFormsTypedModule
+        ReactiveFormsTypedModule,
+        FontAwesomeModule
     ]
 })
 export class SistemaModule { }

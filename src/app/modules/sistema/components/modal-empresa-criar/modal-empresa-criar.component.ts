@@ -79,15 +79,6 @@ export class ModalEmpresaCriarComponent implements OnInit, OnDestroy {
 
     }
 
-    validateClass(field: string): string {
-        // if (this.formControl[field].errors && (this.formControl[field].dirty || this.formControl[field].touched)) {
-        //     return "border-danger";
-        // } else if (this.formControl[field].value && this.formControl[field].touched) {
-        //     return "border-success";
-        // }
-        return "";
-    }
-
     get formControl() { return this.form.controls; }
     get formGroup() { return this.form as FormGroup; }
 

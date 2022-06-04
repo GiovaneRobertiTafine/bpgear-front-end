@@ -5,9 +5,12 @@
 
 <bpgear-table [dataViewConfig]="dataViewConfigEmpresa" [data]="empresas" #tableEmpresa
     (deletarItemEvent)="deletarEmpresa($event)" (editarItemEvent)="editarEmpresa($event)">
-    <!-- <ng-template #colTest let-cel="dataCallBack">
-        <span class="text-danger">{{menorQue(+cel)}}</span>
-    </ng-template> -->
+    <ng-template #colAcessar let-cel="dataCallBack">
+        <div class="text-center">
+            <fa-icon [icon]="iconAcessar" class="cursor-pointer" [fixedWidth]="true">
+            </fa-icon>
+        </div>
+    </ng-template>
 </bpgear-table>
 
 <!-- <ng-template #colTest let-cel="dataCallBack">

@@ -98,10 +98,14 @@
 }
 
 /* Class Validator */
-input.ng-invalid.ng-touched {
+input.validator.ng-invalid.ng-touched {
     border: 1px solid $danger;
 }
 
-input.ng-valid.ng-touched {
+input.validator.ng-valid.ng-touched {
+    border: 1px solid $success;
+}
+
+input.validator.ng-valid[value] {
     border: 1px solid $success;
 }
