@@ -4,6 +4,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgScrollbarModule } from 'ngx-scrollbar';
+
 
 import { InputPasswordComponent } from './components/input-password/input-password.component';
 import { ToastComponent } from './components/toast/toast.component';
@@ -33,6 +35,7 @@ import { ValidatorClassDirective } from './directives/validator-class.directive'
         ReactiveFormsModule,
         HttpClientModule,
         NgbModule,
+        NgScrollbarModule
     ],
     exports: [
         InputPasswordComponent,

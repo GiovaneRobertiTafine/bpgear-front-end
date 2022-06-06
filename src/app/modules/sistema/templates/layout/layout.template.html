@@ -1,25 +1,13 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg">
-    <div class="container-fluid">
-        <a class="navbar-brand fst-italic">Bp Gear</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown me-lg-3">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        {{(authService.getUsuario() | async)?.nomeCompleto}}
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item cursor-pointer" (click)="authService.logout()">Sair</a></li>
-                    </ul>
-                </li>
-            </ul>
+<div class="d-flex flex-column h-100">
+    <bpgear-nav-bar></bpgear-nav-bar>
+    <div class="d-flex flex-nowrap m-0 p-0 h-100" style="width: 100vw; overflow-y: auto;">
+        <bpgear-side-bar class="w-auto" id="side-bar"></bpgear-side-bar>
+        <!-- <ng-scrollbar class="position-relative m-0 p-0 " track="vertical" [autoHeightDisabled]="true"> -->
+        <!-- content -->
+        <div class="px-4 w-100" id="content">
+            <router-outlet></router-outlet>
         </div>
+        <!-- </ng-scrollbar> -->
+
     </div>
-</nav>
-<div class="container-fluid px-lg-5">
-    <router-outlet></router-outlet>
 </div>

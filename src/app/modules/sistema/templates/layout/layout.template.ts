@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
-
+import { Perfil } from 'src/app/modules/auth/models/enums/perfil.enum';
 @Component({
     selector: 'bpgear-layout',
     templateUrl: './layout.template.html',
@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 })
 export class LayoutTemplate implements OnInit {
 
-    constructor(public authService: AuthService) { }
+    constructor() { }
 
     ngOnInit(): void {
     }

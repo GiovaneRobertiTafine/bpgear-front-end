@@ -1,41 +1,46 @@
-<div class="table-responsive">
-    <table class="table table-hover mt-3" [class]="obterClassesTabela()">
-        <thead class="bg-danger text-light">
-            <tr>
-                <th *ngFor="let col of dataViewConfig.colunas">{{ col.titulo }}</th>
-                <th *ngIf="dataViewConfig?.colunasAcao?.editar" class="border-start text-center">
-                    <fa-icon [icon]="iconEditar" class="cursor-pointer" [fixedWidth]="true" placement="top"
-                        ngbTooltip="Editar">
-                    </fa-icon>
-                </th>
-                <th *ngIf="dataViewConfig?.colunasAcao?.deletar" class="border-start text-center">
-                    <fa-icon [icon]="iconDeletar" class="cursor-pointer" [fixedWidth]="true" placement="top"
-                        ngbTooltip="Excluir">
-                    </fa-icon>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let obj of data">
-                <td *ngFor="let col of dataViewConfig.colunas" (click)="col?.eventCallBack && emitEventCallBack()">
-                    <span *ngIf="!col.template; else ngContainer">
-                        {{ obterValorPropriedade(obj, col) }}
-                    </span>
-                    <ng-template #ngContainer>
-                        <ng-container [ngTemplateOutlet]="col.template"
-                            [ngTemplateOutletContext]="{ dataCallBack: obterValorPropriedade(obj, col)}">
-                        </ng-container>
-                    </ng-template>
-                </td>
-                <td *ngIf="dataViewConfig?.colunasAcao?.editar" class="cursor-pointer border-start text-center">
-                    <fa-icon [icon]="iconEditar" class="cursor-pointer" [fixedWidth]="true" (click)="editarItem(obj)">
-                    </fa-icon>
-                </td>
-                <td *ngIf="dataViewConfig?.colunasAcao?.deletar" class="cursor-pointer border-start text-center">
-                    <fa-icon [icon]="iconDeletar" class="cursor-pointer" [fixedWidth]="true" (click)="deletarItem(obj)">
-                    </fa-icon>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<ng-scrollbar track="horizontal" [autoHeightDisabled]="false">
+    <div class="table-responsive">
+        <table class="table table-hover mt-3 shadow-sm" [class]="obterClassesTabela()">
+            <thead class="bg-danger text-light">
+                <tr>
+                    <th *ngFor="let col of dataViewConfig.colunas">{{ col.titulo }}</th>
+                    <th *ngIf="dataViewConfig?.colunasAcao?.editar" class="border-start text-center">
+                        <fa-icon [icon]="iconEditar" class="cursor-pointer" [fixedWidth]="true" placement="top"
+                            ngbTooltip="Editar">
+                        </fa-icon>
+                    </th>
+                    <th *ngIf="dataViewConfig?.colunasAcao?.deletar" class="border-start text-center">
+                        <fa-icon [icon]="iconDeletar" class="cursor-pointer" [fixedWidth]="true" placement="top"
+                            ngbTooltip="Excluir">
+                        </fa-icon>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-light border-top-0">
+                <tr *ngFor="let obj of data">
+                    <td *ngFor="let col of dataViewConfig.colunas"
+                        (click)="col?.eventCallBack && emitEventCallBack(obj)">
+                        <span *ngIf="!col.template; else ngContainer">
+                            {{ obterValorPropriedade(obj, col) }}
+                        </span>
+                        <ng-template #ngContainer>
+                            <ng-container [ngTemplateOutlet]="col.template"
+                                [ngTemplateOutletContext]="{ dataCallBack: obterValorPropriedade(obj, col)}">
+                            </ng-container>
+                        </ng-template>
+                    </td>
+                    <td *ngIf="dataViewConfig?.colunasAcao?.editar" class="cursor-pointer border-start text-center">
+                        <fa-icon [icon]="iconEditar" class="cursor-pointer" [fixedWidth]="true"
+                            (click)="editarItem(obj)">
+                        </fa-icon>
+                    </td>
+                    <td *ngIf="dataViewConfig?.colunasAcao?.deletar" class="cursor-pointer border-start text-center">
+                        <fa-icon [icon]="iconDeletar" class="cursor-pointer" [fixedWidth]="true"
+                            (click)="deletarItem(obj)">
+                        </fa-icon>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-scrollbar>

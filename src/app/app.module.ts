@@ -10,7 +10,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxMaskModule } from 'ngx-mask';
-
+import { NgScrollbarModule } from 'ngx-scrollbar';
 @NgModule({
     declarations: [
         AppComponent,
@@ -23,7 +23,8 @@ import { NgxMaskModule } from 'ngx-mask';
         SharedModule,
         FontAwesomeModule,
         BrowserAnimationsModule,
-        NgxMaskModule.forRoot()
+        NgxMaskModule.forRoot(),
+        NgScrollbarModule
     ],
     exports: [
     ],

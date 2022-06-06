@@ -17,7 +17,7 @@ export class TableComponent implements OnInit {
 
     @Output() deletarItemEvent = new EventEmitter<any>();
     @Output() editarItemEvent = new EventEmitter<any>();
-    @Output() eventCallBack = new EventEmitter<boolean>();
+    @Output() eventCallBack = new EventEmitter<any>();
 
     constructor(private dynamicPipe: InjectorPipe) { }
 
@@ -50,8 +50,8 @@ export class TableComponent implements OnInit {
         return this.dataViewConfig.classes.join(' ');
     }
 
-    emitEventCallBack(): void {
-        this.eventCallBack.emit(true);
+    emitEventCallBack(obj: any): void {
+        this.eventCallBack.emit(obj);
     }
 
 }

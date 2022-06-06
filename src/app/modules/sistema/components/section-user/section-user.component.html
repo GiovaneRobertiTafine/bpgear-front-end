@@ -1,0 +1,26 @@
+<div class="nav-item dropdown me-lg-3 position-relative">
+    <div class="nav-link dropdown-toggle d-flex align-items-center gap-2 p-0" id="navbarDropdownMenuLink" role="button"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="border border-3 rounded-circle d-flex justify-content-center" id="avatar">
+            <fa-icon [icon]="iconUser" class="cursor-pointer align-self-center" [fixedWidth]="true">
+            </fa-icon>
+        </div>
+        <!-- {{(authService.getUsuario() | async)?.nomeCompleto}} -->
+    </div>
+    <ul class="dropdown-menu position-absolute shadow" id="dropdown-user" aria-labelledby="navbarDropdownMenuLink">
+        <li class="text-wrap">
+            <p class="d-block" style="padding: 0.25rem 1rem;">
+                <strong>{{(authService.getUsuario() | async)?.nomeCompleto}}</strong><br>
+                <small class="text-uppercase">
+                    {{perfil[(authService.getUsuario() | async)?.perfil]}}
+                </small>
+            </p>
+
+
+        </li>
+        <li>
+            <hr class="dropdown-divider">
+        </li>
+        <li><a class="dropdown-item cursor-pointer" (click)="authService.logout()">Sair</a></li>
+    </ul>
+</div>
