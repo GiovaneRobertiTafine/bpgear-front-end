@@ -2,7 +2,7 @@ import { MaskPipe } from 'ngx-mask';
 import { DataViewConfig } from "src/app/shared/models/data-view-config.model";
 import { TelefonePipe } from 'src/app/shared/pipes/telefone.pipe';
 
-export const DataViewConfigEmpresa: DataViewConfig = {
+export const EmpresaDataViewConfig: DataViewConfig = {
     colunas: [
         {
             titulo: "Empresa",
@@ -45,4 +45,25 @@ export const DataViewConfigEmpresa: DataViewConfig = {
         editar: true,
         deletar: true
     },
+};
+
+export const ColaboradorDataViewConfig: DataViewConfig = {
+    colunas: [
+        {
+            titulo: "Nome Completo",
+            propriedade: ["nomeCompleto"]
+        },
+        {
+            titulo: "Usuário",
+            propriedade: ["usuario"]
+        },
+        {
+            titulo: "E-mail",
+            propriedade: ["email"]
+        }
+    ],
+    colunasAcao: {
+        editar: true,
+        deletar: true
+    }
 };

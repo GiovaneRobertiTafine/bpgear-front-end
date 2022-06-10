@@ -5,6 +5,13 @@
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button> -->
+        <ul class="navbar-nav me-auto ms-3 mb-lg-0 d-flex flex-row gap-3">
+            <li class="nav-item" *ngFor="let link of links">
+                <a class="nav-link" routerLinkActive="active" aria-current="empresa" [routerLink]="link.path">
+                    {{link.title}}
+                </a>
+            </li>
+        </ul>
         <div class="justify-content-end" id="navbarNavDropdown">
             <div class="navbar-nav">
                 <bpgear-section-user></bpgear-section-user>

@@ -1,10 +1,15 @@
 <div class="d-flex flex-column h-100">
     <bpgear-nav-bar></bpgear-nav-bar>
-    <div class="d-flex flex-nowrap m-0 p-0 h-100" style="width: 100vw; overflow-y: auto;">
-        <bpgear-side-bar class="w-auto" id="side-bar"></bpgear-side-bar>
+    <div class="d-flex flex-nowrap m-0 p-0 h-100">
+        <bpgear-side-bar class="w-auto" id="side-bar" *ngIf="empresa"></bpgear-side-bar>
         <!-- <ng-scrollbar class="position-relative m-0 p-0 " track="vertical" [autoHeightDisabled]="true"> -->
         <!-- content -->
         <div class="px-4 w-100" id="content">
+            <p class="mb-0 mt-3 fw-bold fst-italic" *ngIf="empresa">
+                {{empresa.nomeEmpresa | uppercase}} <span class="d-none d-md-inline"> / </span>
+                <br class="d-md-none" />
+                CNPJ: {{empresa.cnpj | mask: 'CPF_CNPJ'}}
+            </p>
             <router-outlet></router-outlet>
         </div>
         <!-- </ng-scrollbar> -->

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, Observable } from 'rxjs';
 import { IDataReturn } from 'src/app/shared/models/data-return.model';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { Empresa } from '../models/interfaces/empresa.interface';
@@ -11,7 +11,7 @@ import { EmpresaDeletar } from '../models/requests/empresa-deletar.request';
     providedIn: 'root'
 })
 export class EmpresaService extends ApiService {
-
+    private empresa$: BehaviorSubject<Empresa> = new BehaviorSubject(null);
     constructor(httpClient: HttpClient) {
         super(httpClient);
     }
@@ -43,4 +43,30 @@ export class EmpresaService extends ApiService {
                 catchError(this.handleError<IDataReturn<null>>('editarEmpresa'))
             );
     }
+
+    setEmpresa(empresa: Empresa) {
+        this.empresa$.next(empresa);
+        localStorage.setItem('bpgear-empresa', JSON.stringify(empresa));
+    }
+
+    getEmpresa() {
+        return this.empresa$;
+    }
+
+    removeEmpresa(): void {
+        this.empresa$.next(null);
+        localStorage.removeItem('bpgear-empresa');
+    }
+
+    validateEmpresa(): boolean {
+        const empresa = localStorage.getItem('bpgear-empresa');
+
+        if (empresa) {
+            !this.empresa$.value ? this.setEmpresa(JSON.parse(empresa)) : null;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

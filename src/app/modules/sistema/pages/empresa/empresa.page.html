@@ -1,9 +1,9 @@
 <div class="w-100 d-inline-block mt-3">
-    <h3 class="fst-italic float-start">Empresas</h3>
+    <h3 class="fst-italic float-start">{{titleService.title$ | async }}</h3>
     <button class="btn btn-outline-success float-end" (click)="criarEmpresa()">Nova Empresa</button>
 </div>
 
-<bpgear-table [dataViewConfig]="dataViewConfigEmpresa" [data]="empresas" #tableEmpresa
+<bpgear-table [dataViewConfig]="empresaDataViewConfig" [data]="empresas" #tableEmpresa
     (deletarItemEvent)="deletarEmpresa($event)" (editarItemEvent)="editarEmpresa($event)"
     (eventCallBack)="acessarEmpresa($event)">
     <!-- <ng-template #colAcessar let-cel="dataCallBack">

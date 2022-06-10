@@ -1,3 +1,9 @@
 #side-bar {
-    width: 50px;
+    width: 180px;
+
+    &.none {
+        width: 0px;
+    }
+
+
 }

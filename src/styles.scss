@@ -24,6 +24,19 @@ body {
     cursor: pointer;
 }
 
+/* SET BORDER RADIUS ELEMENT */
+.btn,
+.modal-content,
+.dropdown-menu,
+.card {
+    border-radius: 0;
+}
+
+/* TOOLTIP */
+.tooltip {
+    z-index: 100001 !important;
+}
+
 /* WIDTH */
 
 /* SM breakpoint */

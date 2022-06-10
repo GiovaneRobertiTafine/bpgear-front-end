@@ -22,6 +22,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxMaskModule } from 'ngx-mask';
 import { ReactiveFormsTypedModule } from 'reactive-forms-typed';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ColaboradorPage } from './pages/colaborador/colaborador.page';
 
 @NgModule({
     declarations: [
@@ -32,7 +34,8 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
         ModalEmpresaDeletarComponent,
         NavBarComponent,
         SectionUserComponent,
-        SideBarComponent
+        SideBarComponent,
+        ColaboradorPage
     ],
     imports: [
         CommonModule,
@@ -42,7 +45,8 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
         NgxMaskModule,
         ReactiveFormsTypedModule,
         FontAwesomeModule,
-        NgScrollbarModule
+        NgScrollbarModule,
+        NgbModule
     ]
 })
 export class SistemaModule { }

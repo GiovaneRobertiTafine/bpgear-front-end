@@ -35,6 +35,7 @@ export class TableComponent implements OnInit {
         if (col.propriedade.length === 0) {
             return obj;
         }
+
         return obj[col.propriedade.join('.')];
     }
 

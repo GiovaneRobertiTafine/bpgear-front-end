@@ -1,32 +1,42 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { ModalEmpresaCriarComponent } from '../../components/modal-empresa-criar/modal-empresa-criar.component';
 import { ModalEmpresaDeletarComponent } from '../../components/modal-empresa-deletar/modal-empresa-deletar.component';
 import { ModalEmpresaEditarComponent } from '../../components/modal-empresa-editar/modal-empresa-editar.component';
-import { DataViewConfigEmpresa } from '../../models/constants/empresa-data-view-config.constant';
+import { EmpresaDataViewConfig } from '../../models/constants/sistema-data-view-config.constant';
 import { Empresa } from '../../models/interfaces/empresa.interface';
 import { EmpresaService } from '../../services/empresa.service';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { TitleService } from 'src/app/shared/services/title.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 @Component({
     selector: 'bpgear-empresa',
     templateUrl: './empresa.page.html',
     styleUrls: ['./empresa.page.scss']
 })
-export class EmpresaPage implements OnInit, AfterViewInit {
+export class EmpresaPage implements OnInit, AfterViewInit, OnDestroy {
     empresas: Empresa[] = [];
-    dataViewConfigEmpresa = DataViewConfigEmpresa;
-    dataDanger = "";
+    empresaDataViewConfig = EmpresaDataViewConfig;
     @ViewChild('colAcessar') colAcessar;
     iconAcessar = faArrowRight;
+
+    unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
         private empresaService: EmpresaService,
         private spinnerService: SpinnerService,
         private toastService: ToastService,
-        private modalService: NgbModal
-    ) { }
+        private modalService: NgbModal,
+        public titleService: TitleService,
+        private router: Router,
+        private activatedRoute: ActivatedRoute
+    ) {
+        this.empresaService.removeEmpresa();
+
+    }
 
     ngOnInit(): void {
         this.obterEmpresas();
@@ -35,6 +45,7 @@ export class EmpresaPage implements OnInit, AfterViewInit {
     obterEmpresas(): void {
         this.spinnerService.show();
         this.empresaService.obterEmpresa()
+            .pipe(takeUntil(this.unsubscribe$))
             .subscribe((response) => {
                 this.spinnerService.hide();
                 if (response.resultStatus.code !== 200) {
@@ -91,12 +102,14 @@ export class EmpresaPage implements OnInit, AfterViewInit {
             .catch((err) => err);
     }
 
-    acessarEmpresa($event): void {
-        console.log($event);
+    acessarEmpresa($event: Empresa): void {
+        this.empresaService.setEmpresa($event);
+        this.router.navigate(['../colaborador', $event.id], { relativeTo: this.activatedRoute });
     }
 
-    logEmpresas(): void {
-        console.log('empr');
+    ngOnDestroy(): void {
+        this.unsubscribe$.next(true);
+        this.unsubscribe$.unsubscribe();
     }
 
 }

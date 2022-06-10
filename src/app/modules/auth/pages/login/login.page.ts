@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { AuthService } from '../../services/auth.service';
@@ -11,7 +12,9 @@ import { TokenService } from '../../services/token.service';
     templateUrl: './login.page.html',
     styleUrls: ['./login.page.scss']
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, OnDestroy {
+    unsubscribe$: Subject<boolean> = new Subject<boolean>();
+
     public loginForm = this.fb.group({
         usuario: ['', [Validators.required]],
         senha: ['', [Validators.required]],
@@ -35,6 +38,7 @@ export class LoginPage implements OnInit {
     onSubmit(): void {
         this.spinner.show();
         this.authService.login(this.loginForm.value)
+            .pipe(takeUntil(this.unsubscribe$))
             .subscribe(
                 (response) => {
                     this.spinner.hide();
@@ -45,6 +49,11 @@ export class LoginPage implements OnInit {
                     }
                 }
             );
+    }
+
+    ngOnDestroy(): void {
+        this.unsubscribe$.next(true);
+        this.unsubscribe$.unsubscribe();
     }
 
 }

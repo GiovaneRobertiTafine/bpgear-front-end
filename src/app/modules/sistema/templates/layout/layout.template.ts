@@ -1,16 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { Perfil } from 'src/app/modules/auth/models/enums/perfil.enum';
+import { Empresa } from '../../models/interfaces/empresa.interface';
+import { EmpresaService } from '../../services/empresa.service';
 @Component({
     selector: 'bpgear-layout',
     templateUrl: './layout.template.html',
     styleUrls: ['./layout.template.scss']
 })
 export class LayoutTemplate implements OnInit {
-
-    constructor() { }
+    empresa: Empresa = null;
+    constructor(
+        private empresaService: EmpresaService
+    ) { }
 
     ngOnInit(): void {
+        this.empresaService.getEmpresa()
+            .subscribe(response => {
+                this.empresa = response;
+            });
+
     }
 
 }
