@@ -18,7 +18,6 @@ export class EmpresaGuardService implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         const resValidateEmpresa = this.empresaService.validateEmpresa();
         return of(resValidateEmpresa).pipe(tap((res) => {
-            console.log(res);
             if (!res) {
                 this.router.navigate(['sistema/empresa'], { relativeTo: this.route });
             } else {

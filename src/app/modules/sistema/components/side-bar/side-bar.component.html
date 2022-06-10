@@ -1,2 +1,17 @@
-<div class="d-flex flex-column bg-light h-100 shadow border-end" id="side-bar">
+<div class="d-flex flex-column bg-light h-100 shadow border-end" [ngClass]="{'minimize': minimize}" id="side-bar">
+    <div class="w-100 p-3 text-end">
+        <fa-icon [icon]="iconArrowLeft" class="cursor-pointer align-self-center" [fixedWidth]="true"
+            (click)="minimize = !minimize" [rotate]="minimize? 180: null">
+        </fa-icon>
+    </div>
+    <div>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item" *ngFor="let link of links" routerLinkActive="active">
+                <a class="nav-link d-flex gap-2" [routerLink]="[link.path, id]">
+                    <fa-icon [icon]="link.icon" [fixedWidth]="true"></fa-icon>
+                    <span class="title-item">{{link.title}}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>

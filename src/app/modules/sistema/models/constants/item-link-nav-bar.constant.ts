@@ -1,6 +1,6 @@
-import { LinkNavBar } from "../interfaces/link-nav-bar.interface";
+import { LinkItemConfig } from "../interfaces/link-item-config.interface";
 
-export const ItemLinkNavBar: LinkNavBar[] = [
+export const ItemLinkNavBar: LinkItemConfig[] = [
     {
         title: 'Empresas',
         path: '/sistema/empresa'

@@ -5,5 +5,47 @@
         width: 0px;
     }
 
+    .title-item {
+        transition: opacity 0.5s ease-in-out;
+        opacity: 1;
+    }
 
+    &.minimize {
+        width: 54px;
+
+        .title-item {
+            opacity: 0;
+        }
+    }
+
+    transition: width 1s ease-in-out;
+
+    .nav-item {
+        position: relative;
+        width: 100%;
+
+        &.active {
+            color: var(--bs-light);
+            background-color: var(--bs-dark);
+
+            .nav-link {
+                color: var(--bs-light);
+
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                width: 5px;
+                height: 100%;
+                background-color: var(--bs-danger);
+            }
+        }
+
+        .nav-link {
+            color: var(--bs-dark);
+            font-weight: 500;
+
+        }
+    }
 }
