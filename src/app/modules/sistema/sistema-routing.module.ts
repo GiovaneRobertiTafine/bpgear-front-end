@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from '../auth/services/auth-guard.service';
 import { TokenGuardService } from '../auth/services/token-guard.service';
+import { ColaboradorCriarPage } from './pages/colaborador-criar/colaborador-criar.page';
 import { ColaboradorPage } from './pages/colaborador/colaborador.page';
 import { EmpresaPage } from './pages/empresa/empresa.page';
 import { EmpresaGuardService } from './services/empresa-guard.service';
@@ -23,9 +24,13 @@ const routes: Routes = [
                 path: 'colaborador/:id',
                 component: ColaboradorPage,
                 data: { title: "Colaboradores" },
-                canActivate: [EmpresaGuardService]
-            }
+                canActivate: [EmpresaGuardService],
+            },
         ]
+    },
+    {
+        path: 'colaborador-criar',
+        component: ColaboradorCriarPage
     }
 ];
 

@@ -24,7 +24,8 @@ import { ReactiveFormsTypedModule } from 'reactive-forms-typed';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ColaboradorPage } from './pages/colaborador/colaborador.page';
-
+import { ModalColaboradorCriarComponent } from './components/modal-colaborador-criar/modal-colaborador-criar.component';
+import { ColaboradorCriarPage } from './pages/colaborador-criar/colaborador-criar.page';
 @NgModule({
     declarations: [
         LayoutTemplate,
@@ -35,7 +36,9 @@ import { ColaboradorPage } from './pages/colaborador/colaborador.page';
         NavBarComponent,
         SectionUserComponent,
         SideBarComponent,
-        ColaboradorPage
+        ColaboradorPage,
+        ModalColaboradorCriarComponent,
+        ColaboradorCriarPage,
     ],
     imports: [
         CommonModule,
@@ -46,7 +49,7 @@ import { ColaboradorPage } from './pages/colaborador/colaborador.page';
         ReactiveFormsTypedModule,
         FontAwesomeModule,
         NgScrollbarModule,
-        NgbModule
+        NgbModule,
     ]
 })
 export class SistemaModule { }
