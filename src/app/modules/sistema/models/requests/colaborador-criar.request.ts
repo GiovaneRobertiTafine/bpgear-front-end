@@ -1,3 +1,6 @@
+import { Colaborador } from "../interfaces/colaborador.interface";
+
 export interface ColaboradorCriar {
-    email: string;
+    idEmpresa: string;
+    colaborador: Colaborador;
 }

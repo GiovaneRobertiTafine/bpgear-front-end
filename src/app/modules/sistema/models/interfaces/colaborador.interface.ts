@@ -1,6 +1,7 @@
 export interface Colaborador {
-    id: string;
+    id?: string;
     usuario: string;
     nomeCompleto: string;
     email: string;
+    senha?: string;
 }

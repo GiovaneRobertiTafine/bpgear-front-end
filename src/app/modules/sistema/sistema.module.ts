@@ -26,6 +26,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ColaboradorPage } from './pages/colaborador/colaborador.page';
 import { ModalColaboradorCriarComponent } from './components/modal-colaborador-criar/modal-colaborador-criar.component';
 import { ColaboradorCriarPage } from './pages/colaborador-criar/colaborador-criar.page';
+import { AuthGuardService } from '../auth/services/auth-guard.service';
+import { TokenGuardService } from '../auth/services/token-guard.service';
 @NgModule({
     declarations: [
         LayoutTemplate,
@@ -50,6 +52,6 @@ import { ColaboradorCriarPage } from './pages/colaborador-criar/colaborador-cria
         FontAwesomeModule,
         NgScrollbarModule,
         NgbModule,
-    ]
+    ],
 })
 export class SistemaModule { }

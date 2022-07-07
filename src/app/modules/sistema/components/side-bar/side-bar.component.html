@@ -7,7 +7,7 @@
     <div>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item" *ngFor="let link of links" routerLinkActive="active">
-                <a class="nav-link d-flex gap-2" [routerLink]="[link.path, id]">
+                <a class="nav-link d-flex gap-2" [title]="link.title" [routerLink]="[link.path, id]">
                     <fa-icon [icon]="link.icon" [fixedWidth]="true"></fa-icon>
                     <span class="title-item">{{link.title}}</span>
                 </a>

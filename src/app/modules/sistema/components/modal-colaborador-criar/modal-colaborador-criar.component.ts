@@ -16,7 +16,7 @@ import { ColaboradorService } from '../../services/colaborador.service';
     styleUrls: ['./modal-colaborador-criar.component.scss']
 })
 export class ModalColaboradorCriarComponent implements OnInit, OnDestroy {
-    form: NgTypeFormGroup<ColaboradorCriar>;
+    form: NgTypeFormGroup<ColaboradorCriarEnviarEmail>;
     idEmpresa = '';
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
     constructor(
@@ -28,10 +28,12 @@ export class ModalColaboradorCriarComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-        this.form = this.fb.group<ColaboradorCriar>({
+        this.form = this.fb.group<ColaboradorCriarEnviarEmail>({
+            idEmpresa: [this.idEmpresa],
             email: ["", [Validators.required, Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)]]
         });
         this.form.setFormErrors({
+            idEmpresa: {},
             email: { required: "E-mail é requirido.", pattern: "E-mail inválido" }
         });
     }
@@ -42,9 +44,8 @@ export class ModalColaboradorCriarComponent implements OnInit, OnDestroy {
             return;
         }
 
-        const request: ColaboradorCriarEnviarEmail = { email: this.form.controls.email.value, idEmpresa: this.idEmpresa };
         this.spinnerService.show();
-        this.colaboradorService.colaboradorCriarEnviarEmail(request)
+        this.colaboradorService.colaboradorCriarEnviarEmail(this.form.value)
             .pipe(
                 takeUntil(this.unsubscribe$)
             )

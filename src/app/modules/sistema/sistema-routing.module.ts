@@ -14,6 +14,7 @@ const routes: Routes = [
         path: '',
         component: LayoutTemplate,
         canActivate: [AuthGuardService, TokenGuardService],
+        canActivateChild: [AuthGuardService, TokenGuardService],
         children: [
             {
                 path: 'empresa',
