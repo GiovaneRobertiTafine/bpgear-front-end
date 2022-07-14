@@ -1,25 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { FormTypeBuilder, NgTypeFormControlValidator, NgTypeFormGroup } from 'reactive-forms-typed';
+import { SpinnerService } from 'src/app/shared/services/spinner.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { Colaborador } from '../../models/interfaces/colaborador.interface';
 import { ColaboradorCriar } from '../../models/requests/colaborador-criar.request';
+import { ColaboradorService } from '../../services/colaborador.service';
+import { Subject, takeUntil, tap } from 'rxjs';
 
 @Component({
     selector: 'bpgear-colaborador-criar',
     templateUrl: './colaborador-criar.page.html',
     styleUrls: ['./colaborador-criar.page.scss']
 })
-export class ColaboradorCriarPage implements OnInit {
+export class ColaboradorCriarPage implements OnInit, OnDestroy {
     private helper = new JwtHelperService();
     form: NgTypeFormGroup<ColaboradorCriar>;
     nomeEmpresa = '';
     cnpj = '';
+    unsubscribe$: Subject<boolean> = new Subject<boolean>();
+
     constructor(
         private route: ActivatedRoute,
         private router: Router,
         private fb: FormTypeBuilder,
+        private spinnerService: SpinnerService,
+        private toastService: ToastService,
+        private colaboradorService: ColaboradorService
     ) { }
 
     ngOnInit(): void {
@@ -30,9 +39,11 @@ export class ColaboradorCriarPage implements OnInit {
             this.router.navigate(['/']);
         }
 
+        const nomeCompleto = this.helper.decodeToken(this.route.snapshot.queryParamMap.get('access_token')).nomeCompleto;
+        const email = this.helper.decodeToken(this.route.snapshot.queryParamMap.get('access_token')).email;
         const colaborador = this.fb.group<ThisType<Colaborador & 'confimarSenha'>>({
-            nomeCompleto: ["", [Validators.required]],
-            email: ["", [Validators.required, Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)]],
+            nomeCompleto: [nomeCompleto, [Validators.required]],
+            email: [email, [Validators.required, Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)]],
             usuario: ["", [Validators.required]],
             senha: ["", [Validators.required, Validators.minLength(10)]],
             confirmarSenha: ["",
@@ -60,6 +71,37 @@ export class ColaboradorCriarPage implements OnInit {
         console.log(colaborador.value);
     }
 
+    criarColaborador(): void {
+        if (this.form.invalid) {
+            this.form.markAllAsTouched();
+            return;
+        }
+
+        const request: ColaboradorCriar = { ...this.form.value };
+        this.spinnerService.show();
+        this.colaboradorService.criarColaborador(request)
+            .pipe(
+                takeUntil(this.unsubscribe$)
+            )
+            .subscribe(
+                (response) => {
+                    this.spinnerService.hide();
+                    if (response.resultStatus.code !== 200) {
+                        this.toastService.error(response.resultStatus.message);
+                        return;
+                    }
+                    this.toastService.success(response.resultStatus.message);
+                    this.router.navigateByUrl('/');
+                }
+            );
+
+    }
+
     get formGroup() { return this.form as FormGroup; }
     get formGroupColaborador() { return this.form.controls.colaborador as FormGroup; }
+
+    ngOnDestroy(): void {
+        this.unsubscribe$.next(true);
+        this.unsubscribe$.unsubscribe();
+    }
 }

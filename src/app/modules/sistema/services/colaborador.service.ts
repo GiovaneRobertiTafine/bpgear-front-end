@@ -5,6 +5,7 @@ import { IDataReturn } from 'src/app/shared/models/data-return.model';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { Colaborador } from '../models/interfaces/colaborador.interface';
 import { ColaboradorCriarEnviarEmail } from '../models/requests/colaborador-criar-enviar-email.request';
+import { ColaboradorCriar } from '../models/requests/colaborador-criar.request';
 
 @Injectable({
     providedIn: 'root'
@@ -26,6 +27,13 @@ export class ColaboradorService extends ApiService {
         return this.post<IDataReturn<null>>('colaborador/criar-email', request)
             .pipe(
                 catchError(this.handleError<IDataReturn<null>>('colaboradorCriarEnviarEmail'))
+            );
+    }
+
+    public criarColaborador(request: ColaboradorCriar): Observable<IDataReturn<null>> {
+        return this.post<IDataReturn<null>>('colaborador/criar', request)
+            .pipe(
+                catchError(this.handleError<IDataReturn<null>>('colaboradorCriar'))
             );
     }
 }

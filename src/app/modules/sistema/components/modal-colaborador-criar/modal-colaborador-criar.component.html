@@ -6,8 +6,14 @@
     <p>
         Informe o e-mail do colaborador para ser enviado o link de cadastro:
     </p>
-    <form class="row g-3 needs-validation" [formGroup]="formGroup" novalidate autocomplete="on">
-        <div class="col">
+    <form class="row g-3 needs-validation" [formGroup]="formGroup" (ngSubmit)="criarColaborador()" novalidate
+        autocomplete="on">
+        <div class="col-12">
+            <label for="inputNomeCompleto" class="form-label">Nome Completo:</label>
+            <input type="text" class="form-control validator" id="inputNomeCompleto" formControlName="nomeCompleto">
+            <small class="text-danger" formControlOnErrorItem="nomeCompleto"></small>
+        </div>
+        <div class="col-12">
             <label for="inputEmail" class="form-label">E-mail:</label>
             <input type="text" class="form-control validator" id="inputEmail" formControlName="email">
             <small class="text-danger" formControlOnErrorItem="email"></small>

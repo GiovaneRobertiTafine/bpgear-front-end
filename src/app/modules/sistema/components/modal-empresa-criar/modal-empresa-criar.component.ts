@@ -19,6 +19,7 @@ export class ModalEmpresaCriarComponent implements OnInit, OnDestroy {
     form: NgTypeFormGroup<Empresa>;
     usuario = "";
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
+
     constructor(
         public activeModal: NgbActiveModal,
         private fb: FormTypeBuilder,
