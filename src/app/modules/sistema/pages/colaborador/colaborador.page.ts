@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, takeUntil } from 'rxjs';
+import { TelefonePipe } from 'src/app/shared/pipes/telefone.pipe';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { ModalColaboradorCriarComponent } from '../../components/modal-colaborador-criar/modal-colaborador-criar.component';
+import { ModalColaboradorDeletarComponent } from '../../components/modal-colaborador-deletar/modal-colaborador-deletar.component';
 import { ColaboradorDataViewConfig } from '../../models/constants/sistema-data-view-config.constant';
 import { Colaborador } from '../../models/interfaces/colaborador.interface';
+import { DeletarColaborador } from '../../models/requests/colaborador-deletar.request';
 import { ColaboradorService } from '../../services/colaborador.service';
 import { EmpresaService } from '../../services/empresa.service';
 
@@ -33,6 +36,10 @@ export class ColaboradorPage implements OnInit {
     }
 
     ngOnInit(): void {
+        this.obterColaboradores();
+    }
+
+    obterColaboradores(): void {
         this.spinnerService.show();
         this.colaboradorService.obterColaborador(this.idEmpresa)
             .pipe(takeUntil(this.unsubscribe$))
@@ -54,4 +61,15 @@ export class ColaboradorPage implements OnInit {
         modalRef.componentInstance.idEmpresa = this.idEmpresa;
     }
 
+    deletarColaborador(colaborador: Colaborador): void {
+        const modalRef = this.modalService.open(ModalColaboradorDeletarComponent, { size: 'md' });
+        modalRef.componentInstance.colaborador = colaborador;
+        modalRef.result
+            .then((res) => {
+                if (res) {
+                    this.obterColaboradores();
+                }
+            })
+            .catch((err) => err);
+    }
 }

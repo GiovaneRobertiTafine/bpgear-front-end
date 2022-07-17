@@ -17,6 +17,7 @@ export class InputPasswordComponent implements OnInit {
     iconEye = faEyeSlash;
     @Input() controlName: string = "";
     @Input() name: string = "";
+    @Input() classes: string[] = [];
 
     constructor() { }
 

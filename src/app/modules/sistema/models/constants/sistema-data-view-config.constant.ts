@@ -1,6 +1,7 @@
 import { MaskPipe } from 'ngx-mask';
 import { DataViewConfig } from "src/app/shared/models/data-view-config.model";
 import { TelefonePipe } from 'src/app/shared/pipes/telefone.pipe';
+import { TransformValuePipe } from '../../pipe/transform-value.pipe';
 
 export const EmpresaDataViewConfig: DataViewConfig = {
     colunas: [
@@ -60,6 +61,14 @@ export const ColaboradorDataViewConfig: DataViewConfig = {
         {
             titulo: "E-mail",
             propriedade: ["email"]
+        },
+        {
+            titulo: "Pesquisa",
+            propriedade: ["pesquisaAtiva"],
+            mascara: {
+                token: TransformValuePipe,
+                arg: 'colaborador-tabela-pesquisa'
+            }
         }
     ],
     colunasAcao: {

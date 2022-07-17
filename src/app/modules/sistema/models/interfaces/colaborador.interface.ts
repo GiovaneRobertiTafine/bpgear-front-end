@@ -4,4 +4,5 @@ export interface Colaborador {
     nomeCompleto: string;
     email: string;
     senha?: string;
+    pesquisaAtiva: boolean;
 }

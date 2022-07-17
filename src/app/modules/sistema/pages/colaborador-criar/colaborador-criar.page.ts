@@ -20,11 +20,12 @@ export class ColaboradorCriarPage implements OnInit, OnDestroy {
     form: NgTypeFormGroup<ColaboradorCriar>;
     nomeEmpresa = '';
     cnpj = '';
+    token = '';
+    colaboradorCriado = false;
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
         private route: ActivatedRoute,
-        private router: Router,
         private fb: FormTypeBuilder,
         private spinnerService: SpinnerService,
         private toastService: ToastService,
@@ -32,15 +33,12 @@ export class ColaboradorCriarPage implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-        this.nomeEmpresa = this.helper.decodeToken(this.route.snapshot.queryParamMap.get('access_token')).nomeEmpresa;
-        this.cnpj = this.helper.decodeToken(this.route.snapshot.queryParamMap.get('access_token')).cnpj;
+        this.token = this.route.snapshot.queryParamMap.get('access_token');
+        this.nomeEmpresa = this.helper.decodeToken(this.token).nomeEmpresa;
+        this.cnpj = this.helper.decodeToken(this.token).cnpj;
 
-        if (this.helper.isTokenExpired(this.route.snapshot.queryParamMap.get('access_token'))) {
-            this.router.navigate(['/']);
-        }
-
-        const nomeCompleto = this.helper.decodeToken(this.route.snapshot.queryParamMap.get('access_token')).nomeCompleto;
-        const email = this.helper.decodeToken(this.route.snapshot.queryParamMap.get('access_token')).email;
+        const nomeCompleto = this.helper.decodeToken(this.token).nomeCompleto;
+        const email = this.helper.decodeToken(this.token).email;
         const colaborador = this.fb.group<ThisType<Colaborador & 'confimarSenha'>>({
             nomeCompleto: [nomeCompleto, [Validators.required]],
             email: [email, [Validators.required, Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)]],
@@ -57,7 +55,7 @@ export class ColaboradorCriarPage implements OnInit, OnDestroy {
         });
 
         this.form = this.fb.group<ColaboradorCriar>({
-            idEmpresa: [this.helper.decodeToken(this.route.snapshot.queryParamMap.get('access_token')).id],
+            idEmpresa: [this.helper.decodeToken(this.token).id],
             colaborador: colaborador
         });
 
@@ -68,7 +66,6 @@ export class ColaboradorCriarPage implements OnInit, OnDestroy {
             senha: { required: "Senha é requerida.", minlength: "Mínimo de 10 caracteres." },
             confirmarSenha: { required: "Confirmar Senha é requerido.", notMatch: "Senha diferente." }
         });
-        console.log(colaborador.value);
     }
 
     criarColaborador(): void {
@@ -91,7 +88,9 @@ export class ColaboradorCriarPage implements OnInit, OnDestroy {
                         return;
                     }
                     this.toastService.success(response.resultStatus.message);
-                    this.router.navigateByUrl('/');
+                    this.colaboradorCriado = true;
+                    localStorage.setItem('bpgear-token-colaborador-criar',
+                        localStorage.getItem('bpgear-token-colaborador-criar') + this.token + ';');
                 }
             );
 

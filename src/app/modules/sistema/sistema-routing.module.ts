@@ -5,6 +5,7 @@ import { TokenGuardService } from '../auth/services/token-guard.service';
 import { ColaboradorCriarPage } from './pages/colaborador-criar/colaborador-criar.page';
 import { ColaboradorPage } from './pages/colaborador/colaborador.page';
 import { EmpresaPage } from './pages/empresa/empresa.page';
+import { ColaboradorCriarGuardService } from './services/colaborador-criar-guard.service';
 import { EmpresaGuardService } from './services/empresa-guard.service';
 import { LayoutTemplate } from './templates/layout/layout.template';
 
@@ -31,7 +32,8 @@ const routes: Routes = [
     },
     {
         path: 'colaborador-criar',
-        component: ColaboradorCriarPage
+        component: ColaboradorCriarPage,
+        canActivate: [ColaboradorCriarGuardService]
     }
 ];
 

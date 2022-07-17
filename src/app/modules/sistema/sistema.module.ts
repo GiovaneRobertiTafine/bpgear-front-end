@@ -28,6 +28,8 @@ import { ModalColaboradorCriarComponent } from './components/modal-colaborador-c
 import { ColaboradorCriarPage } from './pages/colaborador-criar/colaborador-criar.page';
 import { AuthGuardService } from '../auth/services/auth-guard.service';
 import { TokenGuardService } from '../auth/services/token-guard.service';
+import { TransformValuePipe } from './pipe/transform-value.pipe';
+import { ModalColaboradorDeletarComponent } from './components/modal-colaborador-deletar/modal-colaborador-deletar.component';
 @NgModule({
     declarations: [
         LayoutTemplate,
@@ -41,6 +43,8 @@ import { TokenGuardService } from '../auth/services/token-guard.service';
         ColaboradorPage,
         ModalColaboradorCriarComponent,
         ColaboradorCriarPage,
+        TransformValuePipe,
+        ModalColaboradorDeletarComponent,
     ],
     imports: [
         CommonModule,
@@ -53,5 +57,8 @@ import { TokenGuardService } from '../auth/services/token-guard.service';
         NgScrollbarModule,
         NgbModule,
     ],
+    providers: [
+        TransformValuePipe
+    ]
 })
 export class SistemaModule { }
