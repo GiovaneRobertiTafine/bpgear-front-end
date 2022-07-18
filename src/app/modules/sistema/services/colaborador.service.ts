@@ -7,6 +7,7 @@ import { Colaborador } from '../models/interfaces/colaborador.interface';
 import { ColaboradorCriarEnviarEmail } from '../models/requests/colaborador-criar-enviar-email.request';
 import { ColaboradorCriar } from '../models/requests/colaborador-criar.request';
 import { DeletarColaborador } from '../models/requests/colaborador-deletar.request';
+import { ColaboradorEditar } from '../models/requests/colaborador-editar.request';
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +18,7 @@ export class ColaboradorService extends ApiService {
         super(httpClient);
     }
 
-    public obterColaborador(idEmpresa: string): Observable<IDataReturn<Colaborador[]>> {
+    public obterColaboradores(idEmpresa: string): Observable<IDataReturn<Colaborador[]>> {
         return this.get<IDataReturn<Colaborador[]>>('colaborador/' + idEmpresa)
             .pipe(
                 catchError(this.handleError<IDataReturn<Colaborador[]>>('obterColaborador'))
@@ -42,6 +43,13 @@ export class ColaboradorService extends ApiService {
         return this.post<IDataReturn<null>>('colaborador/deletar', request)
             .pipe(
                 catchError(this.handleError<IDataReturn<null>>('colaboradorDeletar'))
+            );
+    }
+
+    public editarColaborador(request: ColaboradorEditar): Observable<IDataReturn<null>> {
+        return this.post<IDataReturn<null>>('colaborador/editar', request)
+            .pipe(
+                catchError(this.handleError<IDataReturn<null>>('colaboradorEditar'))
             );
     }
 }

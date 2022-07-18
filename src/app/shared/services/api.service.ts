@@ -45,6 +45,12 @@ export class ApiService {
             if (!error.error?.resultStatus?.code) {
                 errorMessage = `Error Method: ${errorMethod} => Code: ${error.status}, Message: ${error.message}`;
                 console.log(errorMessage);
+
+                if (error.status === 400) {
+                    const resError: IDataReturn<null> = { data: null, resultStatus: { code: error.status, message: "Erro na requisição." } };
+                    return of(resError as unknown as T);
+                }
+
                 const resError: IDataReturn<null> = { data: null, resultStatus: { code: error.status, message: "Erro interno." } };
                 return of(resError as unknown as T);
             }

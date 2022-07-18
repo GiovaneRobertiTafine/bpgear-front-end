@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormTypeBuilder } from 'reactive-forms-typed';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { Subject, takeUntil } from 'rxjs';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { Empresa } from '../../models/interfaces/empresa.interface';
@@ -13,8 +12,10 @@ import { EmpresaService } from '../../services/empresa.service';
     templateUrl: './modal-empresa-deletar.component.html',
     styleUrls: ['./modal-empresa-deletar.component.scss']
 })
-export class ModalEmpresaDeletarComponent implements OnInit {
+export class ModalEmpresaDeletarComponent implements OnInit, OnDestroy {
     empresa: Empresa;
+    unsubscribe$: Subject<boolean> = new Subject<boolean>();
+
     constructor(
         public activeModal: NgbActiveModal,
         private spinnerService: SpinnerService,
@@ -29,6 +30,9 @@ export class ModalEmpresaDeletarComponent implements OnInit {
         const request: EmpresaDeletar = { id: this.empresa.id };
         this.spinnerService.show();
         this.empresaService.deletarEmpresa(request)
+            .pipe(
+                takeUntil(this.unsubscribe$)
+            )
             .subscribe(
                 (response) => {
                     this.spinnerService.hide();
@@ -41,5 +45,10 @@ export class ModalEmpresaDeletarComponent implements OnInit {
                     this.activeModal.close(true);
                 }
             );
+    }
+
+    ngOnDestroy(): void {
+        this.unsubscribe$.next(true);
+        this.unsubscribe$.unsubscribe();
     }
 }

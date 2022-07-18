@@ -46,6 +46,11 @@ body {
     border-radius: 0;
 }
 
+input[type="radio"]:checked {
+    border-color: $success;
+    background-color: $success;
+}
+
 /* WIDTH */
 
 /* SM breakpoint */

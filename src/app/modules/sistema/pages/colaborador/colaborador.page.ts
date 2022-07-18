@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, takeUntil } from 'rxjs';
@@ -7,6 +7,7 @@ import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { ModalColaboradorCriarComponent } from '../../components/modal-colaborador-criar/modal-colaborador-criar.component';
 import { ModalColaboradorDeletarComponent } from '../../components/modal-colaborador-deletar/modal-colaborador-deletar.component';
+import { ModalColaboradorEditarComponent } from '../../components/modal-colaborador-editar/modal-colaborador-editar.component';
 import { ColaboradorDataViewConfig } from '../../models/constants/sistema-data-view-config.constant';
 import { Colaborador } from '../../models/interfaces/colaborador.interface';
 import { DeletarColaborador } from '../../models/requests/colaborador-deletar.request';
@@ -18,7 +19,7 @@ import { EmpresaService } from '../../services/empresa.service';
     templateUrl: './colaborador.page.html',
     styleUrls: ['./colaborador.page.scss']
 })
-export class ColaboradorPage implements OnInit {
+export class ColaboradorPage implements OnInit, OnDestroy {
     colaboradores: Colaborador[] = [];
     colaboradorDataViewConfig = ColaboradorDataViewConfig;
     idEmpresa = '';
@@ -41,7 +42,7 @@ export class ColaboradorPage implements OnInit {
 
     obterColaboradores(): void {
         this.spinnerService.show();
-        this.colaboradorService.obterColaborador(this.idEmpresa)
+        this.colaboradorService.obterColaboradores(this.idEmpresa)
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe(
                 (response) => {
@@ -71,5 +72,22 @@ export class ColaboradorPage implements OnInit {
                 }
             })
             .catch((err) => err);
+    }
+
+    editarColaborador(colaborador: Colaborador): void {
+        const modalRef = this.modalService.open(ModalColaboradorEditarComponent, { size: 'md' });
+        modalRef.componentInstance.colaborador = colaborador;
+        modalRef.result
+            .then((res) => {
+                if (res) {
+                    this.obterColaboradores();
+                }
+            })
+            .catch((err) => err);
+    }
+
+    ngOnDestroy(): void {
+        this.unsubscribe$.next(true);
+        this.unsubscribe$.unsubscribe();
     }
 }

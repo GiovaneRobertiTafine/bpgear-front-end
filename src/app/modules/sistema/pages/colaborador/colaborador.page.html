@@ -4,6 +4,6 @@
 </div>
 
 <bpgear-table [dataViewConfig]="colaboradorDataViewConfig" [data]="colaboradores" #tableEmpresa
-    (deletarItemEvent)="deletarColaborador($event)">
+    (deletarItemEvent)="deletarColaborador($event)" (editarItemEvent)="editarColaborador($event)">
 
 </bpgear-table>

@@ -8,7 +8,7 @@ import { EmpresaPage } from './pages/empresa/empresa.page';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { TokenInterceptor } from '../auth/services/token.interceptor';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ModalEmpresaCriarComponent } from './components/modal-empresa-criar/modal-empresa-criar.component';
@@ -30,6 +30,7 @@ import { AuthGuardService } from '../auth/services/auth-guard.service';
 import { TokenGuardService } from '../auth/services/token-guard.service';
 import { TransformValuePipe } from './pipe/transform-value.pipe';
 import { ModalColaboradorDeletarComponent } from './components/modal-colaborador-deletar/modal-colaborador-deletar.component';
+import { ModalColaboradorEditarComponent } from './components/modal-colaborador-editar/modal-colaborador-editar.component';
 @NgModule({
     declarations: [
         LayoutTemplate,
@@ -45,11 +46,13 @@ import { ModalColaboradorDeletarComponent } from './components/modal-colaborador
         ColaboradorCriarPage,
         TransformValuePipe,
         ModalColaboradorDeletarComponent,
+        ModalColaboradorEditarComponent,
     ],
     imports: [
         CommonModule,
         SistemaRoutingModule,
         ReactiveFormsModule,
+        FormsModule,
         SharedModule,
         NgxMaskModule,
         ReactiveFormsTypedModule,
