@@ -1,5 +1,5 @@
 export interface ColaboradorEditar {
     id: string;
-    nomeCompleto?: string;
+    nome?: string;
     pesquisaAtiva?: boolean;
 }

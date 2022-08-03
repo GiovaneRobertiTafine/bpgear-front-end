@@ -30,12 +30,12 @@ export class ModalColaboradorEditarComponent implements OnInit {
     ngOnInit(): void {
         this.form = this.fb.group<ColaboradorEditar>({
             id: [this.colaborador.id],
-            nomeCompleto: [this.colaborador.nomeCompleto, [Validators.required, Validators.minLength(10), Validators.maxLength(70)]],
+            nome: [this.colaborador.nome, [Validators.required, Validators.minLength(10), Validators.maxLength(70)]],
             pesquisaAtiva: [this.colaborador.pesquisaAtiva, [Validators.required]],
         });
         this.form.setFormErrors({
             id: {},
-            nomeCompleto: { required: "Nome completo é requirido.", minlength: "Minímo de 10 caracteres." },
+            nome: { required: "Nome é requirido.", minlength: "Minímo de 10 caracteres." },
             pesquisaAtiva: { required: "Pesquisa é requirido." },
         });
     }

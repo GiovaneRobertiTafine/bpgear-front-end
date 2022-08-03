@@ -51,7 +51,36 @@ export const EmpresaDataViewConfig: DataViewConfig = {
 export const ColaboradorDataViewConfig: DataViewConfig = {
     colunas: [
         {
-            titulo: "Nome Completo",
+            titulo: "Nome",
+            propriedade: ["nome"]
+        },
+        {
+            titulo: "Usuário",
+            propriedade: ["usuario"]
+        },
+        {
+            titulo: "E-mail",
+            propriedade: ["email"]
+        },
+        {
+            titulo: "Pesquisa",
+            propriedade: ["pesquisaAtiva"],
+            mascara: {
+                token: TransformValuePipe,
+                arg: 'colaborador-tabela-pesquisa'
+            }
+        }
+    ],
+    colunasAcao: {
+        editar: true,
+        deletar: true
+    }
+};
+
+export const ClienteDataViewConfig: DataViewConfig = {
+    colunas: [
+        {
+            titulo: "Nome",
             propriedade: ["nomeCompleto"]
         },
         {

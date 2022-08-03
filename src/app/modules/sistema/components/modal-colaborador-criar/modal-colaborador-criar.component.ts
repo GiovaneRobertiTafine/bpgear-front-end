@@ -30,12 +30,12 @@ export class ModalColaboradorCriarComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.form = this.fb.group<ColaboradorCriarEnviarEmail>({
             idEmpresa: [this.idEmpresa],
-            nomeCompleto: ["", [Validators.required, Validators.minLength(10)]],
+            nome: ["", [Validators.required, Validators.minLength(10)]],
             email: ["", [Validators.required, Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)]]
         });
         this.form.setFormErrors({
             idEmpresa: {},
-            nomeCompleto: { required: "Nome completo é requerido", minlength: "Minímo de 10 caracteres" },
+            nome: { required: "Nome completo é requerido", minlength: "Minímo de 10 caracteres" },
             email: { required: "E-mail é requirido.", pattern: "E-mail inválido" }
         });
     }

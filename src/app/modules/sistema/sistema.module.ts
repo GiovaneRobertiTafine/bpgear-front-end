@@ -31,6 +31,7 @@ import { TokenGuardService } from '../auth/services/token-guard.service';
 import { TransformValuePipe } from './pipe/transform-value.pipe';
 import { ModalColaboradorDeletarComponent } from './components/modal-colaborador-deletar/modal-colaborador-deletar.component';
 import { ModalColaboradorEditarComponent } from './components/modal-colaborador-editar/modal-colaborador-editar.component';
+import { ClientePage } from './pages/cliente/cliente.page';
 @NgModule({
     declarations: [
         LayoutTemplate,
@@ -47,6 +48,7 @@ import { ModalColaboradorEditarComponent } from './components/modal-colaborador-
         TransformValuePipe,
         ModalColaboradorDeletarComponent,
         ModalColaboradorEditarComponent,
+        ClientePage,
     ],
     imports: [
         CommonModule,

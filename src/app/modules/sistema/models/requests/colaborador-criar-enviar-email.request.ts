@@ -1,5 +1,5 @@
 export interface ColaboradorCriarEnviarEmail {
     email: string;
-    nomeCompleto: string;
+    nome: string;
     idEmpresa: string;
 }
