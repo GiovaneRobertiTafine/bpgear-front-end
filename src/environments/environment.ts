@@ -5,7 +5,7 @@
 export const environment = {
     production: false,
     api: {
-        url: window['env']['api_url'],
+        url: process.env['API_URL'],
     },
 };
 
