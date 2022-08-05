@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
     api: {
-        url: process.env['API_URL']
+        url: "https://bpgear-api.herokuapp.com/api"
     }
 };
