@@ -48,7 +48,7 @@ export class EmpresaPage implements OnInit, AfterViewInit, OnDestroy {
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe((response) => {
                 this.spinnerService.hide();
-                if (response.resultStatus.code !== 200) {
+                if (response.resultStatus.code !== 200 && response.resultStatus.code !== 204) {
                     this.toastService.error(response.resultStatus.message);
                     return;
                 }

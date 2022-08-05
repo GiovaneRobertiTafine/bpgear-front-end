@@ -8,7 +8,7 @@
     <h3 class="fst-italic mt-3">Criar colaborador:</h3>
     <p>
         <strong>Nome Completo: </strong>
-        <span class="fst-italic">{{formGroupColaborador.controls['nomeCompleto'].value}}</span> <br />
+        <span class="fst-italic">{{formGroupColaborador.controls['nome'].value}}</span> <br />
         <strong>E-mail: </strong>
         <span class="fst-italic">{{formGroupColaborador.controls['email'].value}}</span> <br />
         <a [routerLink]="['/login']" class="text-reset" *ngIf="colaboradorCriado">Ir para página de Login</a>

@@ -6,9 +6,9 @@
     <form class="row g-3 needs-validation" [formGroup]="formGroup" (ngSubmit)="editarColaborador()" novalidate
         autocomplete="on">
         <div class="col-12">
-            <label for="inputNomeCompleto" class="form-label">Nome completo:</label>
-            <input type="text" class="form-control validator" id="inputNomeCompleto" formControlName="nomeCompleto">
-            <small class="text-danger" formControlOnErrorItem="nomeCompleto"></small>
+            <label for="inputNome" class="form-label">Nome:</label>
+            <input type="text" class="form-control validator" id="inputNome" formControlName="nome">
+            <small class="text-danger" formControlOnErrorItem="nome"></small>
         </div>
 
         <div class="col-12">

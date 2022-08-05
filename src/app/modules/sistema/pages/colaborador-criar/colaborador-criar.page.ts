@@ -37,10 +37,10 @@ export class ColaboradorCriarPage implements OnInit, OnDestroy {
         this.nomeEmpresa = this.helper.decodeToken(this.token).nomeEmpresa;
         this.cnpj = this.helper.decodeToken(this.token).cnpj;
 
-        const nomeCompleto = this.helper.decodeToken(this.token).nomeCompleto;
+        const nome = this.helper.decodeToken(this.token).nome;
         const email = this.helper.decodeToken(this.token).email;
         const colaborador = this.fb.group<ThisType<Colaborador & 'confimarSenha'>>({
-            nomeCompleto: [nomeCompleto, [Validators.required]],
+            nome: [nome, [Validators.required]],
             email: [email, [Validators.required, Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)]],
             usuario: ["", [Validators.required]],
             senha: ["", [Validators.required, Validators.minLength(10)]],
@@ -60,7 +60,7 @@ export class ColaboradorCriarPage implements OnInit, OnDestroy {
         });
 
         colaborador.setFormErrors({
-            nomeCompleto: { required: "Nome Completo é requerido." },
+            nome: { required: "Nome é requerido." },
             email: { required: "E-mail é requerido.", pattern: "E-mail inválido." },
             usuario: { required: "Usuário é requerido." },
             senha: { required: "Senha é requerida.", minlength: "Mínimo de 10 caracteres." },
