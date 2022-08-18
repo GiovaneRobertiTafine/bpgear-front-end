@@ -105,3 +105,16 @@ export const ClienteDataViewConfig: DataViewConfig = {
         deletar: true
     }
 };
+
+export const MercadoDataViewConfig: DataViewConfig = {
+    colunas: [
+        {
+            titulo: "Nome",
+            propriedade: ["nomeMercado"]
+        },
+    ],
+    colunasAcao: {
+        editar: true,
+        deletar: true
+    }
+};

@@ -2,52 +2,52 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormTypeBuilder, NgTypeFormGroup } from 'reactive-forms-typed';
-import { Subject, takeUntil } from 'rxjs';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
-import { ColaboradorCriarEnviarEmail } from '../../models/requests/colaborador-criar-enviar-email.request';
-import { ColaboradorService } from '../../services/colaborador.service';
+import { MercadoCriar } from '../../models/requests/mercado-criar.request';
+import { EmpresaService } from '../../services/empresa.service';
+import { MercadoService } from '../../services/mercado.service';
+import { pipe, Subject, takeUntil } from 'rxjs';
 
 @Component({
-    selector: 'bpgear-modal-colaborador-criar',
-    templateUrl: './modal-colaborador-criar.component.html',
-    styleUrls: ['./modal-colaborador-criar.component.scss']
+    selector: 'bpgear-modal-mercado-criar',
+    templateUrl: './modal-mercado-criar.component.html',
+    styleUrls: ['./modal-mercado-criar.component.scss']
 })
-export class ModalColaboradorCriarComponent implements OnInit, OnDestroy {
-    form: NgTypeFormGroup<ColaboradorCriarEnviarEmail>;
-    idEmpresa = '';
+export class ModalMercadoCriarComponent implements OnInit, OnDestroy {
+    form: NgTypeFormGroup<MercadoCriar>;
 
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
         public activeModal: NgbActiveModal,
+        private mercadoService: MercadoService,
         private fb: FormTypeBuilder,
         private spinnerService: SpinnerService,
         private toastService: ToastService,
-        private colaboradorService: ColaboradorService,
+        private empresaService: EmpresaService
     ) { }
 
     ngOnInit(): void {
-        this.form = this.fb.group<ColaboradorCriarEnviarEmail>({
-            idEmpresa: [this.idEmpresa],
-            nome: ["", [Validators.required, Validators.minLength(10)]],
-            email: ["", [Validators.required, Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)]]
+        this.form = this.fb.group<MercadoCriar>({
+            idEmpresa: [this.empresaService.getEmpresa().value.id],
+            nomeMercado: ["", [Validators.required, Validators.minLength(3)]]
         });
+
         this.form.setFormErrors({
             idEmpresa: {},
-            nome: { required: "Nome completo é requerido", minlength: "Minímo de 10 caracteres" },
-            email: { required: "E-mail é requirido.", pattern: "E-mail inválido" }
+            nomeMercado: { required: "Nome é requerido", minlength: "Minímo de 3 caracteres" }
         });
     }
 
-    criarColaborador(): void {
+    criarMercado(): void {
         if (this.form.invalid) {
             this.form.markAllAsTouched();
             return;
         }
 
         this.spinnerService.show();
-        this.colaboradorService.colaboradorCriarEnviarEmail(this.form.value)
+        this.mercadoService.criarMercado(this.form.value)
             .pipe(
                 takeUntil(this.unsubscribe$)
             )

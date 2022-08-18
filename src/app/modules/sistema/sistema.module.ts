@@ -32,6 +32,11 @@ import { TransformValuePipe } from './pipe/transform-value.pipe';
 import { ModalColaboradorDeletarComponent } from './components/modal-colaborador-deletar/modal-colaborador-deletar.component';
 import { ModalColaboradorEditarComponent } from './components/modal-colaborador-editar/modal-colaborador-editar.component';
 import { ClientePage } from './pages/cliente/cliente.page';
+import { ModalClienteCriarComponent } from './components/modal-cliente-criar/modal-cliente-criar.component';
+import { MercadoPage } from './pages/mercado/mercado.page';
+import { ModalMercadoCriarComponent } from './components/modal-mercado-criar/modal-mercado-criar.component';
+import { ModalMercadoDeletarComponent } from './components/modal-mercado-deletar/modal-mercado-deletar.component';
+import { ModalMercadoEditarComponent } from './components/modal-mercado-editar/modal-mercado-editar.component';
 @NgModule({
     declarations: [
         LayoutTemplate,
@@ -49,6 +54,11 @@ import { ClientePage } from './pages/cliente/cliente.page';
         ModalColaboradorDeletarComponent,
         ModalColaboradorEditarComponent,
         ClientePage,
+        ModalClienteCriarComponent,
+        MercadoPage,
+        ModalMercadoCriarComponent,
+        ModalMercadoDeletarComponent,
+        ModalMercadoEditarComponent,
     ],
     imports: [
         CommonModule,

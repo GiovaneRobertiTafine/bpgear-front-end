@@ -9,10 +9,14 @@ export class SpinnerService {
     constructor() { }
 
     show(): void {
-        this.visible = true;
+        setTimeout(() => {
+            this.visible = true;
+        });
     }
 
     hide(): void {
         this.visible = false;
     }
+
+
 }

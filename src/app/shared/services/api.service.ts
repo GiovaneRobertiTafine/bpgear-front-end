@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpHeaders, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpEvent, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { IDataReturn } from '../models/data-return.model';
 
@@ -29,6 +29,20 @@ export class ApiService {
         ) as Observable<T>;
     }
 
+    protected delete<T>(path: string, p?: {}): Observable<T> {
+        return this.httpClient.delete<T>(
+            `${this.url}/${path}`,
+            { params: p }
+        ) as Observable<T>;
+    }
+
+    protected put<T>(path: string, payload?: {}): Observable<T> {
+        return this.httpClient.put<T>(
+            `${this.url}/${path}`,
+            payload
+        ) as Observable<T>;
+    }
+
     handleError<T>(errorMethod: string) {
         return (error: HttpErrorResponse): Observable<T> => {
             let errorMessage = '';
@@ -48,6 +62,11 @@ export class ApiService {
 
                 if (error.status === 400) {
                     const resError: IDataReturn<null> = { data: null, resultStatus: { code: error.status, message: "Erro na requisição." } };
+                    return of(resError as unknown as T);
+                }
+
+                if (error.status === 405) {
+                    const resError: IDataReturn<null> = { data: null, resultStatus: { code: error.status, message: "Erro no método da requisição." } };
                     return of(resError as unknown as T);
                 }
 

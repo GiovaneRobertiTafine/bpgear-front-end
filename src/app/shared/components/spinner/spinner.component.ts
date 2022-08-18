@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { SpinnerService } from '../../services/spinner.service';
 
 @Component({
@@ -6,11 +6,17 @@ import { SpinnerService } from '../../services/spinner.service';
     templateUrl: './spinner.component.html',
     styleUrls: ['./spinner.component.scss'],
 })
-export class SpinnerComponent implements OnInit {
+export class SpinnerComponent implements OnInit, AfterContentChecked {
 
-    constructor(public spinnerService: SpinnerService) { }
+    constructor(
+        public spinnerService: SpinnerService,
+        private changeDetector: ChangeDetectorRef
+    ) { }
 
     ngOnInit(): void {
     }
 
+    ngAfterContentChecked(): void {
+        this.changeDetector.detectChanges();
+    }
 }

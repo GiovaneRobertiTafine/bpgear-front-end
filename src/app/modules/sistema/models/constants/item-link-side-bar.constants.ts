@@ -14,7 +14,7 @@ export const ItemLinkSideBar: LinkItemConfig[] = [
     },
     {
         title: 'Mercados',
-        path: '/sitema/mercado',
+        path: '/sistema/mercado',
         icon: faStore
     }
 ];

@@ -1,6 +1,6 @@
 <div class="w-100 d-inline-block mt-3">
     <h3 class="fst-italic float-start">Clientes</h3>
-    <button class="btn btn-outline-success float-end">Novo Cliente</button>
+    <button class="btn btn-outline-success float-end" (click)="criarCliente()">Novo Cliente</button>
 </div>
 
 <bpgear-table [dataViewConfig]="clienteDataViewConfig" [data]="[]" #tableEmpresa>

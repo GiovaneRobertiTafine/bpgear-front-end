@@ -1,0 +1,9 @@
+<div class="w-100 d-inline-block mt-3">
+    <h3 class="fst-italic float-start">Mercados</h3>
+    <button class="btn btn-outline-success float-end" (click)="criarMercado()">Novo Mercado</button>
+</div>
+
+<bpgear-table [dataViewConfig]="mercadoDataViewConfig" [data]="mercados" #tableEmpresa
+    (deletarItemEvent)="deletarMercado($event)" (editarItemEvent)="editarMercado($event)">
+
+</bpgear-table>
