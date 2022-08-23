@@ -37,6 +37,7 @@ import { MercadoPage } from './pages/mercado/mercado.page';
 import { ModalMercadoCriarComponent } from './components/modal-mercado-criar/modal-mercado-criar.component';
 import { ModalMercadoDeletarComponent } from './components/modal-mercado-deletar/modal-mercado-deletar.component';
 import { ModalMercadoEditarComponent } from './components/modal-mercado-editar/modal-mercado-editar.component';
+import { ClienteCriarPage } from './pages/cliente-criar/cliente-criar.page';
 @NgModule({
     declarations: [
         LayoutTemplate,
@@ -59,6 +60,7 @@ import { ModalMercadoEditarComponent } from './components/modal-mercado-editar/m
         ModalMercadoCriarComponent,
         ModalMercadoDeletarComponent,
         ModalMercadoEditarComponent,
+        ClienteCriarPage,
     ],
     imports: [
         CommonModule,

@@ -8,4 +8,6 @@ export interface Cliente {
     telefone: string;
     email: string;
     senha?: string;
+    pesquisaAtiva: boolean;
+    idMercado: string;
 }

@@ -17,6 +17,7 @@ import { InjectorPipe } from './pipes/injector.pipe';
 import { MaskPipe } from 'ngx-mask';
 import { TelefonePipe } from './pipes/telefone.pipe';
 import { ValidatorClassDirective } from './directives/validator-class.directive';
+import { InputDropdownAutoCompleteComponent } from './components/input-dropdown-auto-complete/input-dropdown-auto-complete.component';
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import { ValidatorClassDirective } from './directives/validator-class.directive'
         InjectorPipe,
         TelefonePipe,
         ValidatorClassDirective,
+        InputDropdownAutoCompleteComponent,
     ],
     imports: [
         CommonModule,
@@ -35,13 +37,14 @@ import { ValidatorClassDirective } from './directives/validator-class.directive'
         ReactiveFormsModule,
         HttpClientModule,
         NgbModule,
-        NgScrollbarModule
+        NgScrollbarModule,
     ],
     exports: [
         InputPasswordComponent,
         ToastComponent,
         SpinnerComponent,
         TableComponent,
+        InputDropdownAutoCompleteComponent
     ],
     providers: [
         InjectorPipe,

@@ -1,0 +1,25 @@
+.box-input-dropdown-auto-complete {
+    display: inline-block;
+    position: relative;
+
+    &::after {
+        position: absolute;
+        top: 50%;
+        right: 0.35em;
+        content: "";
+        border-left: 0.35em solid transparent;
+        border-right: 0.35em solid transparent;
+        border-top: 0.35em solid #000;
+        cursor: pointer;
+    }
+
+    .input-dropdown-auto-complete {
+        padding-right: 1.3em;
+    }
+}
+
+.dropdown-menu {
+    height: auto;
+    max-height: 114px;
+    overflow-y: auto;
+}

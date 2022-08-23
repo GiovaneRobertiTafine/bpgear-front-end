@@ -1,0 +1,11 @@
+<div class="box-input-dropdown-auto-complete dropdown w-100">
+    <input [name]="name" type="text" [formControlName]="controlName"
+        [class]="'form-control input-dropdown-auto-complete validator dropdown-toggle' + classes.join(' ')"
+        aria-describedby="input-dropdown-auto-complete" #inputDropdownAutoComplete id="dropdown-auto-complete"
+        data-bs-toggle="dropdown" aria-expanded="false" (keyup)="searchItem($event.target['value']); myDrop.open();"
+        autocomplete="off">
+    <ul class="dropdown-menu" aria-labelledby="dropdown-auto-complete" ngbDropdown #myDrop="ngbDropdown">
+        <li class="dropdown-item cursor-pointer" *ngFor="let i of itensRef" [value]="i">
+            {{configPropertyView(i)}}</li>
+    </ul>
+</div>

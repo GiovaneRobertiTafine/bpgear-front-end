@@ -47,7 +47,6 @@ export class MercadoPage implements OnInit, OnDestroy {
                     }
 
                     this.mercados = response.data;
-                    console.log(this.mercados);
                 }
             );
     }

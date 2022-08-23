@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from '../auth/services/auth-guard.service';
 import { TokenGuardService } from '../auth/services/token-guard.service';
+import { ClienteCriarPage } from './pages/cliente-criar/cliente-criar.page';
 import { ClientePage } from './pages/cliente/cliente.page';
 import { ColaboradorCriarPage } from './pages/colaborador-criar/colaborador-criar.page';
 import { ColaboradorPage } from './pages/colaborador/colaborador.page';
 import { EmpresaPage } from './pages/empresa/empresa.page';
 import { MercadoPage } from './pages/mercado/mercado.page';
+import { ClienteGuard } from './services/cliente.guard';
 import { ColaboradorCriarGuardService } from './services/colaborador-criar-guard.service';
 import { EmpresaGuardService } from './services/empresa-guard.service';
 import { LayoutTemplate } from './templates/layout/layout.template';
@@ -48,6 +50,11 @@ const routes: Routes = [
         path: 'colaborador-criar',
         component: ColaboradorCriarPage,
         canActivate: [ColaboradorCriarGuardService]
+    },
+    {
+        path: 'cliente-criar',
+        component: ClienteCriarPage,
+        canActivate: [ClienteGuard]
     }
 ];
 
