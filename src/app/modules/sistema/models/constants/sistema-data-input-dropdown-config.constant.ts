@@ -11,5 +11,6 @@ export const MercadoDataInputDropdown: DataInputDropdownConfig = {
             propriedade: ['nomeMercado']
         }
     ],
-    propertySearch: ['nomeMercado']
+    propertySearch: ['nomeMercado'],
+    propertyValue: ['id']
 };

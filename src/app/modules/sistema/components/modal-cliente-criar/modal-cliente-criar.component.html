@@ -2,37 +2,39 @@
     <h4 class="modal-title">Criar Cliente</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
 </div>
-<div *ngIf="mercados.length; else cadastroMercado">
-    <div class="modal-body">
-        <p>
-            Informe o e-mail do cliente para ser enviado o link de cadastro:
-        </p>
-        <form class="row g-3 needs-validation" [formGroup]="formGroup" (ngSubmit)="criarCliente()" novalidate
-            autocomplete="on">
-            <div class="col-12">
-                <label for="inputNome" class="form-label">Nome:</label>
-                <input type="text" class="form-control validator" id="inputNome" formControlName="nomeCliente">
-                <small class="text-danger" formControlOnErrorItem="nome"></small>
+<form [formGroup]="formGroup" (ngSubmit)="criarCliente()" novalidate autocomplete="on">
+    <div *ngIf="mercados.length; else cadastroMercado">
+        <div class="modal-body">
+            <p>
+                Informe os dados abaixo do cliente para que seja enviado o link de cadastro:
+            </p>
+            <div class="row g-3 needs-validation">
+                <div class="col-12">
+                    <label for="inputNome" class="form-label">Nome:</label>
+                    <input type="text" class="form-control validator" id="inputNomeCliente"
+                        formControlName="nomeCliente">
+                    <small class="text-danger" formControlOnErrorItem="nomeCliente"></small>
+                </div>
+                <div class="col-12">
+                    <label for="inputEmail" class="form-label">E-mail:</label>
+                    <input type="text" class="form-control validator" id="inputEmail" formControlName="email">
+                    <small class="text-danger" formControlOnErrorItem="email"></small>
+                </div>
+                <div class="col-12">
+                    <label for="inputMercado" class="form-label">Mercado:</label>
+                    <bpgear-input-dropdown-auto-complete controlName="idMercado" [formGroup]="formGroup"
+                        [itens]="mercados" [dataInputDropdownConfig]="mercadoDataInputDropdown" name="inputMercado">
+                    </bpgear-input-dropdown-auto-complete>
+                    <small class="text-danger" formControlOnErrorItem="idMercado"></small>
+                </div>
             </div>
-            <div class="col-12">
-                <label for="inputEmail" class="form-label">E-mail:</label>
-                <input type="text" class="form-control validator" id="inputEmail" formControlName="email">
-                <small class="text-danger" formControlOnErrorItem="email"></small>
-            </div>
-            <div class="col-12">
-                <label for="inputMercado" class="form-label">Mercado:</label>
-                <bpgear-input-dropdown-auto-complete controlName="idMercado" [itens]="mercados"
-                    [dataInputDropdownConfig]="mercadoDataInputDropdown" name="inputMercado">
-                </bpgear-input-dropdown-auto-complete>
-                <small class="text-danger" formControlOnErrorItem="idMercado"></small>
-            </div>
-        </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Fechar</button>
+            <button type="submit" class="btn btn-success" (click)="criarCliente()">Confirmar</button>
+        </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Fechar</button>
-        <button type="submit" class="btn btn-success" (click)="criarCliente()">Confirmar</button>
-    </div>
-</div>
+</form>
 <ng-template #cadastroMercado>
     <div class="modal-body">
         <p>

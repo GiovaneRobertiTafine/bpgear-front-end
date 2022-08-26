@@ -7,6 +7,7 @@ import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { ColaboradorCriarEnviarEmail } from '../../models/requests/colaborador-criar-enviar-email.request';
 import { ColaboradorService } from '../../services/colaborador.service';
+import { EmpresaService } from '../../services/empresa.service';
 
 @Component({
     selector: 'bpgear-modal-colaborador-criar',
@@ -25,11 +26,12 @@ export class ModalColaboradorCriarComponent implements OnInit, OnDestroy {
         private spinnerService: SpinnerService,
         private toastService: ToastService,
         private colaboradorService: ColaboradorService,
+        private empresaService: EmpresaService
     ) { }
 
     ngOnInit(): void {
         this.form = this.fb.group<ColaboradorCriarEnviarEmail>({
-            idEmpresa: [this.idEmpresa],
+            idEmpresa: [this.empresaService.getEmpresa().value.id],
             nome: ["", [Validators.required, Validators.minLength(10)]],
             email: ["", [Validators.required, Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)]]
         });

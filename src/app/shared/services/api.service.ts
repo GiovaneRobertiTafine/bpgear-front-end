@@ -46,7 +46,7 @@ export class ApiService {
     handleError<T>(errorMethod: string) {
         return (error: HttpErrorResponse): Observable<T> => {
             let errorMessage = '';
-            console.log(error);
+            // console.log(error);
 
             // client-side error or service off
             if (error.status === 0) {
@@ -61,6 +61,7 @@ export class ApiService {
                 console.log(errorMessage);
 
                 if (error.status === 400) {
+                    console.log(error.error['errors']);
                     const resError: IDataReturn<null> = { data: null, resultStatus: { code: error.status, message: "Erro na requisição." } };
                     return of(resError as unknown as T);
                 }

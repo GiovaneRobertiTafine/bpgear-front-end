@@ -3,7 +3,7 @@
     <button class="btn btn-outline-success float-end" (click)="criarColaborador()">Novo Colaborador</button>
 </div>
 
-<bpgear-table [dataViewConfig]="colaboradorDataViewConfig" [data]="colaboradores" #tableEmpresa
+<bpgear-table [dataViewConfig]="colaboradorDataViewConfig" [data]="colaboradores" #tableColaborador
     (deletarItemEvent)="deletarColaborador($event)" (editarItemEvent)="editarColaborador($event)">
 
 </bpgear-table>
