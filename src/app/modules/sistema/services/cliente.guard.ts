@@ -21,7 +21,6 @@ export class ClienteGuard implements CanActivate {
             this.router.navigate(['/']);
             return of(false);
         } else {
-            console.log(token);
             return of(true);
         }
     }

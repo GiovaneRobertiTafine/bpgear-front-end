@@ -22,6 +22,7 @@ export class ColaboradorCriarPage implements OnInit, OnDestroy {
     cnpj = '';
     token = '';
     colaboradorCriado = false;
+
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
     constructor(

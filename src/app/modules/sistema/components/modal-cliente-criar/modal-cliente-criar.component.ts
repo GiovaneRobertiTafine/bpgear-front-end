@@ -39,7 +39,7 @@ export class ModalClienteCriarComponent implements OnInit, OnDestroy {
 
         this.form = this.fb.group<ClienteCriarEnviarEmail>({
             idEmpresa: [this.idEmpresa],
-            nomeCliente: ["", [Validators.required, Validators.minLength(3)]],
+            nomeCliente: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(50)]],
             email: ["", [Validators.required, Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)]],
             idMercado: ["", [Validators.required]]
         });
