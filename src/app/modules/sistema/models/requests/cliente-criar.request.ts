@@ -1,6 +1,7 @@
 import { Cliente } from "../interfaces/cliente.interface";
 
-export interface ClienteCriar {
+export interface ClienteCriar extends Cliente {
     idEmpresa: string;
-    cliente: Cliente;
+    senha: string;
+    confirmarSenha: string;
 }

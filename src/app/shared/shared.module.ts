@@ -18,7 +18,6 @@ import { MaskPipe } from 'ngx-mask';
 import { TelefonePipe } from './pipes/telefone.pipe';
 import { ValidatorClassDirective } from './directives/validator-class.directive';
 import { InputDropdownAutoCompleteComponent } from './components/input-dropdown-auto-complete/input-dropdown-auto-complete.component';
-
 @NgModule({
     declarations: [
         InputPasswordComponent,
@@ -44,7 +43,7 @@ import { InputDropdownAutoCompleteComponent } from './components/input-dropdown-
         ToastComponent,
         SpinnerComponent,
         TableComponent,
-        InputDropdownAutoCompleteComponent
+        InputDropdownAutoCompleteComponent,
     ],
     providers: [
         InjectorPipe,

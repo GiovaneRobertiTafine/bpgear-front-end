@@ -1,13 +1,16 @@
 <div class="px-4 pb-5 w-100" id="content">
     <h3 class="pt-3">BpGear</h3>
+    <h3 class="fst-italic mt-3">Criar cliente:</h3>
     <p class="mb-0 mt-3 fw-bold fst-italic">
         {{ nomeEmpresa }} <span class="d-none d-md-inline"> / </span>
         <br class="d-md-none" />
         CNPJ: {{ cnpj | mask: 'CPF_CNPJ' }}
+        <br>
+        <a [routerLink]="['/login']" class="text-reset" *ngIf="clienteCriado">Ir para página de Login</a>
     </p>
-    <h3 class="fst-italic mt-3">Criar cliente:</h3>
-    <form class="mt-3 needs-validation" [formGroup]="formGroup" novalidate autocomplete="on">
-        <div class="row flex-column align-items-center" [formGroup]="formGroupCliente">
+    <form class="mt-3 needs-validation" [formGroup]="formGroup" novalidate autocomplete="on" (ngSubmit)="criarCliente()"
+        *ngIf="!clienteCriado">
+        <div class="row flex-column align-items-center">
             <p class="col-md-4 mb-3 fw-bold">Preencha os dados abaixo:</p>
             <div class="col-md-4 mb-3">
                 <label for="inputNomeCliente" class="form-label">Nome:</label>
@@ -26,13 +29,15 @@
             </div>
             <div class="col-md-4 mb-3">
                 <label for="inputSenha" class="form-label">Senha:</label>
-                <input type="password" class="form-control validator" id="inputSenha" formControlName="senha">
+                <bpgear-input-password controlName="senha" name="senha" [classes]="['validator']" [viewFocus]="true">
+                </bpgear-input-password>
                 <small class="text-danger" formControlOnErrorItem="senha"></small>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="inputConfirmarSenha" class="form-label">Confirmar senha:</label>
-                <input type="password" class="form-control validator" id="inputConfirmarSenha"
-                    formControlName="confirmarSenha">
+                <bpgear-input-password controlName="confirmarSenha" name="confirmarSenha" [classes]="['validator']"
+                    [viewFocus]="true">
+                </bpgear-input-password>
                 <small class="text-danger" formControlOnErrorItem="confirmarSenha"></small>
             </div>
             <div class="col-md-4 mb-3">

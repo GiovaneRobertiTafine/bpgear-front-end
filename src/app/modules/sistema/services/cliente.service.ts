@@ -5,6 +5,8 @@ import { IDataReturn } from 'src/app/shared/models/data-return.model';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { Cliente } from '../models/interfaces/cliente.interface';
 import { ClienteCriarEnviarEmail } from '../models/requests/cliente-criar-enviar-email.request';
+import { ClienteCriar } from '../models/requests/cliente-criar.request';
+import { ClienteDeletar } from '../models/requests/cliente-deletar.request';
 
 @Injectable({
     providedIn: 'root'
@@ -26,6 +28,20 @@ export class ClienteService extends ApiService {
         return this.post<IDataReturn<null>>('cliente/criar-email', request)
             .pipe(
                 catchError(this.handleError<IDataReturn<null>>('clienteCriarEnviarEmail'))
+            );
+    }
+
+    public criarCliente(request: ClienteCriar): Observable<IDataReturn<null>> {
+        return this.post<IDataReturn<null>>('cliente/criar', request)
+            .pipe(
+                catchError(this.handleError<IDataReturn<null>>('clienteCriar'))
+            );
+    }
+
+    public deletarCliente(request: ClienteDeletar): Observable<IDataReturn<null>> {
+        return this.delete<IDataReturn<null>>('cliente/deletar', request)
+            .pipe(
+                catchError(this.handleError<IDataReturn<null>>('clienteDeletar'))
             );
     }
 }

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, takeUntil } from 'rxjs';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { ModalClienteCriarComponent } from '../../components/modal-cliente-criar/modal-cliente-criar.component';
+import { ModalClienteDeletarComponent } from '../../components/modal-cliente-deletar/modal-cliente-deletar.component';
 import { ClienteDataViewConfig } from '../../models/constants/sistema-data-view-config.constant';
 import { Cliente } from '../../models/interfaces/cliente.interface';
 import { ClienteService } from '../../services/cliente.service';
@@ -19,6 +20,7 @@ import { MercadoService } from '../../services/mercado.service';
 export class ClientePage implements OnInit {
     clienteDataViewConfig = ClienteDataViewConfig;
     clientes: Cliente[] = [];
+    @ViewChild('colAcessar') colAcessar;
 
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
@@ -34,6 +36,10 @@ export class ClientePage implements OnInit {
 
     ngOnInit(): void {
         this.obterClientes();
+    }
+
+    ngAfterViewInit(): void {
+        this.clienteDataViewConfig.colunas[this.clienteDataViewConfig.colunas.length - 1].template = this.colAcessar;
     }
 
     obterClientes(): void {
@@ -77,6 +83,18 @@ export class ClientePage implements OnInit {
                         .catch((err) => err);
                 }
             );
+    }
+
+    deletarCliente(cliente: Cliente): void {
+        const modalRef = this.modalService.open(ModalClienteDeletarComponent, { size: 'md' });
+        modalRef.componentInstance.cliente = cliente;
+        modalRef.result
+            .then((res) => {
+                if (res) {
+                    this.obterClientes();
+                }
+            })
+            .catch((err) => err);
     }
 
 }

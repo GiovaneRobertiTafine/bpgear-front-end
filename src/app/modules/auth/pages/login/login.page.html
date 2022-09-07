@@ -11,8 +11,10 @@
                         <input name="usuario" formControlName="usuario" type="text" class="form-control"
                             aria-describedby="usuario" autofocus>
                     </div>
-                    <label class="form-label" for="senha">Senha</label>
-                    <bpgear-input-password controlName="senha" name="senha"></bpgear-input-password>
+                    <div class="mb-3">
+                        <label class="form-label" for="senha">Senha</label>
+                        <bpgear-input-password controlName="senha" name="senha"></bpgear-input-password>
+                    </div>
                     <div class="d-grid gap-2">
                         <button type="submit" [disabled]="loginForm.invalid"
                             class="btn btn-danger btn-block">Entrar</button>

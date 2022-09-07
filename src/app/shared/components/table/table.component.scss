@@ -60,3 +60,25 @@ tbody {
         }
     }
 }
+
+/* table-clientes */
+.table-clientes {
+    thead>tr {
+        th:nth-child(5) {
+            text-align: center;
+        }
+    }
+
+    tbody>tr {
+        td:nth-child(5) {
+            font-weight: 500;
+
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
+        }
+
+    }
+
+}

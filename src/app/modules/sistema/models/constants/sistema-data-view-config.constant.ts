@@ -81,7 +81,7 @@ export const ClienteDataViewConfig: DataViewConfig = {
     colunas: [
         {
             titulo: "Nome",
-            propriedade: ["nomeCompleto"]
+            propriedade: ["nomeCliente"]
         },
         {
             titulo: "Usuário",
@@ -93,17 +93,18 @@ export const ClienteDataViewConfig: DataViewConfig = {
         },
         {
             titulo: "Pesquisa",
-            propriedade: ["pesquisaAtiva"],
-            mascara: {
-                token: TransformValuePipe,
-                arg: 'colaborador-tabela-pesquisa'
-            }
+            propriedade: ["pesquisa"],
+        },
+        {
+            titulo: "Ativar/Desativar Pesquisa",
+            propriedade: ["pesquisa"],
         }
     ],
     colunasAcao: {
-        editar: true,
+        // editar: true,
         deletar: true
-    }
+    },
+    classes: ['table-clientes']
 };
 
 export const MercadoDataViewConfig: DataViewConfig = {

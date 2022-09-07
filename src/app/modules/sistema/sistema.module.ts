@@ -6,8 +6,6 @@ import { SistemaRoutingModule } from './sistema-routing.module';
 import { LayoutTemplate } from './templates/layout/layout.template';
 import { EmpresaPage } from './pages/empresa/empresa.page';
 
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { TokenInterceptor } from '../auth/services/token.interceptor';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -26,8 +24,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ColaboradorPage } from './pages/colaborador/colaborador.page';
 import { ModalColaboradorCriarComponent } from './components/modal-colaborador-criar/modal-colaborador-criar.component';
 import { ColaboradorCriarPage } from './pages/colaborador-criar/colaborador-criar.page';
-import { AuthGuardService } from '../auth/services/auth-guard.service';
-import { TokenGuardService } from '../auth/services/token-guard.service';
 import { TransformValuePipe } from './pipe/transform-value.pipe';
 import { ModalColaboradorDeletarComponent } from './components/modal-colaborador-deletar/modal-colaborador-deletar.component';
 import { ModalColaboradorEditarComponent } from './components/modal-colaborador-editar/modal-colaborador-editar.component';
@@ -38,6 +34,8 @@ import { ModalMercadoCriarComponent } from './components/modal-mercado-criar/mod
 import { ModalMercadoDeletarComponent } from './components/modal-mercado-deletar/modal-mercado-deletar.component';
 import { ModalMercadoEditarComponent } from './components/modal-mercado-editar/modal-mercado-editar.component';
 import { ClienteCriarPage } from './pages/cliente-criar/cliente-criar.page';
+import { ModalClienteDeletarComponent } from './components/modal-cliente-deletar/modal-cliente-deletar.component';
+import { AlterarPesquisaComponent } from './components/alterar-pesquisa/alterar-pesquisa.component';
 @NgModule({
     declarations: [
         LayoutTemplate,
@@ -61,6 +59,8 @@ import { ClienteCriarPage } from './pages/cliente-criar/cliente-criar.page';
         ModalMercadoDeletarComponent,
         ModalMercadoEditarComponent,
         ClienteCriarPage,
+        ModalClienteDeletarComponent,
+        AlterarPesquisaComponent,
     ],
     imports: [
         CommonModule,
