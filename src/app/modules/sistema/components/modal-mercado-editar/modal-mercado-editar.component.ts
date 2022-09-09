@@ -30,13 +30,13 @@ export class ModalMercadoEditarComponent implements OnInit {
 
     ngOnInit(): void {
         this.form = this.fb.group<MercadoEditar>({
-            idMercado: [this.mercado.id],
-            nomeMercado: [this.mercado.nomeMercado, [Validators.required, Validators.minLength(3)]]
+            id: [this.mercado.id],
+            nome: [this.mercado.nome, [Validators.required, Validators.minLength(3)]]
         });
 
         this.form.setFormErrors({
-            idMercado: {},
-            nomeMercado: { required: "Nome é requerido", minlength: "Minímo de 3 caracteres" }
+            id: {},
+            nome: { required: "Nome é requerido", minlength: "Minímo de 3 caracteres" }
         });
     }
 
@@ -46,8 +46,9 @@ export class ModalMercadoEditarComponent implements OnInit {
             return;
         }
 
+        const request: MercadoEditar = { ...this.form.value };
         this.spinnerService.show();
-        this.mercadoService.editarMercado(this.form.value)
+        this.mercadoService.editarMercado(request)
             .pipe(
                 takeUntil(this.unsubscribe$)
             )

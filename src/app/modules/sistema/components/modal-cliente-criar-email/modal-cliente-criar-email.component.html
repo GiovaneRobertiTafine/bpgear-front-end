@@ -2,8 +2,8 @@
     <h4 class="modal-title">Criar Cliente</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
 </div>
-<form [formGroup]="formGroup" (ngSubmit)="criarCliente()" novalidate autocomplete="on">
-    <div *ngIf="mercados.length; else cadastroMercado">
+<div *ngIf="mercados.length; else cadastroMercado">
+    <form [formGroup]="formGroup" (ngSubmit)="criarCliente()" novalidate autocomplete="on">
         <div class="modal-body">
             <p>
                 Informe os dados abaixo do cliente para que seja enviado o link de cadastro:
@@ -11,9 +11,8 @@
             <div class="row g-3 needs-validation">
                 <div class="col-12">
                     <label for="inputNome" class="form-label">Nome:</label>
-                    <input type="text" class="form-control validator" id="inputNomeCliente"
-                        formControlName="nomeCliente">
-                    <small class="text-danger" formControlOnErrorItem="nomeCliente"></small>
+                    <input type="text" class="form-control validator" id="inputNome" formControlName="nome">
+                    <small class="text-danger" formControlOnErrorItem="nome"></small>
                 </div>
                 <div class="col-12">
                     <label for="inputEmail" class="form-label">E-mail:</label>
@@ -33,8 +32,8 @@
             <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Fechar</button>
             <button type="submit" class="btn btn-success">Confirmar</button>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 <ng-template #cadastroMercado>
     <div class="modal-body">
         <p>

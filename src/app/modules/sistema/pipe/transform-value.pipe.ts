@@ -5,13 +5,15 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TransformValuePipe implements PipeTransform {
     private readonly dataTransformValue: { [index: string]: {}; } = {
-        'acao-tabela-pesquisa': {
+        'acao-alterar-pesquisa': {
             ATIVADA: "Desativar",
-            DESATIVADA: "Ativar"
-        }
+            DESATIVADA: "Ativar",
+            0: "Desativar",
+            1: "Ativar"
+        },
     };
 
-    transform(value: string, args: string): unknown {
+    transform(value: any, args: string): unknown {
         return this.dataTransformValue?.[args]?.[value] ?? value;
     }
 

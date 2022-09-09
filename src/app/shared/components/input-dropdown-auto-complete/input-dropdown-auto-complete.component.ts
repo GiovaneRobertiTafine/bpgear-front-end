@@ -83,7 +83,6 @@ export class InputDropdownAutoCompleteComponent implements OnInit {
         }
     }
 
-
     searchItem(valueSearch: string): void {
         if (valueSearch.length) {
             this.itensRef = [];
@@ -98,9 +97,6 @@ export class InputDropdownAutoCompleteComponent implements OnInit {
         }
     }
 
-
-
     get formControl() { return this.formGroup.controls[this.controlName] as FormControl; }
-
 
 }

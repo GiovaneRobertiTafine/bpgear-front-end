@@ -1,12 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, takeUntil } from 'rxjs';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
-import { ModalClienteCriarComponent } from '../../components/modal-cliente-criar/modal-cliente-criar.component';
-import { ModalClienteDeletarComponent } from '../../components/modal-cliente-deletar/modal-cliente-deletar.component';
-import { ClienteDataViewConfig } from '../../models/constants/sistema-data-view-config.constant';
+import { ModalAlterarPesquisaComponent } from '../../components/modal-alterar-pesquisa/modal-alterar-pesquisa.component';
+import { ModalClienteCriarEmailComponent } from '../../components/modal-cliente-criar-email/modal-cliente-criar-email.component';
+import { ModalDeletarComponent } from '../../components/modal-deletar/modal-deletar.component';
+import { ModalDetalharComponent } from '../../components/modal-detalhar/modal-detalhar.component';
+import { ClienteDataViewConfig, ClienteDetalharViewConfig } from '../../models/constants/sistema-data-view-config.constant';
+import { Pesquisa } from '../../models/enums/pesquisa.enum';
 import { Cliente } from '../../models/interfaces/cliente.interface';
 import { ClienteService } from '../../services/cliente.service';
 import { EmpresaService } from '../../services/empresa.service';
@@ -17,10 +20,11 @@ import { MercadoService } from '../../services/mercado.service';
     templateUrl: './cliente.page.html',
     styleUrls: ['./cliente.page.scss']
 })
-export class ClientePage implements OnInit {
+export class ClientePage implements OnInit, AfterViewInit {
     clienteDataViewConfig = ClienteDataViewConfig;
     clientes: Cliente[] = [];
-    @ViewChild('colAcessar') colAcessar;
+    pesquisa = Pesquisa;
+    @ViewChild('colAlterarPesquisa') colAlterarPesquisa;
 
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
@@ -39,7 +43,7 @@ export class ClientePage implements OnInit {
     }
 
     ngAfterViewInit(): void {
-        this.clienteDataViewConfig.colunas[this.clienteDataViewConfig.colunas.length - 1].template = this.colAcessar;
+        this.clienteDataViewConfig.colunas[this.clienteDataViewConfig.colunas.length - 1].template = this.colAlterarPesquisa;
     }
 
     obterClientes(): void {
@@ -62,6 +66,7 @@ export class ClientePage implements OnInit {
     criarCliente(): void {
         this.spinnerService.show();
         this.mercadoService.obterMercados(this.empresaService.getEmpresa().value.id)
+            .pipe(takeUntil(this.unsubscribe$))
             .subscribe(
                 (response) => {
                     this.spinnerService.hide();
@@ -69,7 +74,7 @@ export class ClientePage implements OnInit {
                         this.toastService.error(response.resultStatus.message);
                         return;
                     }
-                    const modalRef = this.modalService.open(ModalClienteCriarComponent, { size: 'md' });
+                    const modalRef = this.modalService.open(ModalClienteCriarEmailComponent, { size: 'md' });
                     modalRef.componentInstance.mercados = response.data;
 
                     modalRef.result
@@ -86,7 +91,25 @@ export class ClientePage implements OnInit {
     }
 
     deletarCliente(cliente: Cliente): void {
-        const modalRef = this.modalService.open(ModalClienteDeletarComponent, { size: 'md' });
+        const modalRef = this.modalService.open(ModalDeletarComponent, { size: 'md' });
+        modalRef.componentInstance.cliente = cliente;
+        modalRef.result
+            .then((res) => {
+                if (res) {
+                    this.obterClientes();
+                }
+            })
+            .catch((err) => err);
+    }
+
+    detalharCliente(cliente: Cliente): void {
+        const modalRef = this.modalService.open(ModalDetalharComponent, { size: 'md' });
+        modalRef.componentInstance.cliente = cliente;
+        modalRef.componentInstance.dataViewConfig = ClienteDetalharViewConfig;
+    }
+
+    alterarPesquisa(cliente: Cliente): void {
+        const modalRef = this.modalService.open(ModalAlterarPesquisaComponent, { size: 'md' });
         modalRef.componentInstance.cliente = cliente;
         modalRef.result
             .then((res) => {

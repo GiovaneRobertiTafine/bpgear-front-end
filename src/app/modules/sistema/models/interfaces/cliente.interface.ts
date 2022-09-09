@@ -1,9 +1,9 @@
 import { Pesquisa } from "../enums/pesquisa.enum";
 
 export interface Cliente {
-    id?: string;
+    id: string;
     usuario: string;
-    nomeCliente: string;
+    nome: string;
     razaoSocial: string;
     cnpj: string;
     responsavel: string;

@@ -3,8 +3,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, takeUntil } from 'rxjs';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { ModalDeletarComponent } from '../../components/modal-deletar/modal-deletar.component';
 import { ModalMercadoCriarComponent } from '../../components/modal-mercado-criar/modal-mercado-criar.component';
-import { ModalMercadoDeletarComponent } from '../../components/modal-mercado-deletar/modal-mercado-deletar.component';
 import { ModalMercadoEditarComponent } from '../../components/modal-mercado-editar/modal-mercado-editar.component';
 import { MercadoDataViewConfig } from '../../models/constants/sistema-data-view-config.constant';
 import { Mercado } from '../../models/interfaces/mercado.interface';
@@ -63,7 +63,7 @@ export class MercadoPage implements OnInit, OnDestroy {
     }
 
     deletarMercado(mercado: Mercado): void {
-        const modalRef = this.modalService.open(ModalMercadoDeletarComponent, { size: 'md' });
+        const modalRef = this.modalService.open(ModalDeletarComponent, { size: 'md' });
         modalRef.componentInstance.mercado = mercado;
         modalRef.result
             .then((res) => {

@@ -15,6 +15,11 @@
                             placement="top" ngbTooltip="Excluir">
                         </fa-icon>
                     </th>
+                    <th *ngIf="dataViewConfig?.colunasAcao?.detalhar" class="th-acoes border-start text-center">
+                        <fa-icon [icon]="iconDetalhar" class="cursor-pointer" [fixedWidth]="true" container="body"
+                            placement="top" ngbTooltip="Detalhar">
+                        </fa-icon>
+                    </th>
                 </tr>
             </thead>
             <tbody class="bg-light border-top-0">
@@ -26,7 +31,7 @@
                         </span>
                         <ng-template #ngContainer>
                             <ng-container [ngTemplateOutlet]="col.template"
-                                [ngTemplateOutletContext]="{ dataCallBack: obterValorPropriedade(obj, col)}">
+                                [ngTemplateOutletContext]="{ dataCallBack: obterValorPropriedade(obj, col), itemCallBack: obj}">
                             </ng-container>
                         </ng-template>
                     </td>
@@ -38,6 +43,11 @@
                     <td *ngIf="dataViewConfig?.colunasAcao?.deletar" class="cursor-pointer border-start text-center">
                         <fa-icon [icon]="iconDeletar" class="cursor-pointer" [fixedWidth]="true"
                             (click)="deletarItem(obj)">
+                        </fa-icon>
+                    </td>
+                    <td *ngIf="dataViewConfig?.colunasAcao?.detalhar" class="cursor-pointer border-start text-center">
+                        <fa-icon [icon]="iconDetalhar" class="cursor-pointer" [fixedWidth]="true"
+                            (click)="detalharItem(obj)">
                         </fa-icon>
                     </td>
                 </tr>

@@ -1,0 +1,45 @@
+<ng-template [ngIf]="colaborador">
+    <div class="modal-header">
+        <h4 class="modal-title">Deletar Colaborador</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <p>Tem certeza que deseja deletar este colaborador: <br>
+            <strong>{{colaborador.nome}}</strong>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Fechar</button>
+        <button type="submit" class="btn btn-success" (click)="deletarColaborador()">Confirmar</button>
+    </div>
+</ng-template>
+<ng-template [ngIf]="cliente">
+    <div class="modal-header">
+        <h4 class="modal-title">Deletar Cliente</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <p>Tem certeza que deseja deletar este cliente: <br>
+            <strong>{{cliente.nome}}</strong>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Fechar</button>
+        <button type="submit" class="btn btn-success" (click)="deletarCliente()">Confirmar</button>
+    </div>
+</ng-template>
+<ng-template [ngIf]="mercado">
+    <div class="modal-header">
+        <h4 class="modal-title">Deletar Mercado</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <p>Tem certeza que deseja deletar este mercado: <br>
+            <strong>{{mercado.nome}}</strong>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Fechar</button>
+        <button type="submit" class="btn btn-success" (click)="deletarMercado()">Confirmar</button>
+    </div>
+</ng-template>

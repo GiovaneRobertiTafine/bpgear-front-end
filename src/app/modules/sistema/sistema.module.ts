@@ -22,20 +22,18 @@ import { ReactiveFormsTypedModule } from 'reactive-forms-typed';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ColaboradorPage } from './pages/colaborador/colaborador.page';
-import { ModalColaboradorCriarComponent } from './components/modal-colaborador-criar/modal-colaborador-criar.component';
 import { ColaboradorCriarPage } from './pages/colaborador-criar/colaborador-criar.page';
 import { TransformValuePipe } from './pipe/transform-value.pipe';
-import { ModalColaboradorDeletarComponent } from './components/modal-colaborador-deletar/modal-colaborador-deletar.component';
-import { ModalColaboradorEditarComponent } from './components/modal-colaborador-editar/modal-colaborador-editar.component';
+import { ModalColaboradorCriarEmailComponent } from './components/modal-colaborador-criar-email/modal-colaborador-criar-email.component';
 import { ClientePage } from './pages/cliente/cliente.page';
-import { ModalClienteCriarComponent } from './components/modal-cliente-criar/modal-cliente-criar.component';
 import { MercadoPage } from './pages/mercado/mercado.page';
 import { ModalMercadoCriarComponent } from './components/modal-mercado-criar/modal-mercado-criar.component';
-import { ModalMercadoDeletarComponent } from './components/modal-mercado-deletar/modal-mercado-deletar.component';
 import { ModalMercadoEditarComponent } from './components/modal-mercado-editar/modal-mercado-editar.component';
 import { ClienteCriarPage } from './pages/cliente-criar/cliente-criar.page';
-import { ModalClienteDeletarComponent } from './components/modal-cliente-deletar/modal-cliente-deletar.component';
-import { AlterarPesquisaComponent } from './components/alterar-pesquisa/alterar-pesquisa.component';
+import { ModalAlterarPesquisaComponent } from './components/modal-alterar-pesquisa/modal-alterar-pesquisa.component';
+import { ModalDeletarComponent } from './components/modal-deletar/modal-deletar.component';
+import { ModalDetalharComponent } from './components/modal-detalhar/modal-detalhar.component';
+import { ModalClienteCriarEmailComponent } from './components/modal-cliente-criar-email/modal-cliente-criar-email.component';
 @NgModule({
     declarations: [
         LayoutTemplate,
@@ -47,20 +45,18 @@ import { AlterarPesquisaComponent } from './components/alterar-pesquisa/alterar-
         SectionUserComponent,
         SideBarComponent,
         ColaboradorPage,
-        ModalColaboradorCriarComponent,
         ColaboradorCriarPage,
         TransformValuePipe,
-        ModalColaboradorDeletarComponent,
-        ModalColaboradorEditarComponent,
+        ModalColaboradorCriarEmailComponent,
         ClientePage,
-        ModalClienteCriarComponent,
         MercadoPage,
         ModalMercadoCriarComponent,
-        ModalMercadoDeletarComponent,
         ModalMercadoEditarComponent,
         ClienteCriarPage,
-        ModalClienteDeletarComponent,
-        AlterarPesquisaComponent,
+        ModalAlterarPesquisaComponent,
+        ModalDeletarComponent,
+        ModalDetalharComponent,
+        ModalClienteCriarEmailComponent,
     ],
     imports: [
         CommonModule,

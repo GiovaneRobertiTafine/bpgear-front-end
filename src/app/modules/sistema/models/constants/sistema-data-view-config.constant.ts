@@ -64,32 +64,34 @@ export const ColaboradorDataViewConfig: DataViewConfig = {
         },
         {
             titulo: "Pesquisa",
-            propriedade: ["pesquisaAtiva"],
-            mascara: {
-                token: TransformValuePipe,
-                arg: 'colaborador-tabela-pesquisa'
-            }
+            propriedade: ["pesquisa"],
+        },
+        {
+            titulo: "Ativar/Desativar Pesquisa",
+            propriedade: ["pesquisa"],
         }
     ],
     colunasAcao: {
-        editar: true,
+        // editar: true,
         deletar: true
-    }
+    },
+    classes: ['table-colaboradores']
 };
 
 export const ClienteDataViewConfig: DataViewConfig = {
     colunas: [
         {
             titulo: "Nome",
-            propriedade: ["nomeCliente"]
+            propriedade: ["nome"]
+        },
+        {
+            titulo: "CNPJ",
+            propriedade: ["cnpj"],
+            mascara: { token: MaskPipe, arg: "CPF_CNPJ" },
         },
         {
             titulo: "Usuário",
             propriedade: ["usuario"]
-        },
-        {
-            titulo: "E-mail",
-            propriedade: ["email"]
         },
         {
             titulo: "Pesquisa",
@@ -102,16 +104,56 @@ export const ClienteDataViewConfig: DataViewConfig = {
     ],
     colunasAcao: {
         // editar: true,
-        deletar: true
+        deletar: true,
+        detalhar: true
     },
     classes: ['table-clientes']
+};
+
+export const ClienteDetalharViewConfig: DataViewConfig = {
+    colunas: [
+        {
+            titulo: "Nome",
+            propriedade: ["nome"]
+        },
+        {
+            titulo: "Razao Social",
+            propriedade: ["razaoSocial"]
+        },
+        {
+            titulo: "CNPJ",
+            propriedade: ["cnpj"],
+            mascara: { token: MaskPipe, arg: "CPF_CNPJ" },
+        },
+        {
+            titulo: "Responsável",
+            propriedade: ["responsavel"]
+        },
+        {
+            titulo: "E-mail",
+            propriedade: ["email"]
+        },
+        {
+            titulo: "Telefone",
+            propriedade: ["telefone"],
+            mascara: { token: TelefonePipe },
+        },
+        {
+            titulo: "Usuário",
+            propriedade: ["usuario"]
+        },
+        {
+            titulo: "Pesquisa",
+            propriedade: ["pesquisa"],
+        },
+    ]
 };
 
 export const MercadoDataViewConfig: DataViewConfig = {
     colunas: [
         {
             titulo: "Nome",
-            propriedade: ["nomeMercado"]
+            propriedade: ["nome"]
         },
     ],
     colunasAcao: {

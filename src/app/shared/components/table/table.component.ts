@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, TemplateRef, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { DataViewConfig, DataColuna } from '../../models/data-view-config.model';
-import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faRectangleList, faPenToSquare, faTrashCan, faInfo, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { InjectorPipe } from '../../pipes/injector.pipe';
 
 @Component({
@@ -11,12 +11,14 @@ import { InjectorPipe } from '../../pipes/injector.pipe';
 export class TableComponent implements OnInit {
     iconEditar = faPenToSquare;
     iconDeletar = faTrashCan;
+    iconDetalhar = faInfoCircle;
 
     @Input() dataViewConfig: DataViewConfig;
     @Input() data: any[];
 
     @Output() deletarItemEvent = new EventEmitter<any>();
     @Output() editarItemEvent = new EventEmitter<any>();
+    @Output() detalharItemEvent = new EventEmitter<any>();
     @Output() eventCallBack = new EventEmitter<any>();
 
     constructor(private dynamicPipe: InjectorPipe) { }
@@ -45,6 +47,10 @@ export class TableComponent implements OnInit {
 
     editarItem(item: any): void {
         this.editarItemEvent.emit(item);
+    }
+
+    detalharItem(item: any): void {
+        this.detalharItemEvent.emit(item);
     }
 
     obterClassesTabela(): string {

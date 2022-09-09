@@ -1,8 +1,10 @@
+import { Pesquisa } from "../enums/pesquisa.enum";
+
 export interface Colaborador {
-    id?: string;
+    id: string;
     usuario: string;
     nome: string;
     email: string;
     senha?: string;
-    pesquisaAtiva: boolean;
+    pesquisa: Pesquisa;
 }

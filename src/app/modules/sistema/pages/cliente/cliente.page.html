@@ -4,11 +4,8 @@
 </div>
 
 <bpgear-table [dataViewConfig]="clienteDataViewConfig" [data]="clientes" #tableEmpresa
-    (deletarItemEvent)="deletarCliente($event)">
-    <ng-template #colAcessar let-cel="dataCallBack">
-        <div class="text-center">
-            <span (click)="alterarPesquisa(cel)">{{cel | transformValue:
-                "acao-tabela-pesquisa"}}</span>
-        </div>
+    (deletarItemEvent)="deletarCliente($event)" (detalharItemEvent)="detalharCliente($event)">
+    <ng-template #colAlterarPesquisa let-data="dataCallBack" let-item="itemCallBack">
+        <span (click)="alterarPesquisa(item)">{{ data | transformValue: "acao-alterar-pesquisa" }}</span>
     </ng-template>
 </bpgear-table>

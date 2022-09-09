@@ -1,4 +1,4 @@
 export interface MercadoCriar {
     idEmpresa: string;
-    nomeMercado: string;
+    nome: string;
 }

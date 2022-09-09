@@ -1,4 +1,4 @@
 export interface MercadoEditar {
-    idMercado: string;
-    nomeMercado: string;
+    id: string;
+    nome: string;
 }

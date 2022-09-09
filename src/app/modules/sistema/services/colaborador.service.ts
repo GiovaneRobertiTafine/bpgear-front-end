@@ -4,10 +4,10 @@ import { catchError, Observable } from 'rxjs';
 import { IDataReturn } from 'src/app/shared/models/data-return.model';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { Colaborador } from '../models/interfaces/colaborador.interface';
-import { ColaboradorCriarEnviarEmail } from '../models/requests/colaborador-criar-enviar-email.request';
+import { ColaboradorAlterarPesquisa } from '../models/requests/colaborador-alterar-pesquisa.request';
+import { ColaboradorCriarEmail } from '../models/requests/colaborador-criar-email.request';
 import { ColaboradorCriar } from '../models/requests/colaborador-criar.request';
 import { DeletarColaborador } from '../models/requests/colaborador-deletar.request';
-import { ColaboradorEditar } from '../models/requests/colaborador-editar.request';
 
 @Injectable({
     providedIn: 'root'
@@ -25,7 +25,7 @@ export class ColaboradorService extends ApiService {
             );
     }
 
-    public colaboradorCriarEnviarEmail(request: ColaboradorCriarEnviarEmail): Observable<IDataReturn<null>> {
+    public colaboradorCriarEnviarEmail(request: ColaboradorCriarEmail): Observable<IDataReturn<null>> {
         return this.post<IDataReturn<null>>('colaborador/criar-email', request)
             .pipe(
                 catchError(this.handleError<IDataReturn<null>>('colaboradorCriarEnviarEmail'))
@@ -40,16 +40,16 @@ export class ColaboradorService extends ApiService {
     }
 
     public deletarColaborador(request: DeletarColaborador): Observable<IDataReturn<null>> {
-        return this.post<IDataReturn<null>>('colaborador/deletar', request)
+        return this.delete<IDataReturn<null>>('colaborador/deletar', request)
             .pipe(
                 catchError(this.handleError<IDataReturn<null>>('colaboradorDeletar'))
             );
     }
 
-    public editarColaborador(request: ColaboradorEditar): Observable<IDataReturn<null>> {
-        return this.post<IDataReturn<null>>('colaborador/editar', request)
+    public alterarPesquisaColaborador(request: ColaboradorAlterarPesquisa): Observable<IDataReturn<null>> {
+        return this.put<IDataReturn<null>>('colaborador/alterar-pesquisa', request)
             .pipe(
-                catchError(this.handleError<IDataReturn<null>>('colaboradorEditar'))
+                catchError(this.handleError<IDataReturn<null>>('colaboradorAlterarPesquisa'))
             );
     }
 }

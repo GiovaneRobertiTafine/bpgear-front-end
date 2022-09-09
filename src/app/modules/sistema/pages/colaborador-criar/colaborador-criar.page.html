@@ -1,38 +1,45 @@
-<div class="px-4 w-100" id="content">
+<div class="px-4 pb-5 w-100" id="content">
     <h3 class="pt-3">BpGear</h3>
+    <h3 class="fst-italic mt-3">Criar colaborador:</h3>
     <p class="mb-0 mt-3 fw-bold fst-italic">
         {{ nomeEmpresa }} <span class="d-none d-md-inline"> / </span>
         <br class="d-md-none" />
         CNPJ: {{ cnpj | mask: 'CPF_CNPJ' }}
-    </p>
-    <h3 class="fst-italic mt-3">Criar colaborador:</h3>
-    <p>
-        <strong>Nome Completo: </strong>
-        <span class="fst-italic">{{formGroupColaborador.controls['nome'].value}}</span> <br />
-        <strong>E-mail: </strong>
-        <span class="fst-italic">{{formGroupColaborador.controls['email'].value}}</span> <br />
+        <br>
         <a [routerLink]="['/login']" class="text-reset" *ngIf="colaboradorCriado">Ir para página de Login</a>
     </p>
     <form class="mt-3 needs-validation" [formGroup]="formGroup" novalidate autocomplete="on" *ngIf="!colaboradorCriado">
-        <div class="row flex-column align-items-center" [formGroup]="formGroupColaborador">
+        <div class="row flex-column align-items-center">
             <p class="col-md-4 fw-bold">Preencha os dados abaixo:</p>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-3">
+                <label for="inputNomeCliente" class="form-label">Nome:</label>
+                <input type="text" class="form-control validator" id="inputNome" formControlName="nome">
+                <small class="text-danger" formControlOnErrorItem="nome"></small>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="inputEmail" class="form-label">E-mail:</label>
+                <input type="text" class="form-control validator" id="inputEmail" formControlName="email">
+                <small class="text-danger" formControlOnErrorItem="email"></small>
+            </div>
+            <div class="col-md-4 mb-3">
                 <label for="inputUsuario" class="form-label">Usuário:</label>
                 <input type="text" class="form-control validator" id="inputUsuario" formControlName="usuario">
                 <small class="text-danger" formControlOnErrorItem="usuario"></small>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-3">
                 <label for="inputSenha" class="form-label">Senha:</label>
-                <input type="password" class="form-control validator" id="inputSenha" formControlName="senha">
+                <bpgear-input-password controlName="senha" name="senha" [classes]="['validator']" [viewFocus]="true">
+                </bpgear-input-password>
                 <small class="text-danger" formControlOnErrorItem="senha"></small>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-3">
                 <label for="inputConfirmarSenha" class="form-label">Confirmar senha:</label>
-                <input type="password" class="form-control validator" id="inputConfirmarSenha"
-                    formControlName="confirmarSenha">
+                <bpgear-input-password controlName="confirmarSenha" name="confirmarSenha" [classes]="['validator']"
+                    [viewFocus]="true">
+                </bpgear-input-password>
                 <small class="text-danger" formControlOnErrorItem="confirmarSenha"></small>
             </div>
-            <div class="col-md-4 d-grid">
+            <div class="col-md-4 mb-3 d-grid">
                 <button type="submit" class="btn btn-success btn-block align-bottom mt-3"
                     (click)="criarColaborador()">Confirmar</button>
             </div>

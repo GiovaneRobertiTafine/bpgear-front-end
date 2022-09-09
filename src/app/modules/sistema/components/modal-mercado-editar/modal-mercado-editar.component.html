@@ -2,17 +2,18 @@
     <h4 class="modal-title">Editar Mercado</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
 </div>
-<div class="modal-body">
-    <form class="row g-3 needs-validation" [formGroup]="formGroup" (ngSubmit)="editarMercado()" novalidate
-        autocomplete="on">
-        <div class="col-12">
-            <label for="inputNome" class="form-label">Nome:</label>
-            <input type="text" class="form-control validator" id="inputNome" formControlName="nomeMercado">
-            <small class=" text-danger" formControlOnErrorItem="nomeMercado"></small>
+<form [formGroup]="formGroup" (ngSubmit)="editarMercado()" novalidate autocomplete="on">
+    <div class="modal-body">
+        <div class="row g-3 needs-validation">
+            <div class="col-12">
+                <label for="inputNome" class="form-label">Nome:</label>
+                <input type="text" class="form-control validator" id="inputNome" formControlName="nome">
+                <small class=" text-danger" formControlOnErrorItem="nome"></small>
+            </div>
         </div>
-    </form>
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Fechar</button>
-    <button type="submit" class="btn btn-success" (click)="editarMercado()">Confirmar</button>
-</div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Fechar</button>
+        <button type="submit" class="btn btn-success">Confirmar</button>
+    </div>
+</form>

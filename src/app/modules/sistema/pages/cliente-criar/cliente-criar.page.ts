@@ -23,7 +23,6 @@ export class ClienteCriarPage implements OnInit, OnDestroy {
     nomeEmpresa = '';
     cnpj = '';
     token = '';
-    cliente: Cliente;
     clienteCriado: boolean = false;
 
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
@@ -47,10 +46,10 @@ export class ClienteCriarPage implements OnInit, OnDestroy {
 
         this.form = this.fb.group<ClienteCriar>({
             idEmpresa: [this.helper.decodeToken(this.token).idEmpresa],
-            nomeCliente: [nome, [Validators.required, Validators.minLength(10), Validators.maxLength(70)]],
-            email: [email, [Validators.required, Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)]],
+            nome: [nome, [Validators.required, Validators.minLength(3), Validators.maxLength(70)]],
+            email: [email, [Validators.required, Validators.maxLength(70), Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)]],
             usuario: ["", [Validators.required, Validators.minLength(5), Validators.maxLength(50), Validators.pattern(/^([a-zA-Z0-9]*)$/)]],
-            senha: ["", [Validators.required, Validators.minLength(5), Validators.maxLength(50), Validators.pattern(/^([a-zA-Z0-9!@#$%&*.]*)$/)]],
+            senha: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(70), Validators.pattern(/^([a-zA-Z0-9!@#$%&*.]*)$/)]],
             confirmarSenha: ["",
                 [Validators.required, (c: NgTypeFormControlValidator<string, { senha: string; }>) => {
                     if (c && c.parent && c.parent.value.senha === c.value) {
@@ -60,7 +59,7 @@ export class ClienteCriarPage implements OnInit, OnDestroy {
                 }]
             ],
             cnpj: ["", [Validators.required, CpfCnpjValidator]],
-            razaoSocial: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(70)]],
+            razaoSocial: ["", [Validators.required, Validators.minLength(5), Validators.maxLength(70)]],
             responsavel: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(70)]],
             telefone: ["", [Validators.required, Validators.pattern(/^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/)]],
             idMercado: [idMercado],
@@ -68,13 +67,13 @@ export class ClienteCriarPage implements OnInit, OnDestroy {
         });
 
         this.form.setFormErrors({
-            nomeCliente: { required: "Nome é requerido.", minlength: "Mínimo de 10 caracteres.", maxlength: "Máximo de 70 caracteres." },
-            email: { required: "E-mail é requerido.", pettern: "E-mail inválido." },
+            nome: { required: "Nome é requerido.", minlength: "Mínimo de 3 caracteres.", maxlength: "Máximo de 70 caracteres." },
+            email: { required: "E-mail é requerido.", pettern: "E-mail inválido.", maxlength: "Máximo de 70 caracteres." },
             usuario: { required: "Usuário é requerido.", minlength: "Mínimo de 5 caracteres.", maxlength: "Máximo de 50 caracteres.", pattern: "Somente números, letras minúsculas e maiúsculas." },
-            senha: { required: "Senha é requerido.", minlength: "Mínimo de 5 caracteres.", maxlength: "Máximo de 50 caracteres.", pattern: "Somente números, letras minúsculas, letra maiúsculas e os seguintes códigos: .!@#$%&* ." },
-            confirmarSenha: { required: "Confirmar Senha é requerido.", notMatch: "Senha diferente." },
+            senha: { required: "Senha é requerido.", minlength: "Mínimo de 10 caracteres.", maxlength: "Máximo de 70 caracteres.", pattern: "Somente números, letras minúsculas, letra maiúsculas e os seguintes códigos: .!@#$%&* ." },
+            confirmarSenha: { required: "Confirmar senha é requerido.", notMatch: "Senha diferente." },
             cnpj: { required: "CNPJ é requerido.", mask: "CNPJ inválido.", invalidCpfCnpj: "CNPJ inválido." },
-            razaoSocial: { required: "Razão Social é requerido.", minlength: "Mínimo de 10 caracteres.", maxlength: "Máximo de 70 caracteres." },
+            razaoSocial: { required: "Razão Social é requerido.", minlength: "Mínimo de 5 caracteres.", maxlength: "Máximo de 70 caracteres." },
             responsavel: { required: "Responsável é requerido.", minlength: "Mínimo de 10 caracteres.", maxlength: "Máximo de 70 caracteres." },
             telefone: { required: "Telefone é requerido.", pattern: "Telefone inválido" },
             idMercado: {},

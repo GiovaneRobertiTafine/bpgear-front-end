@@ -1,6 +1,7 @@
 import { Colaborador } from "../interfaces/colaborador.interface";
 
-export interface ColaboradorCriar {
+export interface ColaboradorCriar extends Omit<Colaborador, "id"> {
     idEmpresa: string;
-    colaborador: Colaborador;
+    senha: string;
+    confirmarSenha: string;
 }

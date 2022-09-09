@@ -9,6 +9,7 @@ import { Colaborador } from '../../models/interfaces/colaborador.interface';
 import { ColaboradorCriar } from '../../models/requests/colaborador-criar.request';
 import { ColaboradorService } from '../../services/colaborador.service';
 import { Subject, takeUntil, tap } from 'rxjs';
+import { Pesquisa } from '../../models/enums/pesquisa.enum';
 
 @Component({
     selector: 'bpgear-colaborador-criar',
@@ -21,7 +22,7 @@ export class ColaboradorCriarPage implements OnInit, OnDestroy {
     nomeEmpresa = '';
     cnpj = '';
     token = '';
-    colaboradorCriado = false;
+    colaboradorCriado: boolean = false;
 
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
@@ -40,11 +41,13 @@ export class ColaboradorCriarPage implements OnInit, OnDestroy {
 
         const nome = this.helper.decodeToken(this.token).nome;
         const email = this.helper.decodeToken(this.token).email;
-        const colaborador = this.fb.group<ThisType<Colaborador & 'confimarSenha'>>({
-            nome: [nome, [Validators.required]],
-            email: [email, [Validators.required, Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)]],
-            usuario: ["", [Validators.required]],
-            senha: ["", [Validators.required, Validators.minLength(10)]],
+
+        this.form = this.fb.group<ColaboradorCriar>({
+            idEmpresa: [this.helper.decodeToken(this.token).id],
+            nome: [nome, [Validators.required, Validators.minLength(10), Validators.maxLength(70)]],
+            email: [email, [Validators.required, Validators.maxLength(70), Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)]],
+            usuario: ["", [Validators.required, Validators.minLength(5), Validators.maxLength(50), Validators.pattern(/^([a-zA-Z0-9]*)$/)]],
+            senha: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(70), Validators.pattern(/^([a-zA-Z0-9!@#$%&*.]*)$/)]],
             confirmarSenha: ["",
                 [Validators.required, (c: NgTypeFormControlValidator<string, Colaborador>) => {
                     if (c && c.parent && c.parent.value.senha === c.value) {
@@ -52,20 +55,18 @@ export class ColaboradorCriarPage implements OnInit, OnDestroy {
                     }
                     return { notMatch: true };
                 }]
-            ]
+            ],
+            pesquisa: [Pesquisa.DESATIVADA]
         });
 
-        this.form = this.fb.group<ColaboradorCriar>({
-            idEmpresa: [this.helper.decodeToken(this.token).id],
-            colaborador: colaborador
-        });
-
-        colaborador.setFormErrors({
-            nome: { required: "Nome é requerido." },
-            email: { required: "E-mail é requerido.", pattern: "E-mail inválido." },
-            usuario: { required: "Usuário é requerido." },
-            senha: { required: "Senha é requerida.", minlength: "Mínimo de 10 caracteres." },
-            confirmarSenha: { required: "Confirmar Senha é requerido.", notMatch: "Senha diferente." }
+        this.form.setFormErrors({
+            idEmpresa: {},
+            nome: { required: "Nome é requerido.", minlength: "Mínimo de 10 caracteres.", maxlength: "Máximo de 70 caracteres." },
+            email: { required: "E-mail é requerido.", pattern: "E-mail inválido.", maxlength: "Máximo de 70 caracteres." },
+            usuario: { required: "Usuário é requerido.", minlength: "Mínimo de 5 caracteres.", maxlength: "Máximo de 50 caracteres.", pattern: "Somente números, letras minúsculas e maiúsculas." },
+            senha: { required: "Senha é requerida.", minlength: "Mínimo de 10 caracteres.", maxlength: "Máximo de 70 caracteres.", pattern: "Somente números, letras minúsculas, letra maiúsculas e os seguintes códigos: .!@#$%&* ." },
+            confirmarSenha: { required: "Confirmar senha é requerido.", notMatch: "Senha diferente." },
+            pesquisa: {}
         });
     }
 
@@ -90,15 +91,12 @@ export class ColaboradorCriarPage implements OnInit, OnDestroy {
                     }
                     this.toastService.success(response.resultStatus.message);
                     this.colaboradorCriado = true;
-                    localStorage.setItem('bpgear-token-colaborador-criar',
-                        localStorage.getItem('bpgear-token-colaborador-criar') + this.token + ';');
                 }
             );
 
     }
 
     get formGroup() { return this.form as FormGroup; }
-    get formGroupColaborador() { return this.form.controls.colaborador as FormGroup; }
 
     ngOnDestroy(): void {
         this.unsubscribe$.next(true);

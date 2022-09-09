@@ -8,9 +8,9 @@ export const MercadoDataInputDropdown: DataInputDropdownConfig = {
         // },
         {
             titulo: '',
-            propriedade: ['nomeMercado']
+            propriedade: ['nome']
         }
     ],
-    propertySearch: ['nomeMercado'],
+    propertySearch: ['nome'],
     propertyValue: ['id']
 };

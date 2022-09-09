@@ -1,6 +1,6 @@
-export interface ClienteCriarEnviarEmail {
+export interface ClienteCriarEmail {
     email: string;
-    nomeCliente: string;
+    nome: string;
     idEmpresa: string;
     idMercado: string;
 }

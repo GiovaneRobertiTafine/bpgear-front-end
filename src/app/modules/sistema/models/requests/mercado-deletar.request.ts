@@ -1,3 +1,3 @@
 export interface MercadoDeletar {
-    idMercado: string;
+    id: string;
 }

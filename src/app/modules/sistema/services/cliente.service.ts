@@ -4,7 +4,8 @@ import { catchError, Observable } from 'rxjs';
 import { IDataReturn } from 'src/app/shared/models/data-return.model';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { Cliente } from '../models/interfaces/cliente.interface';
-import { ClienteCriarEnviarEmail } from '../models/requests/cliente-criar-enviar-email.request';
+import { ClienteAlterarPesquisa } from '../models/requests/cliente-alterar-pesquisa.request';
+import { ClienteCriarEmail } from '../models/requests/cliente-criar-enviar-email.request';
 import { ClienteCriar } from '../models/requests/cliente-criar.request';
 import { ClienteDeletar } from '../models/requests/cliente-deletar.request';
 
@@ -24,7 +25,7 @@ export class ClienteService extends ApiService {
             );
     }
 
-    public clienteCriarEnviarEmail(request: ClienteCriarEnviarEmail): Observable<IDataReturn<null>> {
+    public clienteCriarEnviarEmail(request: ClienteCriarEmail): Observable<IDataReturn<null>> {
         return this.post<IDataReturn<null>>('cliente/criar-email', request)
             .pipe(
                 catchError(this.handleError<IDataReturn<null>>('clienteCriarEnviarEmail'))
@@ -42,6 +43,13 @@ export class ClienteService extends ApiService {
         return this.delete<IDataReturn<null>>('cliente/deletar', request)
             .pipe(
                 catchError(this.handleError<IDataReturn<null>>('clienteDeletar'))
+            );
+    }
+
+    public alterarPesquisaCliente(request: ClienteAlterarPesquisa): Observable<IDataReturn<null>> {
+        return this.put<IDataReturn<null>>('cliente/alterar-pesquisa', request)
+            .pipe(
+                catchError(this.handleError<IDataReturn<null>>('clienteAlterarPesquisa'))
             );
     }
 }

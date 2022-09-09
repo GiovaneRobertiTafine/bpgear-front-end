@@ -1,0 +1,15 @@
+<ng-template [ngIf]="cliente">
+    <div class="modal-header">
+        <h4 class="modal-title">Detalhar Cliente</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <div class="mb-3" *ngFor="let data of (dataViewConfig.colunas)">
+            <strong>{{data.titulo}}:</strong> <br>
+            <span>{{ obterValorPropriedade(cliente, data) }}</span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Fechar</button>
+    </div>
+</ng-template>

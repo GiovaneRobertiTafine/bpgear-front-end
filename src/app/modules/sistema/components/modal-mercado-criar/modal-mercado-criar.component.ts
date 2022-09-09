@@ -31,12 +31,12 @@ export class ModalMercadoCriarComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.form = this.fb.group<MercadoCriar>({
             idEmpresa: [this.empresaService.getEmpresa().value.id],
-            nomeMercado: ["", [Validators.required, Validators.minLength(3)]]
+            nome: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(70)]]
         });
 
         this.form.setFormErrors({
             idEmpresa: {},
-            nomeMercado: { required: "Nome é requerido", minlength: "Minímo de 3 caracteres" }
+            nome: { required: "Nome é requerido", minlength: "Mínimo de 3 caracteres", maxlength: "Máximo de 70 caracteres." }
         });
     }
 
@@ -46,8 +46,9 @@ export class ModalMercadoCriarComponent implements OnInit, OnDestroy {
             return;
         }
 
+        const request: MercadoCriar = { ...this.form.value };
         this.spinnerService.show();
-        this.mercadoService.criarMercado(this.form.value)
+        this.mercadoService.criarMercado(request)
             .pipe(
                 takeUntil(this.unsubscribe$)
             )

@@ -7,18 +7,17 @@ import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { MercadoDataInputDropdown } from '../../models/constants/sistema-data-input-dropdown-config.constant';
 import { Mercado } from '../../models/interfaces/mercado.interface';
-import { ClienteCriarEnviarEmail } from '../../models/requests/cliente-criar-enviar-email.request';
+import { ClienteCriarEmail } from '../../models/requests/cliente-criar-enviar-email.request';
 import { ClienteService } from '../../services/cliente.service';
-import { ColaboradorService } from '../../services/colaborador.service';
 import { EmpresaService } from '../../services/empresa.service';
 
 @Component({
-    selector: 'bpgear-modal-cliente-criar',
-    templateUrl: './modal-cliente-criar.component.html',
-    styleUrls: ['./modal-cliente-criar.component.scss']
+    selector: 'bpgear-modal-cliente-criar-email',
+    templateUrl: './modal-cliente-criar-email.component.html',
+    styleUrls: ['./modal-cliente-criar-email.component.scss']
 })
-export class ModalClienteCriarComponent implements OnInit, OnDestroy {
-    form: NgTypeFormGroup<ClienteCriarEnviarEmail>;
+export class ModalClienteCriarEmailComponent implements OnInit, OnDestroy {
+    form: NgTypeFormGroup<ClienteCriarEmail>;
     mercados: Mercado[];
     idEmpresa: string = '';
     mercadoDataInputDropdown = MercadoDataInputDropdown;
@@ -37,17 +36,17 @@ export class ModalClienteCriarComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.idEmpresa = this.empresaService.getEmpresa().value.id;
 
-        this.form = this.fb.group<ClienteCriarEnviarEmail>({
+        this.form = this.fb.group<ClienteCriarEmail>({
             idEmpresa: [this.idEmpresa],
-            nomeCliente: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(50)]],
-            email: ["", [Validators.required, Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)]],
+            nome: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(70)]],
+            email: ["", [Validators.required, Validators.maxLength(70), Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)]],
             idMercado: ["", [Validators.required]]
         });
         this.form.setFormErrors({
             idEmpresa: {},
-            nomeCliente: { required: "Nome é requerido", minlength: "Minímo de 10 caracteres" },
+            nome: { required: "Nome é requerido", minlength: "Minímo de 3 caracteres", maxlength: "Máximo de 70 caracteres." },
             email: { required: "E-mail é requirido.", pattern: "E-mail inválido" },
-            idMercado: { required: "Mercado é requirido." }
+            idMercado: { required: "Mercado é requirido.", maxlength: "Máximo de 70 caracteres.", notMatchValue: "Entrada inválida." }
         });
     }
 
@@ -59,9 +58,7 @@ export class ModalClienteCriarComponent implements OnInit, OnDestroy {
 
         this.spinnerService.show();
         this.clienteService.clienteCriarEnviarEmail(this.form.value)
-            .pipe(
-                takeUntil(this.unsubscribe$)
-            )
+            .pipe(takeUntil(this.unsubscribe$))
             .subscribe(
                 (response) => {
                     this.spinnerService.hide();
