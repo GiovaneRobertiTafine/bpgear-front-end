@@ -1,4 +1,5 @@
 import { Pesquisa } from "../enums/pesquisa.enum";
+import { Mercado } from "./mercado.interface";
 
 export interface Cliente {
     id: string;
@@ -10,5 +11,5 @@ export interface Cliente {
     telefone: string;
     email: string;
     pesquisa: Pesquisa;
-    idMercado: string;
+    mercado: Mercado;
 }

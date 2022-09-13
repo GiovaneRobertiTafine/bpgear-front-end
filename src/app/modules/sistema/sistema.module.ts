@@ -34,6 +34,10 @@ import { ModalAlterarPesquisaComponent } from './components/modal-alterar-pesqui
 import { ModalDeletarComponent } from './components/modal-deletar/modal-deletar.component';
 import { ModalDetalharComponent } from './components/modal-detalhar/modal-detalhar.component';
 import { ModalClienteCriarEmailComponent } from './components/modal-cliente-criar-email/modal-cliente-criar-email.component';
+import { ModalClienteEditarComponent } from './components/modal-cliente-editar/modal-cliente-editar.component';
+import { ValorPage } from './pages/valor/valor.page';
+import { ModalValorCriarComponent } from './components/modal-valor-criar/modal-valor-criar.component';
+import { ModalValorEditarComponent } from './components/modal-valor-editar/modal-valor-editar.component';
 @NgModule({
     declarations: [
         LayoutTemplate,
@@ -57,6 +61,10 @@ import { ModalClienteCriarEmailComponent } from './components/modal-cliente-cria
         ModalDeletarComponent,
         ModalDetalharComponent,
         ModalClienteCriarEmailComponent,
+        ModalClienteEditarComponent,
+        ValorPage,
+        ModalValorCriarComponent,
+        ModalValorEditarComponent,
     ],
     imports: [
         CommonModule,

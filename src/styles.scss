@@ -140,3 +140,15 @@ input.validator.ng-valid.ng-touched {
 input.validator.ng-valid[formControlName] {
     border: 1px solid $success;
 }
+
+textarea.validator.ng-invalid.ng-touched {
+    border: 1px solid $danger;
+}
+
+textarea.validator.ng-valid.ng-touched {
+    border: 1px solid $success;
+}
+
+textarea.validator.ng-valid[formControlName] {
+    border: 1px solid $success;
+}

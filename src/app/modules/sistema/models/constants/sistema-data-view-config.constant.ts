@@ -90,8 +90,8 @@ export const ClienteDataViewConfig: DataViewConfig = {
             mascara: { token: MaskPipe, arg: "CPF_CNPJ" },
         },
         {
-            titulo: "Usuário",
-            propriedade: ["usuario"]
+            titulo: "Mercado",
+            propriedade: ["mercado", "nome"]
         },
         {
             titulo: "Pesquisa",
@@ -103,7 +103,7 @@ export const ClienteDataViewConfig: DataViewConfig = {
         }
     ],
     colunasAcao: {
-        // editar: true,
+        editar: true,
         deletar: true,
         detalhar: true
     },
@@ -146,6 +146,10 @@ export const ClienteDetalharViewConfig: DataViewConfig = {
             titulo: "Pesquisa",
             propriedade: ["pesquisa"],
         },
+        {
+            titulo: "Mercado",
+            propriedade: ["mercado", "nome"]
+        }
     ]
 };
 
@@ -154,6 +158,23 @@ export const MercadoDataViewConfig: DataViewConfig = {
         {
             titulo: "Nome",
             propriedade: ["nome"]
+        },
+    ],
+    colunasAcao: {
+        editar: true,
+        deletar: true
+    }
+};
+
+export const ValorDataViewConfig: DataViewConfig = {
+    colunas: [
+        {
+            titulo: "Nome",
+            propriedade: ["nome"]
+        },
+        {
+            titulo: "Definição de Valor",
+            propriedade: ["definicaoValor"]
         },
     ],
     colunasAcao: {

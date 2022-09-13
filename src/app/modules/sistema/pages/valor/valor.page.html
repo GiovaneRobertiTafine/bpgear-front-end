@@ -1,0 +1,9 @@
+<div class="w-100 d-inline-block mt-3">
+    <h3 class="fst-italic float-start">Valores</h3>
+    <button class="btn btn-outline-success float-end" (click)="criarValor()">Novo Valor</button>
+</div>
+
+<bpgear-table [dataViewConfig]="valorDataViewConfig" [data]="valores" #tableEmpresa
+    (deletarItemEvent)="deletarValor($event)" (editarItemEvent)="editarValor($event)">
+
+</bpgear-table>

@@ -18,16 +18,25 @@ export class ModalDetalharComponent implements OnInit {
         private dynamicPipe: InjectorPipe
     ) { }
 
-    obterValorPropriedade(obj: any, col: DataColuna): string {
+    obterValorPropriedade(obj: {}, col: DataColuna): string {
+        let result = "";
+        for (const prop in col.propriedade) {
+            if (!result) {
+                result = obj[col.propriedade[prop]];
+            } else {
+                result = result[col.propriedade[prop]];
+            }
+        }
+
         if (col.mascara) {
             return this.dynamicPipe.transform(
-                obj[col.propriedade.join('.')],
+                result,
                 col.mascara.token,
                 col.mascara?.arg
             );
         }
 
-        return obj[col.propriedade.join('.')];
+        return result;
     }
 
     ngOnInit(): void {

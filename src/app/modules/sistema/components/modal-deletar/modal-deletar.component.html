@@ -43,3 +43,18 @@
         <button type="submit" class="btn btn-success" (click)="deletarMercado()">Confirmar</button>
     </div>
 </ng-template>
+<ng-template [ngIf]="valor">
+    <div class="modal-header">
+        <h4 class="modal-title">Deletar Valor</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <p>Tem certeza que deseja deletar este valor: <br>
+            <strong>{{valor.nome}}</strong>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Fechar</button>
+        <button type="submit" class="btn btn-success" (click)="deletarValor()">Confirmar</button>
+    </div>
+</ng-template>

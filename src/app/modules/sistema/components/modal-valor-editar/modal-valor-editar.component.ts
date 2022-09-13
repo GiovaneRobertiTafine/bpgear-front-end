@@ -5,50 +5,52 @@ import { FormTypeBuilder, NgTypeFormGroup } from 'reactive-forms-typed';
 import { Subject, takeUntil } from 'rxjs';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
-import { Mercado } from '../../models/interfaces/mercado.interface';
-import { MercadoEditar } from '../../models/requests/mercado-editar.request';
-import { MercadoService } from '../../services/mercado.service';
+import { Valor } from '../../models/interfaces/valor.inteface';
+import { ValorEditar } from '../../models/requests/valor-editar.request';
+import { ValorService } from '../../services/valor.service';
 
 @Component({
-    selector: 'bpgear-modal-mercado-editar',
-    templateUrl: './modal-mercado-editar.component.html',
-    styleUrls: ['./modal-mercado-editar.component.scss']
+    selector: 'bpgear-modal-valor-editar',
+    templateUrl: './modal-valor-editar.component.html',
+    styleUrls: ['./modal-valor-editar.component.scss']
 })
-export class ModalMercadoEditarComponent implements OnInit, OnDestroy {
-    form: NgTypeFormGroup<MercadoEditar>;
-    mercado: Mercado;
+export class ModalValorEditarComponent implements OnInit, OnDestroy {
+    form: NgTypeFormGroup<ValorEditar>;
+    valor: Valor;
 
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
         public activeModal: NgbActiveModal,
-        private mercadoService: MercadoService,
+        private valorService: ValorService,
         private fb: FormTypeBuilder,
         private spinnerService: SpinnerService,
         private toastService: ToastService,
     ) { }
 
     ngOnInit(): void {
-        this.form = this.fb.group<MercadoEditar>({
-            id: [this.mercado.id],
-            nome: [this.mercado.nome, [Validators.required, Validators.minLength(3)]]
+        this.form = this.fb.group<ValorEditar>({
+            id: [this.valor.id],
+            nome: [this.valor.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(70)]],
+            definicaoValor: [this.valor.definicaoValor, [Validators.required, Validators.minLength(5), Validators.maxLength(200)]]
         });
 
         this.form.setFormErrors({
             id: {},
-            nome: { required: "Nome é requerido", minlength: "Minímo de 3 caracteres" }
+            nome: { required: "Nome é requerido", minlength: "Mínimo de 3 caracteres", maxlength: "Máximo de 70 caracteres." },
+            definicaoValor: { required: "Definição de valor é requerido", minlength: "Mínimo de 5 caracteres", maxlength: "Máximo de 200 caracteres." }
         });
     }
 
-    editarMercado(): void {
+    editarValor(): void {
         if (this.form.invalid) {
             this.form.markAllAsTouched();
             return;
         }
 
-        const request: MercadoEditar = { ...this.form.value };
+        const request: ValorEditar = { ...this.form.value };
         this.spinnerService.show();
-        this.mercadoService.editarMercado(request)
+        this.valorService.editarValor(request)
             .pipe(
                 takeUntil(this.unsubscribe$)
             )

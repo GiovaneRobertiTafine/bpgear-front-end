@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h4 class="modal-title">Criar Valor</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+<form [formGroup]="formGroup" (ngSubmit)="criarValor()" novalidate autocomplete="on">
+    <div class="modal-body">
+        <div class="row g-3 needs-validation">
+            <div class="col-12">
+                <label for="inputNome" class="form-label">Nome:</label>
+                <input type="text" class="form-control validator" id="inputNome" formControlName="nome">
+                <small class=" text-danger" formControlOnErrorItem="nome"></small>
+            </div>
+            <div class="col-12">
+                <label for="inputDefinicaoValor" class="form-label">Definição de Valor:</label>
+                <textarea type="text" class="form-control validator" id="inputDefinicaoValor"
+                    formControlName="definicaoValor"></textarea>
+                <small class=" text-danger" formControlOnErrorItem="definicaoValor"></small>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Fechar</button>
+        <button type="submit" class="btn btn-success">Confirmar</button>
+    </div>
+</form>

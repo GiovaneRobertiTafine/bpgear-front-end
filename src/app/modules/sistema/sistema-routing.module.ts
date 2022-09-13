@@ -8,6 +8,7 @@ import { ColaboradorCriarPage } from './pages/colaborador-criar/colaborador-cria
 import { ColaboradorPage } from './pages/colaborador/colaborador.page';
 import { EmpresaPage } from './pages/empresa/empresa.page';
 import { MercadoPage } from './pages/mercado/mercado.page';
+import { ValorPage } from './pages/valor/valor.page';
 import { ClienteGuard } from './services/cliente.guard';
 import { ColaboradorCriarGuardService } from './services/colaborador-criar-guard.service';
 import { EmpresaGuardService } from './services/empresa-guard.service';
@@ -42,6 +43,12 @@ const routes: Routes = [
                 path: 'mercado/:id',
                 component: MercadoPage,
                 data: { title: "Mercados" },
+                canActivate: [EmpresaGuardService]
+            },
+            {
+                path: 'valor/:id',
+                component: ValorPage,
+                data: { title: "Valores" },
                 canActivate: [EmpresaGuardService]
             }
         ]

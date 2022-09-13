@@ -8,6 +8,7 @@ import { ClienteAlterarPesquisa } from '../models/requests/cliente-alterar-pesqu
 import { ClienteCriarEmail } from '../models/requests/cliente-criar-enviar-email.request';
 import { ClienteCriar } from '../models/requests/cliente-criar.request';
 import { ClienteDeletar } from '../models/requests/cliente-deletar.request';
+import { ClienteEditar } from '../models/requests/cliente-editar.request';
 
 @Injectable({
     providedIn: 'root'
@@ -50,6 +51,13 @@ export class ClienteService extends ApiService {
         return this.put<IDataReturn<null>>('cliente/alterar-pesquisa', request)
             .pipe(
                 catchError(this.handleError<IDataReturn<null>>('clienteAlterarPesquisa'))
+            );
+    }
+
+    public editarCliente(request: ClienteEditar): Observable<IDataReturn<null>> {
+        return this.put<IDataReturn<null>>('cliente/editar', request)
+            .pipe(
+                catchError(this.handleError<IDataReturn<null>>('editarCliente'))
             );
     }
 }

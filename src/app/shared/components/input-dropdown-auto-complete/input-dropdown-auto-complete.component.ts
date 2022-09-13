@@ -1,4 +1,4 @@
-import { Component, ElementRef, forwardRef, Input, OnInit, Optional, Renderer2, Self, SkipSelf, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, DoCheck, ElementRef, forwardRef, Input, OnInit, Optional, Renderer2, Self, SkipSelf, ViewChild } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, ControlContainer, ControlValueAccessor, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgControl, NG_VALUE_ACCESSOR, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, of } from 'rxjs';
@@ -14,7 +14,7 @@ import { DataInputDropdownConfig } from '../../models/data-input-dropdown-config
     //     deps: [[new SkipSelf(), ControlContainer]],
     // }]
 })
-export class InputDropdownAutoCompleteComponent implements OnInit {
+export class InputDropdownAutoCompleteComponent implements OnInit, AfterViewInit {
     @Input() name: string = '';
     @Input() classes: string[] = [];
     @Input() itens: any[] = [];
@@ -32,12 +32,19 @@ export class InputDropdownAutoCompleteComponent implements OnInit {
     ngOnInit(): void {
         this.itensRef = this.itens;
         this.formControl.addAsyncValidators(this.matchValue());
+
+    }
+
+    ngAfterViewInit(): void {
+        setTimeout(() => { if (this.formControl.value) this.searchValueInitial(this.formControl.value); });
+
     }
 
     setValue(item): any {
         this.formControl.setValue(this.configPropertyValue(item));
         this.formControl.setErrors(null);
         this.elementInput.nativeElement.value = this.configPropertyView(item);
+        this.deleteViewValueSelected();
     }
 
     matchValue(): AsyncValidatorFn {
@@ -45,7 +52,7 @@ export class InputDropdownAutoCompleteComponent implements OnInit {
             let validate = { notMatchValue: true };
             this.itens.forEach((item) => {
                 const valueView = item[this.dataInputDropdownConfig.propertySearch.join('.')] as string;
-                if (valueView === this.elementInput.nativeElement.value) {
+                if (valueView === this.elementInput?.nativeElement.value) {
                     this.setValue(item);
                     validate = null;
                 } else if (validate) {
@@ -54,6 +61,10 @@ export class InputDropdownAutoCompleteComponent implements OnInit {
             });
             return of(validate);
         };
+    }
+
+    deleteViewValueSelected(): void {
+        this.itensRef = this.itens.filter((value) => this.formControl.value != value[this.dataInputDropdownConfig.propertyValue.join('.')]);
     }
 
     configPropertyView(item: any): string {
@@ -95,6 +106,17 @@ export class InputDropdownAutoCompleteComponent implements OnInit {
         } else {
             this.itensRef = this.itens;
         }
+    }
+
+    searchValueInitial(valueInitial: any): void {
+        this.itens.forEach((value) => {
+            const valueItem = value[this.dataInputDropdownConfig.propertyValue.join('.')] as string;
+            if (valueItem.toLocaleLowerCase().search(valueInitial.toLocaleLowerCase()) !== -1) {
+                this.setValue(value);
+                this.formControl.markAsTouched();
+                return;
+            }
+        });
     }
 
     get formControl() { return this.formGroup.controls[this.controlName] as FormControl; }

@@ -1,12 +1,13 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { DataViewConfig, DataColuna } from '../../models/data-view-config.model';
-import { faRectangleList, faPenToSquare, faTrashCan, faInfo, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { InjectorPipe } from '../../pipes/injector.pipe';
+import { DataColuna, DataViewConfig } from '../../models/data-view-config.model';
+import { faInfoCircle, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { getNestedValue } from '../../utils/script.extension';
 
 @Component({
     selector: 'bpgear-table',
     templateUrl: './table.component.html',
-    styleUrls: ['./table.component.scss']
+    styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
     iconEditar = faPenToSquare;
@@ -21,24 +22,25 @@ export class TableComponent implements OnInit {
     @Output() detalharItemEvent = new EventEmitter<any>();
     @Output() eventCallBack = new EventEmitter<any>();
 
-    constructor(private dynamicPipe: InjectorPipe) { }
-
-    ngOnInit(): void {
+    constructor(private dynamicPipe: InjectorPipe) {
     }
 
-    obterValorPropriedade(obj: any, col: DataColuna): string {
+    ngOnInit(): void {
+
+    }
+
+    obterValorPropriedade(obj: {}, col: DataColuna): string {
+        let result = getNestedValue(obj, col.propriedade);
+
         if (col.mascara) {
-            return this.dynamicPipe.transform(
-                obj[col.propriedade.join('.')],
+            result = this.dynamicPipe.transform(
+                result,
                 col.mascara.token,
                 col.mascara?.arg
             );
         }
-        if (col.propriedade.length === 0) {
-            return obj;
-        }
 
-        return obj[col.propriedade.join('.')];
+        return result;
     }
 
     deletarItem(item: any): void {

@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <h4 class="modal-title">Editar Mercado</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+<form [formGroup]="formGroup" (ngSubmit)="editarCliente()" novalidate autocomplete="on">
+    <div class="modal-body">
+        <div class="row g-3 needs-validation">
+            <div class="col-12">
+                <label for="inputMercado" class="form-label">Mercado:</label>
+                <bpgear-input-dropdown-auto-complete controlName="idMercado" [formGroup]="formGroup" [itens]="mercados"
+                    [dataInputDropdownConfig]="mercadoDataInputDropdown" name="inputMercado">
+                </bpgear-input-dropdown-auto-complete>
+                <small class="text-danger" formControlOnErrorItem="idMercado"></small>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Fechar</button>
+        <button type="submit" class="btn btn-success">Confirmar</button>
+    </div>
+</form>

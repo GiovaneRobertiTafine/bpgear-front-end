@@ -5,53 +5,54 @@ import { FormTypeBuilder, NgTypeFormGroup } from 'reactive-forms-typed';
 import { Subject, takeUntil } from 'rxjs';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { MercadoDataInputDropdown } from '../../models/constants/sistema-data-input-dropdown-config.constant';
+import { Cliente } from '../../models/interfaces/cliente.interface';
 import { Mercado } from '../../models/interfaces/mercado.interface';
-import { MercadoEditar } from '../../models/requests/mercado-editar.request';
-import { MercadoService } from '../../services/mercado.service';
+import { ClienteEditar } from '../../models/requests/cliente-editar.request';
+import { ClienteService } from '../../services/cliente.service';
 
 @Component({
-    selector: 'bpgear-modal-mercado-editar',
-    templateUrl: './modal-mercado-editar.component.html',
-    styleUrls: ['./modal-mercado-editar.component.scss']
+    selector: 'bpgear-modal-cliente-editar',
+    templateUrl: './modal-cliente-editar.component.html',
+    styleUrls: ['./modal-cliente-editar.component.scss']
 })
-export class ModalMercadoEditarComponent implements OnInit, OnDestroy {
-    form: NgTypeFormGroup<MercadoEditar>;
-    mercado: Mercado;
+export class ModalClienteEditarComponent implements OnInit, OnDestroy {
+    form: NgTypeFormGroup<ClienteEditar>;
+    cliente: Cliente;
+    mercados: Mercado[] = [];
+    mercadoDataInputDropdown = MercadoDataInputDropdown;
 
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
         public activeModal: NgbActiveModal,
-        private mercadoService: MercadoService,
+        private clienteService: ClienteService,
         private fb: FormTypeBuilder,
         private spinnerService: SpinnerService,
         private toastService: ToastService,
     ) { }
 
     ngOnInit(): void {
-        this.form = this.fb.group<MercadoEditar>({
-            id: [this.mercado.id],
-            nome: [this.mercado.nome, [Validators.required, Validators.minLength(3)]]
+        this.form = this.fb.group<ClienteEditar>({
+            id: [this.cliente.id],
+            idMercado: [this.cliente.mercado.id, [Validators.required, Validators.minLength(3)]]
         });
 
         this.form.setFormErrors({
             id: {},
-            nome: { required: "Nome é requerido", minlength: "Minímo de 3 caracteres" }
+            idMercado: { required: "Mercado é requirido.", maxlength: "Máximo de 70 caracteres.", notMatchValue: "Entrada inválida." }
         });
     }
 
-    editarMercado(): void {
+    editarCliente(): void {
         if (this.form.invalid) {
             this.form.markAllAsTouched();
             return;
         }
 
-        const request: MercadoEditar = { ...this.form.value };
         this.spinnerService.show();
-        this.mercadoService.editarMercado(request)
-            .pipe(
-                takeUntil(this.unsubscribe$)
-            )
+        this.clienteService.editarCliente(this.form.value)
+            .pipe(takeUntil(this.unsubscribe$))
             .subscribe(
                 (response) => {
                     this.spinnerService.hide();
