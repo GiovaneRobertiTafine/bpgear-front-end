@@ -1,5 +1,5 @@
 import { LinkItemConfig } from "../interfaces/link-item-config.interface";
-import { faIdCardClip, faAddressCard, faStore, faCubes } from '@fortawesome/free-solid-svg-icons';
+import { faIdCardClip, faAddressCard, faStore, faCubes, faCity } from '@fortawesome/free-solid-svg-icons';
 
 export const ItemLinkSideBar: LinkItemConfig[] = [
     {
@@ -21,5 +21,10 @@ export const ItemLinkSideBar: LinkItemConfig[] = [
         title: 'Valores',
         path: '/sistema/valor',
         icon: faCubes
+    },
+    {
+        title: 'Setores',
+        path: '/sistema/setor',
+        icon: faCity
     }
 ];

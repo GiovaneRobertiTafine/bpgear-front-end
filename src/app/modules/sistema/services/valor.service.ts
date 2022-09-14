@@ -20,7 +20,7 @@ export class ValorService extends ApiService {
     public obterValores(idEmpresa): Observable<IDataReturn<Valor[]>> {
         return this.get<IDataReturn<Valor[]>>('valor/' + idEmpresa)
             .pipe(
-                catchError(this.handleError<IDataReturn<Valor[]>>('obterValor'))
+                catchError(this.handleError<IDataReturn<Valor[]>>('obterValores'))
             );
     }
 

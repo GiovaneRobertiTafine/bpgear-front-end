@@ -58,3 +58,18 @@
         <button type="submit" class="btn btn-success" (click)="deletarValor()">Confirmar</button>
     </div>
 </ng-template>
+<ng-template [ngIf]="setor">
+    <div class="modal-header">
+        <h4 class="modal-title">Deletar Setor</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <p>Tem certeza que deseja deletar este setor: <br>
+            <strong>{{setor.nome}}</strong>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Fechar</button>
+        <button type="submit" class="btn btn-success" (click)="deletarSetor()">Confirmar</button>
+    </div>
+</ng-template>

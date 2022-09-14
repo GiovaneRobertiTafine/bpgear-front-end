@@ -38,6 +38,9 @@ import { ModalClienteEditarComponent } from './components/modal-cliente-editar/m
 import { ValorPage } from './pages/valor/valor.page';
 import { ModalValorCriarComponent } from './components/modal-valor-criar/modal-valor-criar.component';
 import { ModalValorEditarComponent } from './components/modal-valor-editar/modal-valor-editar.component';
+import { SetorPage } from './pages/setor/setor.page';
+import { ModalSetorCriarComponent } from './components/modal-setor-criar/modal-setor-criar.component';
+import { ModalSetorEditarComponent } from './components/modal-setor-editar/modal-setor-editar.component';
 @NgModule({
     declarations: [
         LayoutTemplate,
@@ -65,6 +68,9 @@ import { ModalValorEditarComponent } from './components/modal-valor-editar/modal
         ValorPage,
         ModalValorCriarComponent,
         ModalValorEditarComponent,
+        SetorPage,
+        ModalSetorCriarComponent,
+        ModalSetorEditarComponent,
     ],
     imports: [
         CommonModule,

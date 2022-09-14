@@ -182,3 +182,16 @@ export const ValorDataViewConfig: DataViewConfig = {
         deletar: true
     }
 };
+
+export const SetorDataViewConfig: DataViewConfig = {
+    colunas: [
+        {
+            titulo: "Nome",
+            propriedade: ["nome"]
+        },
+    ],
+    colunasAcao: {
+        editar: true,
+        deletar: true
+    }
+};

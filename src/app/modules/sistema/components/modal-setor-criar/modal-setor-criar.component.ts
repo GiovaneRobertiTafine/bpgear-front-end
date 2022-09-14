@@ -5,23 +5,23 @@ import { FormTypeBuilder, NgTypeFormGroup } from 'reactive-forms-typed';
 import { Subject, takeUntil } from 'rxjs';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
-import { ValorCriar } from '../../models/requests/valor-criar.request';
+import { SetorCriar } from '../../models/requests/setor-criar.request';
 import { EmpresaService } from '../../services/empresa.service';
-import { ValorService } from '../../services/valor.service';
+import { SetorService } from '../../services/setor.service';
 
 @Component({
-    selector: 'bpgear-modal-valor-criar',
-    templateUrl: './modal-valor-criar.component.html',
-    styleUrls: ['./modal-valor-criar.component.scss']
+    selector: 'bpgear-modal-setor-criar',
+    templateUrl: './modal-setor-criar.component.html',
+    styleUrls: ['./modal-setor-criar.component.scss']
 })
-export class ModalValorCriarComponent implements OnInit, OnDestroy {
-    form: NgTypeFormGroup<ValorCriar>;
+export class ModalSetorCriarComponent implements OnInit, OnDestroy {
+    form: NgTypeFormGroup<SetorCriar>;
 
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
         public activeModal: NgbActiveModal,
-        private valorService: ValorService,
+        private setorService: SetorService,
         private fb: FormTypeBuilder,
         private spinnerService: SpinnerService,
         private toastService: ToastService,
@@ -29,28 +29,26 @@ export class ModalValorCriarComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-        this.form = this.fb.group<ValorCriar>({
+        this.form = this.fb.group<SetorCriar>({
             idEmpresa: [this.empresaService.getEmpresa().value.id],
             nome: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(70)]],
-            definicaoValor: ["", [Validators.required, Validators.minLength(5), Validators.maxLength(200)]]
         });
 
         this.form.setFormErrors({
             idEmpresa: {},
             nome: { required: "Nome é requerido", minlength: "Mínimo de 3 caracteres", maxlength: "Máximo de 70 caracteres." },
-            definicaoValor: { required: "Definição de valor é requerido", minlength: "Mínimo de 5 caracteres", maxlength: "Máximo de 200 caracteres." }
         });
     }
 
-    criarValor(): void {
+    criarSetor(): void {
         if (this.form.invalid) {
             this.form.markAllAsTouched();
             return;
         }
 
-        const request: ValorCriar = { ...this.form.value };
+        const request: SetorCriar = { ...this.form.value };
         this.spinnerService.show();
-        this.valorService.criarValor(request)
+        this.setorService.criarSetor(request)
             .pipe(
                 takeUntil(this.unsubscribe$)
             )

@@ -1,0 +1,9 @@
+<div class="w-100 d-inline-block mt-3">
+    <h3 class="fst-italic float-start">Setores</h3>
+    <button class="btn btn-outline-success float-end" (click)="criarSetor()">Novo Setor</button>
+</div>
+
+<bpgear-table [dataViewConfig]="setorDataViewConfig" [data]="setores" #tableEmpresa
+    (deletarItemEvent)="deletarSetor($event)" (editarItemEvent)="editarSetor($event)">
+
+</bpgear-table>

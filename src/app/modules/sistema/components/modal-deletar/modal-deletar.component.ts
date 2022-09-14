@@ -6,14 +6,17 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 import { Cliente } from '../../models/interfaces/cliente.interface';
 import { Colaborador } from '../../models/interfaces/colaborador.interface';
 import { Mercado } from '../../models/interfaces/mercado.interface';
+import { Setor } from '../../models/interfaces/setor.interface';
 import { Valor } from '../../models/interfaces/valor.inteface';
 import { ClienteDeletar } from '../../models/requests/cliente-deletar.request';
 import { DeletarColaborador } from '../../models/requests/colaborador-deletar.request';
 import { MercadoDeletar } from '../../models/requests/mercado-deletar.request';
+import { SetorDeletar } from '../../models/requests/setor-deletar.request';
 import { ValorDeletar } from '../../models/requests/valor-deletar.request';
 import { ClienteService } from '../../services/cliente.service';
 import { ColaboradorService } from '../../services/colaborador.service';
 import { MercadoService } from '../../services/mercado.service';
+import { SetorService } from '../../services/setor.service';
 import { ValorService } from '../../services/valor.service';
 
 @Component({
@@ -26,6 +29,7 @@ export class ModalDeletarComponent implements OnInit, OnDestroy {
     colaborador: Colaborador = null;
     mercado: Mercado = null;
     valor: Valor = null;
+    setor: Setor = null;
 
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
@@ -36,7 +40,8 @@ export class ModalDeletarComponent implements OnInit, OnDestroy {
         private clienteService: ClienteService,
         private colaboradorService: ColaboradorService,
         private mercadoService: MercadoService,
-        private valorService: ValorService
+        private valorService: ValorService,
+        private setorService: SetorService
     ) { }
 
     ngOnInit(): void {
@@ -105,6 +110,27 @@ export class ModalDeletarComponent implements OnInit, OnDestroy {
         const deletarValor: ValorDeletar = { id: this.valor.id };
         this.spinnerService.show();
         this.valorService.deletarValor(deletarValor)
+            .pipe(
+                takeUntil(this.unsubscribe$)
+            )
+            .subscribe(
+                (response) => {
+                    this.spinnerService.hide();
+                    if (response.resultStatus.code !== 200) {
+                        this.toastService.error(response.resultStatus.message);
+                        return;
+                    }
+
+                    this.toastService.success(response.resultStatus.message);
+                    this.activeModal.close(true);
+                }
+            );
+    }
+
+    deletarSetor(): void {
+        const deletarValor: SetorDeletar = { id: this.setor.id };
+        this.spinnerService.show();
+        this.setorService.deletarSetor(deletarValor)
             .pipe(
                 takeUntil(this.unsubscribe$)
             )
