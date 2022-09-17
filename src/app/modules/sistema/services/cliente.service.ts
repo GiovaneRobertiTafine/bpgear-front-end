@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
-import { IDataReturn } from 'src/app/shared/models/data-return.model';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { IDataReturn } from '../../shared/models/data-return.model';
+import { ApiService } from '../../shared/services/api.service';
 import { Cliente } from '../models/interfaces/cliente.interface';
 import { ClienteAlterarPesquisa } from '../models/requests/cliente-alterar-pesquisa.request';
 import { ClienteCriarEmail } from '../models/requests/cliente-criar-enviar-email.request';

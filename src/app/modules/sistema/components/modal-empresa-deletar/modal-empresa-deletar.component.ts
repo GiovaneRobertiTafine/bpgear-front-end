@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, takeUntil } from 'rxjs';
-import { SpinnerService } from 'src/app/shared/services/spinner.service';
-import { ToastService } from 'src/app/shared/services/toast.service';
+import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
+import { ToastService } from 'src/app/modules/shared/services/toast.service';
 import { Empresa } from '../../models/interfaces/empresa.interface';
 import { EmpresaDeletar } from '../../models/requests/empresa-deletar.request';
 import { EmpresaService } from '../../services/empresa.service';

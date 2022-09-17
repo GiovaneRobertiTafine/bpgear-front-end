@@ -1,7 +1,6 @@
 import { MaskPipe } from 'ngx-mask';
-import { DataViewConfig } from "src/app/shared/models/data-view-config.model";
-import { TelefonePipe } from 'src/app/shared/pipes/telefone.pipe';
-import { TransformValuePipe } from '../../pipe/transform-value.pipe';
+import { DataViewConfig } from 'src/app/modules/shared/models/data-view-config.model';
+import { TelefonePipe } from 'src/app/modules/shared/pipes/telefone.pipe';
 
 export const EmpresaDataViewConfig: DataViewConfig = {
     colunas: [
@@ -184,6 +183,19 @@ export const ValorDataViewConfig: DataViewConfig = {
 };
 
 export const SetorDataViewConfig: DataViewConfig = {
+    colunas: [
+        {
+            titulo: "Nome",
+            propriedade: ["nome"]
+        },
+    ],
+    colunasAcao: {
+        editar: true,
+        deletar: true
+    }
+};
+
+export const BemServicoDataViewConfig: DataViewConfig = {
     colunas: [
         {
             titulo: "Nome",

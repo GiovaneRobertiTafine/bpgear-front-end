@@ -3,7 +3,7 @@
     <button class="btn btn-outline-success float-end" (click)="criarMercado()">Novo Mercado</button>
 </div>
 
-<bpgear-table [dataViewConfig]="mercadoDataViewConfig" [data]="mercados" #tableEmpresa
-    (deletarItemEvent)="deletarMercado($event)" (editarItemEvent)="editarMercado($event)">
+<bpgear-table [dataViewConfig]="mercadoDataViewConfig" [data]="mercados" (deletarItemEvent)="deletarMercado($event)"
+    (editarItemEvent)="editarMercado($event)">
 
 </bpgear-table>

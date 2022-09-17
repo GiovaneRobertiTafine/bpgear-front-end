@@ -10,7 +10,7 @@
             <li class="nav-item" *ngFor="let link of links" routerLinkActive="active">
                 <a class="nav-link d-flex gap-2" [title]="link.title" [routerLink]="[link.path, id]">
                     <fa-icon [icon]="link.icon" [fixedWidth]="true"></fa-icon>
-                    <span class="title-item">{{link.title}}</span>
+                    <span class="title-item text-nowrap">{{link.title}}</span>
                 </a>
             </li>
         </ul>

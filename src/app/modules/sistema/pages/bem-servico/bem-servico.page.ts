@@ -3,40 +3,40 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, takeUntil } from 'rxjs';
 import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
 import { ToastService } from 'src/app/modules/shared/services/toast.service';
+import { ModalBemServicoCriarComponent } from '../../components/modal-bem-servico-criar/modal-bem-servico-criar.component';
+import { ModalBemServicoEditarComponent } from '../../components/modal-bem-servico-editar/modal-bem-servico-editar.component';
 import { ModalDeletarComponent } from '../../components/modal-deletar/modal-deletar.component';
-import { ModalMercadoCriarComponent } from '../../components/modal-mercado-criar/modal-mercado-criar.component';
-import { ModalMercadoEditarComponent } from '../../components/modal-mercado-editar/modal-mercado-editar.component';
-import { MercadoDataViewConfig } from '../../models/constants/sistema-data-view-config.constant';
-import { Mercado } from '../../models/interfaces/mercado.interface';
+import { BemServicoDataViewConfig } from '../../models/constants/sistema-data-view-config.constant';
+import { BemServico } from '../../models/interfaces/bem-servico.interface';
+import { BemServicoService } from '../../services/bem-servico.service';
 import { EmpresaService } from '../../services/empresa.service';
-import { MercadoService } from '../../services/mercado.service';
 
 @Component({
-    selector: 'bpgear-mercado',
-    templateUrl: './mercado.page.html',
-    styleUrls: ['./mercado.page.scss']
+    selector: 'bpgear-bem-servico',
+    templateUrl: './bem-servico.page.html',
+    styleUrls: ['./bem-servico.page.scss']
 })
-export class MercadoPage implements OnInit, OnDestroy {
-    mercadoDataViewConfig = MercadoDataViewConfig;
-    mercados: Mercado[] = [];
+export class BemServicoPage implements OnInit, OnDestroy {
+    bemServico: BemServico[] = [];
+    bemServicoDataViewConfig = BemServicoDataViewConfig;
 
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
-        private empresaService: EmpresaService,
+        private bemServicoService: BemServicoService,
         private spinnerService: SpinnerService,
         private toastService: ToastService,
-        private mercadoService: MercadoService,
         private modalService: NgbModal,
+        private empresaService: EmpresaService
     ) { }
 
     ngOnInit(): void {
-        this.obterMercados();
+        this.obterBensServicos();
     }
 
-    obterMercados(): void {
+    obterBensServicos(): void {
         this.spinnerService.show();
-        this.mercadoService.obterMercados(this.empresaService.getEmpresa().value.id)
+        this.bemServicoService.obterBensServicos(this.empresaService.getEmpresa().value.id)
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe(
                 (response) => {
@@ -46,41 +46,41 @@ export class MercadoPage implements OnInit, OnDestroy {
                         return;
                     }
 
-                    this.mercados = response.data;
+                    this.bemServico = response.data;
                 }
             );
     }
 
-    criarMercado(): void {
-        const modalRef = this.modalService.open(ModalMercadoCriarComponent, { size: 'md' });
+    criarBemServico(): void {
+        const modalRef = this.modalService.open(ModalBemServicoCriarComponent, { size: 'md' });
         modalRef.result
             .then((res) => {
                 if (res) {
-                    this.obterMercados();
+                    this.obterBensServicos();
                 }
             })
             .catch((err) => err);
     }
 
-    deletarMercado(mercado: Mercado): void {
+    deletarBemServico(bemServico: BemServico): void {
         const modalRef = this.modalService.open(ModalDeletarComponent, { size: 'md' });
-        modalRef.componentInstance.mercado = mercado;
+        modalRef.componentInstance.bemServico = bemServico;
         modalRef.result
             .then((res) => {
                 if (res) {
-                    this.obterMercados();
+                    this.obterBensServicos();
                 }
             })
             .catch((err) => err);
     }
 
-    editarMercado(mercado: Mercado): void {
-        const modalRef = this.modalService.open(ModalMercadoEditarComponent, { size: 'md' });
-        modalRef.componentInstance.mercado = mercado;
+    editarBemServico(bemServico: BemServico): void {
+        const modalRef = this.modalService.open(ModalBemServicoEditarComponent, { size: 'md' });
+        modalRef.componentInstance.bemServico = bemServico;
         modalRef.result
             .then((res) => {
                 if (res) {
-                    this.obterMercados();
+                    this.obterBensServicos();
                 }
             })
             .catch((err) => err);

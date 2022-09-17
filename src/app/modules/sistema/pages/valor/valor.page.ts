@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, takeUntil } from 'rxjs';
-import { SpinnerService } from 'src/app/shared/services/spinner.service';
-import { ToastService } from 'src/app/shared/services/toast.service';
+import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
+import { ToastService } from 'src/app/modules/shared/services/toast.service';
 import { ModalDeletarComponent } from '../../components/modal-deletar/modal-deletar.component';
 import { ModalValorCriarComponent } from '../../components/modal-valor-criar/modal-valor-criar.component';
 import { ModalValorEditarComponent } from '../../components/modal-valor-editar/modal-valor-editar.component';

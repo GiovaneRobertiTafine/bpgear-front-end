@@ -1,7 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SpinnerService } from 'src/app/shared/services/spinner.service';
-import { ToastService } from 'src/app/shared/services/toast.service';
 import { ModalEmpresaCriarComponent } from '../../components/modal-empresa-criar/modal-empresa-criar.component';
 import { ModalEmpresaDeletarComponent } from '../../components/modal-empresa-deletar/modal-empresa-deletar.component';
 import { ModalEmpresaEditarComponent } from '../../components/modal-empresa-editar/modal-empresa-editar.component';
@@ -9,9 +7,11 @@ import { EmpresaDataViewConfig } from '../../models/constants/sistema-data-view-
 import { Empresa } from '../../models/interfaces/empresa.interface';
 import { EmpresaService } from '../../services/empresa.service';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { TitleService } from 'src/app/shared/services/title.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
+import { ToastService } from 'src/app/modules/shared/services/toast.service';
+import { TitleService } from 'src/app/modules/shared/services/title.service';
 @Component({
     selector: 'bpgear-empresa',
     templateUrl: './empresa.page.html',

@@ -3,13 +3,13 @@ import { FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { FormTypeBuilder, NgTypeFormControlValidator, NgTypeFormGroup } from 'reactive-forms-typed';
-import { SpinnerService } from 'src/app/shared/services/spinner.service';
-import { ToastService } from 'src/app/shared/services/toast.service';
 import { Colaborador } from '../../models/interfaces/colaborador.interface';
 import { ColaboradorCriar } from '../../models/requests/colaborador-criar.request';
 import { ColaboradorService } from '../../services/colaborador.service';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { Pesquisa } from '../../models/enums/pesquisa.enum';
+import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
+import { ToastService } from 'src/app/modules/shared/services/toast.service';
 
 @Component({
     selector: 'bpgear-colaborador-criar',

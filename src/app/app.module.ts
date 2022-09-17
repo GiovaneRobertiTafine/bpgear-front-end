@@ -7,10 +7,10 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthModule } from './modules/auth/auth.module';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { SharedModule } from './modules/shared/shared.module';
 @NgModule({
     declarations: [
         AppComponent,

@@ -12,12 +12,12 @@ import { ToastComponent } from './components/toast/toast.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { TableComponent } from './components/table/table.component';
 
-import { TokenInterceptor } from '../modules/auth/services/token.interceptor';
 import { InjectorPipe } from './pipes/injector.pipe';
 import { MaskPipe } from 'ngx-mask';
 import { TelefonePipe } from './pipes/telefone.pipe';
 import { ValidatorClassDirective } from './directives/validator-class.directive';
 import { InputDropdownAutoCompleteComponent } from './components/input-dropdown-auto-complete/input-dropdown-auto-complete.component';
+import { TokenInterceptor } from '../auth/services/token.interceptor';
 @NgModule({
     declarations: [
         InputPasswordComponent,

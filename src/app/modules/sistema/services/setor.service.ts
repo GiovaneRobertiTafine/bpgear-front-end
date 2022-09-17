@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
-import { IDataReturn } from 'src/app/shared/models/data-return.model';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { IDataReturn } from '../../shared/models/data-return.model';
+import { ApiService } from '../../shared/services/api.service';
 import { Setor } from '../models/interfaces/setor.interface';
 import { SetorCriar } from '../models/requests/setor-criar.request';
 import { SetorDeletar } from '../models/requests/setor-deletar.request';

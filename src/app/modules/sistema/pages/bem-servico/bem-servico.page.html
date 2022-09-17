@@ -1,0 +1,9 @@
+<div class="w-100 d-inline-block mt-3">
+    <h3 class="fst-italic float-start">Bens e Serviços</h3>
+    <button class="btn btn-outline-success float-end" (click)="criarBemServico()">Novo Bem e Serviço</button>
+</div>
+
+<bpgear-table [dataViewConfig]="bemServicoDataViewConfig" [data]="bemServico"
+    (deletarItemEvent)="deletarBemServico($event)" (editarItemEvent)="editarBemServico($event)">
+
+</bpgear-table>

@@ -3,9 +3,8 @@
     <button class="btn btn-outline-success float-end" (click)="criarCliente()">Novo Cliente</button>
 </div>
 
-<bpgear-table [dataViewConfig]="clienteDataViewConfig" [data]="clientes" #tableEmpresa
-    (deletarItemEvent)="deletarCliente($event)" (detalharItemEvent)="detalharCliente($event)"
-    (editarItemEvent)="editarCliente($event)">
+<bpgear-table [dataViewConfig]="clienteDataViewConfig" [data]="clientes" (deletarItemEvent)="deletarCliente($event)"
+    (detalharItemEvent)="detalharCliente($event)" (editarItemEvent)="editarCliente($event)">
     <ng-template #colAlterarPesquisa let-data="dataCallBack" let-item="itemCallBack">
         <span (click)="alterarPesquisa(item)">{{ data | transformValue: "acao-alterar-pesquisa" }}</span>
     </ng-template>

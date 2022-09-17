@@ -1,18 +1,21 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, takeUntil } from 'rxjs';
-import { SpinnerService } from 'src/app/shared/services/spinner.service';
-import { ToastService } from 'src/app/shared/services/toast.service';
+import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
+import { ToastService } from 'src/app/modules/shared/services/toast.service';
+import { BemServico } from '../../models/interfaces/bem-servico.interface';
 import { Cliente } from '../../models/interfaces/cliente.interface';
 import { Colaborador } from '../../models/interfaces/colaborador.interface';
 import { Mercado } from '../../models/interfaces/mercado.interface';
 import { Setor } from '../../models/interfaces/setor.interface';
 import { Valor } from '../../models/interfaces/valor.inteface';
+import { BemServicoDeletar } from '../../models/requests/bem-servico-deletar.request';
 import { ClienteDeletar } from '../../models/requests/cliente-deletar.request';
 import { DeletarColaborador } from '../../models/requests/colaborador-deletar.request';
 import { MercadoDeletar } from '../../models/requests/mercado-deletar.request';
 import { SetorDeletar } from '../../models/requests/setor-deletar.request';
 import { ValorDeletar } from '../../models/requests/valor-deletar.request';
+import { BemServicoService } from '../../services/bem-servico.service';
 import { ClienteService } from '../../services/cliente.service';
 import { ColaboradorService } from '../../services/colaborador.service';
 import { MercadoService } from '../../services/mercado.service';
@@ -30,6 +33,7 @@ export class ModalDeletarComponent implements OnInit, OnDestroy {
     mercado: Mercado = null;
     valor: Valor = null;
     setor: Setor = null;
+    bemServico: BemServico = null;
 
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
@@ -41,7 +45,8 @@ export class ModalDeletarComponent implements OnInit, OnDestroy {
         private colaboradorService: ColaboradorService,
         private mercadoService: MercadoService,
         private valorService: ValorService,
-        private setorService: SetorService
+        private setorService: SetorService,
+        private bemServicoService: BemServicoService
     ) { }
 
     ngOnInit(): void {
@@ -131,6 +136,27 @@ export class ModalDeletarComponent implements OnInit, OnDestroy {
         const deletarValor: SetorDeletar = { id: this.setor.id };
         this.spinnerService.show();
         this.setorService.deletarSetor(deletarValor)
+            .pipe(
+                takeUntil(this.unsubscribe$)
+            )
+            .subscribe(
+                (response) => {
+                    this.spinnerService.hide();
+                    if (response.resultStatus.code !== 200) {
+                        this.toastService.error(response.resultStatus.message);
+                        return;
+                    }
+
+                    this.toastService.success(response.resultStatus.message);
+                    this.activeModal.close(true);
+                }
+            );
+    }
+
+    deletarBemServico(): void {
+        const deletarBemServico: BemServicoDeletar = { id: this.bemServico.id };
+        this.spinnerService.show();
+        this.bemServicoService.deletarBemServico(deletarBemServico)
             .pipe(
                 takeUntil(this.unsubscribe$)
             )

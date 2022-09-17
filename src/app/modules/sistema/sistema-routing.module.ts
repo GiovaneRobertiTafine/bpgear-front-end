@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from '../auth/services/auth-guard.service';
 import { TokenGuardService } from '../auth/services/token-guard.service';
+import { BemServicoPage } from './pages/bem-servico/bem-servico.page';
 import { ClienteCriarPage } from './pages/cliente-criar/cliente-criar.page';
 import { ClientePage } from './pages/cliente/cliente.page';
 import { ColaboradorCriarPage } from './pages/colaborador-criar/colaborador-criar.page';
@@ -56,6 +57,12 @@ const routes: Routes = [
                 path: 'setor/:id',
                 component: SetorPage,
                 data: { title: "Setores" },
+                canActivate: [EmpresaGuardService]
+            },
+            {
+                path: 'bem-servico/:id',
+                component: BemServicoPage,
+                data: { title: "Bens e Serviços" },
                 canActivate: [EmpresaGuardService]
             }
         ]

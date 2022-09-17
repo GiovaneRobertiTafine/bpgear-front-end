@@ -8,7 +8,7 @@ import { EmpresaPage } from './pages/empresa/empresa.page';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { ModalEmpresaCriarComponent } from './components/modal-empresa-criar/modal-empresa-criar.component';
 import { ModalEmpresaEditarComponent } from './components/modal-empresa-editar/modal-empresa-editar.component';
 import { ModalEmpresaDeletarComponent } from './components/modal-empresa-deletar/modal-empresa-deletar.component';
@@ -41,6 +41,9 @@ import { ModalValorEditarComponent } from './components/modal-valor-editar/modal
 import { SetorPage } from './pages/setor/setor.page';
 import { ModalSetorCriarComponent } from './components/modal-setor-criar/modal-setor-criar.component';
 import { ModalSetorEditarComponent } from './components/modal-setor-editar/modal-setor-editar.component';
+import { BemServicoPage } from './pages/bem-servico/bem-servico.page';
+import { ModalBemServicoCriarComponent } from './components/modal-bem-servico-criar/modal-bem-servico-criar.component';
+import { ModalBemServicoEditarComponent } from './components/modal-bem-servico-editar/modal-bem-servico-editar.component';
 @NgModule({
     declarations: [
         LayoutTemplate,
@@ -71,6 +74,9 @@ import { ModalSetorEditarComponent } from './components/modal-setor-editar/modal
         SetorPage,
         ModalSetorCriarComponent,
         ModalSetorEditarComponent,
+        BemServicoPage,
+        ModalBemServicoCriarComponent,
+        ModalBemServicoEditarComponent,
     ],
     imports: [
         CommonModule,

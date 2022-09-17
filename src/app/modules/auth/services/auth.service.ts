@@ -2,11 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
-import { IDataReturn } from 'src/app/shared/models/data-return.model';
-import { ApiService } from 'src/app/shared/services/api.service';
 import { UsuarioAutenticar } from '../models/requests/usuario-autenticar.request';
 import { Usuario } from '../models/interfaces/usuario.model';
 import { TokenService } from './token.service';
+import { ApiService } from '../../shared/services/api.service';
+import { IDataReturn } from '../../shared/models/data-return.model';
 
 @Injectable({
     providedIn: 'root'

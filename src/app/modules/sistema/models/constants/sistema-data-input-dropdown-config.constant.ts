@@ -1,4 +1,4 @@
-import { DataInputDropdownConfig } from "src/app/shared/models/data-input-dropdown-config.model";
+import { DataInputDropdownConfig } from "src/app/modules/shared/models/data-input-dropdown-config.model";
 
 export const MercadoDataInputDropdown: DataInputDropdownConfig = {
     itens: [

@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable } from 'rxjs';
-import { IDataReturn } from 'src/app/shared/models/data-return.model';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { IDataReturn } from '../../shared/models/data-return.model';
+import { ApiService } from '../../shared/services/api.service';
 import { Empresa } from '../models/interfaces/empresa.interface';
 import { EmpresaCriar } from '../models/requests/empresa-criar.request';
 import { EmpresaDeletar } from '../models/requests/empresa-deletar.request';

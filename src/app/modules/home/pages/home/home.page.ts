@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastService } from 'src/app/shared/services/toast.service';
+import { ToastService } from 'src/app/modules/shared/services/toast.service';
 
 @Component({
     selector: 'bpgear-home',
