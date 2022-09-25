@@ -3,10 +3,12 @@ import { FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormTypeBuilder, NgTypeFormGroup } from 'reactive-forms-typed';
 import { Subject, takeUntil } from 'rxjs';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
 import { ToastService } from 'src/app/modules/shared/services/toast.service';
 import { Mercado } from '../../models/interfaces/mercado.interface';
 import { MercadoEditar } from '../../models/requests/mercado-editar.request';
+import { EmpresaService } from '../../services/empresa.service';
 import { MercadoService } from '../../services/mercado.service';
 
 @Component({
@@ -26,16 +28,19 @@ export class ModalMercadoEditarComponent implements OnInit, OnDestroy {
         private fb: FormTypeBuilder,
         private spinnerService: SpinnerService,
         private toastService: ToastService,
+        private empresaService: EmpresaService
     ) { }
 
     ngOnInit(): void {
         this.form = this.fb.group<MercadoEditar>({
             id: [this.mercado.id],
+            idEmpresa: [this.empresaService.getEmpresa().value.id],
             nome: [this.mercado.nome, [Validators.required, Validators.minLength(3)]]
         });
 
         this.form.setFormErrors({
             id: {},
+            idEmpresa: {},
             nome: { required: "Nome é requerido", minlength: "Minímo de 3 caracteres" }
         });
     }

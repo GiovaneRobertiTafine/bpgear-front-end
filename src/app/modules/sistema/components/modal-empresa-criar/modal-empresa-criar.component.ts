@@ -16,8 +16,7 @@ import { EmpresaService } from '../../services/empresa.service';
     styleUrls: ['./modal-empresa-criar.component.scss']
 })
 export class ModalEmpresaCriarComponent implements OnInit, OnDestroy {
-    form: NgTypeFormGroup<Empresa>;
-    usuario = "";
+    form: NgTypeFormGroup<EmpresaCriar>;
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
@@ -30,7 +29,8 @@ export class ModalEmpresaCriarComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-        this.form = this.fb.group<Empresa>({
+        this.form = this.fb.group<EmpresaCriar>({
+            idUsuario: [this.authService.getUsuario().value.id],
             nomeEmpresa: ["", [Validators.required]],
             cnpj: ["", [Validators.required]],
             razaoSocial: ["", [Validators.required]],
@@ -42,16 +42,10 @@ export class ModalEmpresaCriarComponent implements OnInit, OnDestroy {
             cnpj: { required: "CNPJ é requirido.", mask: "CNPJ inválido" },
             razaoSocial: { required: "Razão social é requirido." },
             responsavel: { required: "Reponsável é requirido." },
-            telefone: { required: "Telefone é requirido.", mask: "Telefone inválido", pattern: "Telefone inválido" }
+            telefone: { required: "Telefone é requirido.", mask: "Telefone inválido", pattern: "Telefone inválido" },
+            idUsuario: {}
         });
 
-        this.authService.getUsuario()
-            .pipe(
-                takeUntil(this.unsubscribe$)
-            )
-            .subscribe(
-                (u) => this.usuario = u.usuario
-            );
     }
 
     criarEmpresa(): void {
@@ -60,7 +54,7 @@ export class ModalEmpresaCriarComponent implements OnInit, OnDestroy {
             return;
         }
 
-        const request: EmpresaCriar = { ...this.form.value, usuario: { login: this.usuario } };
+        const request: EmpresaCriar = { ...this.form.value };
         this.spinnerService.show();
         this.empresaService.criarEmpresa(request)
             .pipe(

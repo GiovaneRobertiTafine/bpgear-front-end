@@ -6,6 +6,7 @@ import { ApiService } from '../../shared/services/api.service';
 import { Empresa } from '../models/interfaces/empresa.interface';
 import { EmpresaCriar } from '../models/requests/empresa-criar.request';
 import { EmpresaDeletar } from '../models/requests/empresa-deletar.request';
+import { EmpresaEditar } from '../models/requests/empresa-editar.request';
 
 @Injectable({
     providedIn: 'root'
@@ -31,14 +32,14 @@ export class EmpresaService extends ApiService {
     }
 
     public deletarEmpresa(request: EmpresaDeletar): Observable<IDataReturn<null>> {
-        return this.post<IDataReturn<null>>('empresa/deletar', request)
+        return this.delete<IDataReturn<null>>('empresa/deletar', request)
             .pipe(
                 catchError(this.handleError<IDataReturn<null>>('deletarEmpresa'))
             );
     }
 
-    public editarEmpresa(request: Empresa): Observable<IDataReturn<null>> {
-        return this.post<IDataReturn<null>>('empresa/editar', request)
+    public editarEmpresa(request: EmpresaEditar): Observable<IDataReturn<null>> {
+        return this.put<IDataReturn<null>>('empresa/editar', request)
             .pipe(
                 catchError(this.handleError<IDataReturn<null>>('editarEmpresa'))
             );
@@ -49,7 +50,7 @@ export class EmpresaService extends ApiService {
         localStorage.setItem('bpgear-empresa', JSON.stringify(empresa));
     }
 
-    getEmpresa() {
+    getEmpresa(): BehaviorSubject<Empresa> {
         return this.empresa$;
     }
 

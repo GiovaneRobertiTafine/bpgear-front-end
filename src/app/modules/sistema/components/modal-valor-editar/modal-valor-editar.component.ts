@@ -3,10 +3,12 @@ import { FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormTypeBuilder, NgTypeFormGroup } from 'reactive-forms-typed';
 import { Subject, takeUntil } from 'rxjs';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
 import { ToastService } from 'src/app/modules/shared/services/toast.service';
 import { Valor } from '../../models/interfaces/valor.inteface';
 import { ValorEditar } from '../../models/requests/valor-editar.request';
+import { EmpresaService } from '../../services/empresa.service';
 import { ValorService } from '../../services/valor.service';
 
 @Component({
@@ -26,17 +28,20 @@ export class ModalValorEditarComponent implements OnInit, OnDestroy {
         private fb: FormTypeBuilder,
         private spinnerService: SpinnerService,
         private toastService: ToastService,
+        private empresaService: EmpresaService
     ) { }
 
     ngOnInit(): void {
         this.form = this.fb.group<ValorEditar>({
             id: [this.valor.id],
+            idEmpresa: [this.empresaService.getEmpresa().value.id],
             nome: [this.valor.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(70)]],
             definicaoValor: [this.valor.definicaoValor, [Validators.required, Validators.minLength(5), Validators.maxLength(200)]]
         });
 
         this.form.setFormErrors({
             id: {},
+            idEmpresa: {},
             nome: { required: "Nome é requerido", minlength: "Mínimo de 3 caracteres", maxlength: "Máximo de 70 caracteres." },
             definicaoValor: { required: "Definição de valor é requerido", minlength: "Mínimo de 5 caracteres", maxlength: "Máximo de 200 caracteres." }
         });

@@ -35,7 +35,7 @@ export class AuthService extends ApiService {
         this.router.navigateByUrl('/login');
     }
 
-    getUsuario(): Observable<Usuario> {
+    getUsuario(): BehaviorSubject<Usuario> {
         return this.usuario$;
     }
 

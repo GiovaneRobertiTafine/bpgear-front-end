@@ -3,9 +3,11 @@ import { FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormTypeBuilder, NgTypeFormGroup } from 'reactive-forms-typed';
 import { Subject, takeUntil } from 'rxjs';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
 import { ToastService } from 'src/app/modules/shared/services/toast.service';
 import { Empresa } from '../../models/interfaces/empresa.interface';
+import { EmpresaEditar } from '../../models/requests/empresa-editar.request';
 import { EmpresaService } from '../../services/empresa.service';
 
 @Component({
@@ -14,20 +16,24 @@ import { EmpresaService } from '../../services/empresa.service';
     styleUrls: ['./modal-empresa-editar.component.scss']
 })
 export class ModalEmpresaEditarComponent implements OnInit, OnDestroy {
-    form: NgTypeFormGroup<Empresa>;
+    form: NgTypeFormGroup<EmpresaEditar>;
     usuario = "";
     empresa: Empresa = null;
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
+
     constructor(
         public activeModal: NgbActiveModal,
         private fb: FormTypeBuilder,
         private spinnerService: SpinnerService,
         private toastService: ToastService,
         private empresaService: EmpresaService,
+        private authService: AuthService
     ) { }
 
     ngOnInit(): void {
-        this.form = this.fb.group<Empresa>({
+        this.form = this.fb.group<EmpresaEditar>({
+            id: [this.empresa.id],
+            idUsuario: [this.authService.getUsuario().value.id],
             nomeEmpresa: [this.empresa.nomeEmpresa, [Validators.required]],
             cnpj: [this.empresa.cnpj, [Validators.required]],
             razaoSocial: [this.empresa.razaoSocial, [Validators.required]],
@@ -35,6 +41,8 @@ export class ModalEmpresaEditarComponent implements OnInit, OnDestroy {
             telefone: [this.empresa.telefone, [Validators.required, Validators.pattern(/^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/)]]
         });
         this.form.setFormErrors({
+            id: {},
+            idUsuario: {},
             nomeEmpresa: { required: "Nome da empresa é requirido." },
             cnpj: { required: "CNPJ é requirido.", mask: "CNPJ inválido" },
             razaoSocial: { required: "Razão social é requirido." },
@@ -49,7 +57,7 @@ export class ModalEmpresaEditarComponent implements OnInit, OnDestroy {
             return;
         }
 
-        const reuqest: Empresa = { ...this.form.value, id: this.empresa.id };
+        const reuqest: EmpresaEditar = { ...this.form.value };
         this.spinnerService.show();
         this.empresaService.editarEmpresa(reuqest)
             .pipe(

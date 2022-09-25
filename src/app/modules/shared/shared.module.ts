@@ -17,7 +17,7 @@ import { MaskPipe } from 'ngx-mask';
 import { TelefonePipe } from './pipes/telefone.pipe';
 import { ValidatorClassDirective } from './directives/validator-class.directive';
 import { InputDropdownAutoCompleteComponent } from './components/input-dropdown-auto-complete/input-dropdown-auto-complete.component';
-import { TokenInterceptor } from '../auth/services/token.interceptor';
+import { TokenInterceptor } from '../auth/services/interceptors/token.interceptor';
 @NgModule({
     declarations: [
         InputPasswordComponent,

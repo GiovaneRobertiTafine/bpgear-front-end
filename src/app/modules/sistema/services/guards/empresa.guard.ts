@@ -1,12 +1,12 @@
-import { Injectable, OnInit } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable, of, tap } from 'rxjs';
-import { EmpresaService } from './empresa.service';
+import { EmpresaService } from '../empresa.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class EmpresaGuardService implements CanActivate {
+export class EmpresaGuard implements CanActivate {
 
     constructor(
         private router: Router,
@@ -27,4 +27,5 @@ export class EmpresaGuardService implements CanActivate {
             }
         }));
     }
+
 }

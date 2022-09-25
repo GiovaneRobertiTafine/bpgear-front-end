@@ -11,7 +11,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { ModalEmpresaCriarComponent } from './components/modal-empresa-criar/modal-empresa-criar.component';
 import { ModalEmpresaEditarComponent } from './components/modal-empresa-editar/modal-empresa-editar.component';
-import { ModalEmpresaDeletarComponent } from './components/modal-empresa-deletar/modal-empresa-deletar.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { SectionUserComponent } from './components/section-user/section-user.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
@@ -23,7 +22,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ColaboradorPage } from './pages/colaborador/colaborador.page';
 import { ColaboradorCriarPage } from './pages/colaborador-criar/colaborador-criar.page';
-import { TransformValuePipe } from './pipe/transform-value.pipe';
+import { TransformValuePipe } from './pipes/transform-value.pipe';
 import { ModalColaboradorCriarEmailComponent } from './components/modal-colaborador-criar-email/modal-colaborador-criar-email.component';
 import { ClientePage } from './pages/cliente/cliente.page';
 import { MercadoPage } from './pages/mercado/mercado.page';
@@ -50,7 +49,6 @@ import { ModalBemServicoEditarComponent } from './components/modal-bem-servico-e
         EmpresaPage,
         ModalEmpresaCriarComponent,
         ModalEmpresaEditarComponent,
-        ModalEmpresaDeletarComponent,
         NavBarComponent,
         SectionUserComponent,
         SideBarComponent,
