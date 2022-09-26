@@ -75,7 +75,7 @@ export class ClienteCriarPage implements OnInit, OnDestroy {
             cnpj: { required: "CNPJ é requerido.", mask: "CNPJ inválido.", invalidCpfCnpj: "CNPJ inválido." },
             razaoSocial: { required: "Razão Social é requerido.", minlength: "Mínimo de 5 caracteres.", maxlength: "Máximo de 70 caracteres." },
             responsavel: { required: "Responsável é requerido.", minlength: "Mínimo de 10 caracteres.", maxlength: "Máximo de 70 caracteres." },
-            telefone: { required: "Telefone é requerido.", pattern: "Telefone inválido" },
+            telefone: { required: "Telefone é requerido.", mask: "Telefone inválido", pattern: "Telefone inválido" },
             idMercado: {},
             pesquisa: {},
             idEmpresa: {}

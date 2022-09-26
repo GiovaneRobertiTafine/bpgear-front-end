@@ -6,6 +6,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
 import { ToastService } from 'src/app/modules/shared/services/toast.service';
+import { CpfCnpjValidator } from 'src/app/modules/shared/utils/cpf-cnpj.validator';
 import { Empresa } from '../../models/interfaces/empresa.interface';
 import { EmpresaEditar } from '../../models/requests/empresa-editar.request';
 import { EmpresaService } from '../../services/empresa.service';
@@ -34,20 +35,20 @@ export class ModalEmpresaEditarComponent implements OnInit, OnDestroy {
         this.form = this.fb.group<EmpresaEditar>({
             id: [this.empresa.id],
             idUsuario: [this.authService.getUsuario().value.id],
-            nomeEmpresa: [this.empresa.nomeEmpresa, [Validators.required]],
-            cnpj: [this.empresa.cnpj, [Validators.required]],
-            razaoSocial: [this.empresa.razaoSocial, [Validators.required]],
-            responsavel: [this.empresa.responsavel, [Validators.required]],
+            nomeEmpresa: [this.empresa.nomeEmpresa, [Validators.required, Validators.minLength(3), Validators.maxLength(70)]],
+            cnpj: [this.empresa.cnpj, [Validators.required, CpfCnpjValidator]],
+            razaoSocial: [this.empresa.razaoSocial, [Validators.required, Validators.minLength(5), Validators.maxLength(70)]],
+            responsavel: [this.empresa.responsavel, [Validators.required, Validators.minLength(10), Validators.maxLength(70)]],
             telefone: [this.empresa.telefone, [Validators.required, Validators.pattern(/^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/)]]
         });
         this.form.setFormErrors({
             id: {},
             idUsuario: {},
-            nomeEmpresa: { required: "Nome da empresa é requirido." },
-            cnpj: { required: "CNPJ é requirido.", mask: "CNPJ inválido" },
-            razaoSocial: { required: "Razão social é requirido." },
-            responsavel: { required: "Reponsável é requirido." },
-            telefone: { required: "Telefone é requirido.", mask: "Telefone inválido", pattern: "Telefone inválido" }
+            nomeEmpresa: { required: "Nome é requerido.", minlength: "Mínimo de 3 caracteres.", maxlength: "Máximo de 70 caracteres." },
+            cnpj: { required: "CNPJ é requirido.", mask: "CNPJ inválido", invalidCpfCnpj: "CNPJ inválido." },
+            razaoSocial: { required: "Razão Social é requerido.", minlength: "Mínimo de 5 caracteres.", maxlength: "Máximo de 70 caracteres." },
+            responsavel: { required: "Responsável é requerido.", minlength: "Mínimo de 10 caracteres.", maxlength: "Máximo de 70 caracteres." },
+            telefone: { required: "Telefone é requerido.", mask: "Telefone inválido", pattern: "Telefone inválido" }
         });
     }
 

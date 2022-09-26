@@ -17,6 +17,10 @@ export class ToastService {
         this.toasts.push({ textOrTpl, className: "bg-danger text-light" });
     }
 
+    warning(textOrTpl: string | TemplateRef<any>) {
+        this.toasts.push({ textOrTpl, className: "bg-warning" });
+    }
+
     remove(toast) {
         this.toasts = this.toasts.filter(t => t !== toast);
     }

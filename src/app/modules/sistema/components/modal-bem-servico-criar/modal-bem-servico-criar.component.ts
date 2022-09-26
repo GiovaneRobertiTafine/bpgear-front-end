@@ -49,15 +49,14 @@ export class ModalBemServicoCriarComponent implements OnInit, OnDestroy {
         const request: BemServicoCriar = { ...this.form.value };
         this.spinnerService.show();
         this.bemServicoService.criarBemServico(request)
-            .pipe(
-                takeUntil(this.unsubscribe$)
-            )
+            .pipe(takeUntil(this.unsubscribe$))
             .subscribe(
                 (response) => {
                     this.spinnerService.hide();
+                    if (response.resultStatus.code === 409)
+                        return this.toastService.warning(response.resultStatus.message);
                     if (response.resultStatus.code !== 200) {
-                        this.toastService.error(response.resultStatus.message);
-                        return;
+                        return this.toastService.error(response.resultStatus.message);
                     }
 
                     this.toastService.success(response.resultStatus.message);
