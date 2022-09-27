@@ -6,6 +6,7 @@ import { SpinnerService } from 'src/app/modules/shared/services/spinner.service'
 import { ToastService } from 'src/app/modules/shared/services/toast.service';
 import { ModalAlterarPesquisaComponent } from '../../components/modal-alterar-pesquisa/modal-alterar-pesquisa.component';
 import { ModalClienteCriarEmailComponent } from '../../components/modal-cliente-criar-email/modal-cliente-criar-email.component';
+import { ModalClienteCriarComponent } from '../../components/modal-cliente-criar/modal-cliente-criar.component';
 import { ModalClienteEditarComponent } from '../../components/modal-cliente-editar/modal-cliente-editar.component';
 import { ModalDeletarComponent } from '../../components/modal-deletar/modal-deletar.component';
 import { ModalDetalharComponent } from '../../components/modal-detalhar/modal-detalhar.component';
@@ -75,15 +76,14 @@ export class ClientePage implements OnInit, AfterViewInit {
                         this.toastService.error(response.resultStatus.message);
                         return;
                     }
-                    const modalRef = this.modalService.open(ModalClienteCriarEmailComponent, { size: 'md' });
+                    const modalRef = this.modalService.open(ModalClienteCriarComponent, { size: 'md' });
                     modalRef.componentInstance.mercados = response.data;
 
                     modalRef.result
                         .then(
                             (res) => {
-                                if (typeof (res) === "string") {
-                                    this.router.navigateByUrl(res);
-                                }
+                                if (typeof (res) === "string") this.router.navigateByUrl(res);
+                                if (res) this.obterClientes();
                             }
                         )
                         .catch((err) => err);

@@ -3,7 +3,7 @@ import { Mercado } from "./mercado.interface";
 
 export interface Cliente {
     id: string;
-    usuario: string;
+    // usuario: string;
     nome: string;
     razaoSocial: string;
     cnpj: string;

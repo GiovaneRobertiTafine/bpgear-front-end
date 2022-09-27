@@ -147,10 +147,6 @@ export const ClienteDetalharViewConfig: DataViewConfig<NestedKeyOf<Cliente>> = {
             mascara: { token: TelefonePipe },
         },
         {
-            titulo: "Usuário",
-            propriedade: ["usuario"]
-        },
-        {
             titulo: "Pesquisa",
             propriedade: ["pesquisa"],
         },
@@ -222,6 +218,19 @@ export const TesteDataViewConfig: DataViewConfig<NestedKeyOf<Teste>> = {
         {
             titulo: "Nome",
             propriedade: ["nome", "num"]
+        },
+    ],
+    colunasAcao: {
+        editar: true,
+        deletar: true
+    }
+};
+
+export const TesteKeyOfDataViewConfig: DataViewConfig<keyof Teste> = {
+    colunas: [
+        {
+            titulo: "Nome",
+            propriedade: ["nome"]
         },
     ],
     colunasAcao: {

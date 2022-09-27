@@ -1,0 +1,93 @@
+<div class="modal-header">
+    <h4 class="modal-title">Criar Cliente</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+<div *ngIf="mercados.length; else cadastroMercado">
+    <form [formGroup]="formGroup" (ngSubmit)="criarCliente()" novalidate autocomplete="on">
+        <div class="modal-body">
+            <p>
+                Informe os dados abaixo do cliente para que seja enviado o link de cadastro:
+            </p>
+            <div class="row g-3 needs-validation">
+                <div class="col-12">
+                    <label for="inputNomeCliente" class="form-label">Nome:</label>
+                    <input type="text" class="form-control validator" id="inputNome" formControlName="nome">
+                    <small class="text-danger" formControlOnErrorItem="nome"></small>
+                </div>
+                <div class="col-12">
+                    <label for="inputEmail" class="form-label">E-mail:</label>
+                    <input type="text" class="form-control validator" id="inputEmail" formControlName="email">
+                    <small class="text-danger" formControlOnErrorItem="email"></small>
+                </div>
+                <!-- <div class="col-12">
+                    <label for="inputUsuario" class="form-label">Usuário:</label>
+                    <input type="text" class="form-control validator" id="inputUsuario" formControlName="usuario">
+                    <small class="text-danger" formControlOnErrorItem="usuario"></small>
+                </div> -->
+                <div class="col-12">
+                    <label for="inputCnpj" class="form-label">CNPJ:</label>
+                    <input type="text" class="form-control validator" id="inputCnpj" formControlName="cnpj"
+                        mask="CPF_CNPJ">
+                    <small class="text-danger" formControlOnErrorItem="cnpj"></small>
+                </div>
+                <div class="col-12">
+                    <label for="inputRazaoSocial" class="form-label">Razão Social:</label>
+                    <input type="text" class="form-control validator" id="inputRazaoSocial"
+                        formControlName="razaoSocial">
+                    <small class="text-danger" formControlOnErrorItem="razaoSocial"></small>
+                </div>
+                <div class="col-12">
+                    <label for="inputResponsavel" class="form-label">Responsável:</label>
+                    <input type="text" class="form-control validator" id="inputResponsavel"
+                        formControlName="responsavel">
+                    <small class="text-danger" formControlOnErrorItem="responsavel"></small>
+                </div>
+                <div class="col-12">
+                    <label for="inputTelefone" class="form-label">Telefone:</label>
+                    <input type="text" class="form-control validator" id="inputTelefone" formControlName="telefone"
+                        mask="(00) 0000-0000||(00) 00000-0000">
+                    <small class="text-danger" formControlOnErrorItem="telefone"></small>
+                </div>
+                <div class="col-12">
+                    <label for="inputMercado" class="form-label">Mercado:</label>
+                    <bpgear-input-dropdown-auto-complete controlName="idMercado" [formGroup]="formGroup"
+                        [itens]="mercados" [dataInputDropdownConfig]="mercadoDataInputDropdown" name="inputMercado">
+                    </bpgear-input-dropdown-auto-complete>
+                    <small class="text-danger" formControlOnErrorItem="idMercado"></small>
+                </div>
+                <div class="col-12">
+                    <label for="inputPesquisa" class="form-label">Pesquisa:</label> <br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="inputRadioPesquisaAtivada" [value]="0"
+                            formControlName="pesquisa">
+                        <label class="form-check-label" for="inputRadioPesquisaAtivada">Ativada</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="inputRadioPesquisaDesativada" [value]="1"
+                            formControlName="pesquisa">
+                        <label class="form-check-label" for="inputRadioPesquisaDesativada">Desativada</label>
+                    </div>
+                    <small class="text-danger" formControlOnErrorItem="pesquisa"></small>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Fechar</button>
+            <button type="submit" class="btn btn-success">Confirmar</button>
+        </div>
+    </form>
+</div>
+<ng-template #cadastroMercado>
+    <div class="modal-body">
+        <p>
+            É preciso cadastrar algum mercado para cadastrar um cliente.
+            Acesse a página de Mercados para cadastrar:
+            <span class="text-primary text-decoration-underline cursor-pointer"
+                (click)="activeModal.close('/sistema/mercado/' + idEmpresa)">Mercados</span>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Fechar</button>
+    </div>
+</ng-template>

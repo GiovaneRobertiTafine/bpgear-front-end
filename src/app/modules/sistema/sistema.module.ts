@@ -43,6 +43,7 @@ import { ModalSetorEditarComponent } from './components/modal-setor-editar/modal
 import { BemServicoPage } from './pages/bem-servico/bem-servico.page';
 import { ModalBemServicoCriarComponent } from './components/modal-bem-servico-criar/modal-bem-servico-criar.component';
 import { ModalBemServicoEditarComponent } from './components/modal-bem-servico-editar/modal-bem-servico-editar.component';
+import { ModalClienteCriarComponent } from './components/modal-cliente-criar/modal-cliente-criar.component';
 @NgModule({
     declarations: [
         LayoutTemplate,
@@ -75,6 +76,7 @@ import { ModalBemServicoEditarComponent } from './components/modal-bem-servico-e
         BemServicoPage,
         ModalBemServicoCriarComponent,
         ModalBemServicoEditarComponent,
+        ModalClienteCriarComponent,
     ],
     imports: [
         CommonModule,
