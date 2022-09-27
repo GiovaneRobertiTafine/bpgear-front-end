@@ -1,0 +1,41 @@
+<div class="modal-header">
+    <h4 class="modal-title">Criar Colaborador</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+<form [formGroup]="formGroup" (ngSubmit)="criarColaborador()" novalidate autocomplete="on">
+    <div class="modal-body">
+        <p>
+            Informe os dados abaixo do colaborador para que seja enviado o link de cadastro:
+        </p>
+        <div class="row g-3 needs-validation">
+            <div class="col-12">
+                <label for="inputNome" class="form-label">Nome:</label>
+                <input type="text" class="form-control validator" id="inputNome" formControlName="nome">
+                <small class="text-danger" formControlOnErrorItem="nome"></small>
+            </div>
+            <div class="col-12">
+                <label for="inputEmail" class="form-label">E-mail:</label>
+                <input type="text" class="form-control validator" id="inputEmail" formControlName="email">
+                <small class="text-danger" formControlOnErrorItem="email"></small>
+            </div>
+            <div class="col-12">
+                <label for="inputPesquisa" class="form-label">Pesquisa:</label> <br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="inputRadioPesquisaAtivada" [value]="0"
+                        formControlName="pesquisa">
+                    <label class="form-check-label" for="inputRadioPesquisaAtivada">Ativada</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="inputRadioPesquisaDesativada" [value]="1"
+                        formControlName="pesquisa">
+                    <label class="form-check-label" for="inputRadioPesquisaDesativada">Desativada</label>
+                </div>
+                <small class="text-danger" formControlOnErrorItem="pesquisa"></small>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Fechar</button>
+        <button type="submit" class="btn btn-success">Confirmar</button>
+    </div>
+</form>

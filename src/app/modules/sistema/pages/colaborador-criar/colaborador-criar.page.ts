@@ -46,16 +46,16 @@ export class ColaboradorCriarPage implements OnInit, OnDestroy {
             idEmpresa: [this.helper.decodeToken(this.token).id],
             nome: [nome, [Validators.required, Validators.minLength(10), Validators.maxLength(70)]],
             email: [email, [Validators.required, Validators.maxLength(70), Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)]],
-            usuario: ["", [Validators.required, Validators.minLength(5), Validators.maxLength(50), Validators.pattern(/^([a-zA-Z0-9]*)$/)]],
-            senha: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(70), Validators.pattern(/^([a-zA-Z0-9!@#$%&*.]*)$/)]],
-            confirmarSenha: ["",
-                [Validators.required, (c: NgTypeFormControlValidator<string, Colaborador>) => {
-                    if (c && c.parent && c.parent.value.senha === c.value) {
-                        return null;
-                    }
-                    return { notMatch: true };
-                }]
-            ],
+            // usuario: ["", [Validators.required, Validators.minLength(5), Validators.maxLength(50), Validators.pattern(/^([a-zA-Z0-9]*)$/)]],
+            // senha: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(70), Validators.pattern(/^([a-zA-Z0-9!@#$%&*.]*)$/)]],
+            // confirmarSenha: ["",
+            //     [Validators.required, (c: NgTypeFormControlValidator<string, Colaborador>) => {
+            //         if (c && c.parent && c.parent.value.senha === c.value) {
+            //             return null;
+            //         }
+            //         return { notMatch: true };
+            //     }]
+            // ],
             pesquisa: [Pesquisa.DESATIVADA]
         });
 
@@ -63,9 +63,9 @@ export class ColaboradorCriarPage implements OnInit, OnDestroy {
             idEmpresa: {},
             nome: { required: "Nome é requerido.", minlength: "Mínimo de 10 caracteres.", maxlength: "Máximo de 70 caracteres." },
             email: { required: "E-mail é requerido.", pattern: "E-mail inválido.", maxlength: "Máximo de 70 caracteres." },
-            usuario: { required: "Usuário é requerido.", minlength: "Mínimo de 5 caracteres.", maxlength: "Máximo de 50 caracteres.", pattern: "Somente números, letras minúsculas e maiúsculas." },
-            senha: { required: "Senha é requerida.", minlength: "Mínimo de 10 caracteres.", maxlength: "Máximo de 70 caracteres.", pattern: "Somente números, letras minúsculas, letra maiúsculas e os seguintes códigos: .!@#$%&* ." },
-            confirmarSenha: { required: "Confirmar senha é requerido.", notMatch: "Senha diferente." },
+            // usuario: { required: "Usuário é requerido.", minlength: "Mínimo de 5 caracteres.", maxlength: "Máximo de 50 caracteres.", pattern: "Somente números, letras minúsculas e maiúsculas." },
+            // senha: { required: "Senha é requerida.", minlength: "Mínimo de 10 caracteres.", maxlength: "Máximo de 70 caracteres.", pattern: "Somente números, letras minúsculas, letra maiúsculas e os seguintes códigos: .!@#$%&* ." },
+            // confirmarSenha: { required: "Confirmar senha é requerido.", notMatch: "Senha diferente." },
             pesquisa: {}
         });
     }

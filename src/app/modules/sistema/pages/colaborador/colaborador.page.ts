@@ -5,6 +5,7 @@ import { SpinnerService } from 'src/app/modules/shared/services/spinner.service'
 import { ToastService } from 'src/app/modules/shared/services/toast.service';
 import { ModalAlterarPesquisaComponent } from '../../components/modal-alterar-pesquisa/modal-alterar-pesquisa.component';
 import { ModalColaboradorCriarEmailComponent } from '../../components/modal-colaborador-criar-email/modal-colaborador-criar-email.component';
+import { ModalColaboradorCriarComponent } from '../../components/modal-colaborador-criar/modal-colaborador-criar.component';
 import { ModalDeletarComponent } from '../../components/modal-deletar/modal-deletar.component';
 import { ColaboradorDataViewConfig } from '../../models/constants/sistema-data-view-config.constant';
 import { Colaborador } from '../../models/interfaces/colaborador.interface';
@@ -58,8 +59,14 @@ export class ColaboradorPage implements OnInit, OnDestroy, AfterViewInit {
     }
 
     criarColaborador(): void {
-        const modalRef = this.modalService.open(ModalColaboradorCriarEmailComponent, { size: 'md' });
-        modalRef.componentInstance.idEmpresa = this.empresaService.getEmpresa().value.id;
+        const modalRef = this.modalService.open(ModalColaboradorCriarComponent, { size: 'md' });
+        modalRef.result
+            .then(
+                (res) => {
+                    if (res) this.obterColaboradores();
+                }
+            )
+            .catch((err) => err);
     }
 
     deletarColaborador(colaborador: Colaborador): void {

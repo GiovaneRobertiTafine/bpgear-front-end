@@ -62,10 +62,10 @@ export const ColaboradorDataViewConfig: DataViewConfig<NestedKeyOf<Colaborador>>
             titulo: "Nome",
             propriedade: ["nome"]
         },
-        {
-            titulo: "Usuário",
-            propriedade: ["usuario"]
-        },
+        // {
+        //     titulo: "Usuário",
+        //     propriedade: ["usuario"]
+        // },
         {
             titulo: "E-mail",
             propriedade: ["email"]
