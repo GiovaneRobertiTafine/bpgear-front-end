@@ -11,14 +11,14 @@ import { Cliente } from '../../models/interfaces/cliente.interface';
 })
 export class ModalDetalharComponent implements OnInit {
     cliente: Cliente = null;
-    dataViewConfig: DataViewConfig = null;
+    dataViewConfig: DataViewConfig<string> = null;
 
     constructor(
         public activeModal: NgbActiveModal,
         private dynamicPipe: InjectorPipe
     ) { }
 
-    obterValorPropriedade(obj: {}, col: DataColuna): string {
+    obterValorPropriedade(obj: {}, col: DataColuna<string>): string {
         let result = "";
         for (const prop in col.propriedade) {
             if (!result) {

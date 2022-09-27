@@ -9,3 +9,15 @@ export const getNestedValue = (obj: {}, prop: string[]): string => {
     }
     return result;
 };
+
+export type NestedKeyOf<ObjectType extends object> =
+    { [Key in keyof ObjectType & (string | number)]: ObjectType[Key] extends object
+        ? `${Key}` | `${NestedKeyOf<ObjectType[Key]>}`
+        : `${Key}`
+    }[keyof ObjectType & (string | number)];
+
+export type NestedKeyOfDot<ObjectType extends object> =
+    { [Key in keyof ObjectType & (string | number)]: ObjectType[Key] extends object
+        ? `${Key}` | `${Key}.${NestedKeyOfDot<ObjectType[Key]>}`
+        : `${Key}`
+    }[keyof ObjectType & (string | number)];

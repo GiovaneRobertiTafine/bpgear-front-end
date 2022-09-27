@@ -14,7 +14,7 @@ export class TableComponent implements OnInit {
     iconDeletar = faTrashCan;
     iconDetalhar = faInfoCircle;
 
-    @Input() dataViewConfig: DataViewConfig;
+    @Input() dataViewConfig: DataViewConfig<string>;
     @Input() data: any[];
 
     @Output() deletarItemEvent = new EventEmitter<any>();
@@ -29,7 +29,7 @@ export class TableComponent implements OnInit {
 
     }
 
-    obterValorPropriedade(obj: {}, col: DataColuna): string {
+    obterValorPropriedade(obj: {}, col: DataColuna<string>): string {
         let result = getNestedValue(obj, col.propriedade);
 
         if (col.mascara) {

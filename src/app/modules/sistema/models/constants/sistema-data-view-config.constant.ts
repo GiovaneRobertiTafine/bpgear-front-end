@@ -1,12 +1,21 @@
 import { MaskPipe } from 'ngx-mask';
 import { DataViewConfig } from 'src/app/modules/shared/models/data-view-config.model';
 import { TelefonePipe } from 'src/app/modules/shared/pipes/telefone.pipe';
+import { NestedKeyOf, NestedKeyOfDot } from 'src/app/modules/shared/utils/script.extension';
+import { BemServico } from '../interfaces/bem-servico.interface';
+import { Cliente } from '../interfaces/cliente.interface';
+import { Colaborador } from '../interfaces/colaborador.interface';
+import { Empresa } from '../interfaces/empresa.interface';
+import { Mercado } from '../interfaces/mercado.interface';
+import { Setor } from '../interfaces/setor.interface';
+import { Teste } from '../interfaces/teste.interface';
+import { Valor } from '../interfaces/valor.inteface';
 
-export const EmpresaDataViewConfig: DataViewConfig = {
+export const EmpresaDataViewConfig: DataViewConfig<NestedKeyOf<Empresa>> = {
     colunas: [
         {
             titulo: "Empresa",
-            propriedade: ["nomeEmpresa"],
+            propriedade: ["nome"],
             eventCallBack: true
         },
         {
@@ -47,7 +56,7 @@ export const EmpresaDataViewConfig: DataViewConfig = {
     },
 };
 
-export const ColaboradorDataViewConfig: DataViewConfig = {
+export const ColaboradorDataViewConfig: DataViewConfig<NestedKeyOf<Colaborador>> = {
     colunas: [
         {
             titulo: "Nome",
@@ -77,7 +86,7 @@ export const ColaboradorDataViewConfig: DataViewConfig = {
     classes: ['table-colaboradores']
 };
 
-export const ClienteDataViewConfig: DataViewConfig = {
+export const ClienteDataViewConfig: DataViewConfig<NestedKeyOf<Cliente>> = {
     colunas: [
         {
             titulo: "Nome",
@@ -109,7 +118,7 @@ export const ClienteDataViewConfig: DataViewConfig = {
     classes: ['table-clientes']
 };
 
-export const ClienteDetalharViewConfig: DataViewConfig = {
+export const ClienteDetalharViewConfig: DataViewConfig<NestedKeyOf<Cliente>> = {
     colunas: [
         {
             titulo: "Nome",
@@ -152,7 +161,7 @@ export const ClienteDetalharViewConfig: DataViewConfig = {
     ]
 };
 
-export const MercadoDataViewConfig: DataViewConfig = {
+export const MercadoDataViewConfig: DataViewConfig<NestedKeyOf<Mercado>> = {
     colunas: [
         {
             titulo: "Nome",
@@ -165,7 +174,7 @@ export const MercadoDataViewConfig: DataViewConfig = {
     }
 };
 
-export const ValorDataViewConfig: DataViewConfig = {
+export const ValorDataViewConfig: DataViewConfig<NestedKeyOf<Valor>> = {
     colunas: [
         {
             titulo: "Nome",
@@ -182,7 +191,7 @@ export const ValorDataViewConfig: DataViewConfig = {
     }
 };
 
-export const SetorDataViewConfig: DataViewConfig = {
+export const SetorDataViewConfig: DataViewConfig<NestedKeyOf<Setor>> = {
     colunas: [
         {
             titulo: "Nome",
@@ -195,11 +204,24 @@ export const SetorDataViewConfig: DataViewConfig = {
     }
 };
 
-export const BemServicoDataViewConfig: DataViewConfig = {
+export const BemServicoDataViewConfig: DataViewConfig<NestedKeyOf<BemServico>> = {
     colunas: [
         {
             titulo: "Nome",
             propriedade: ["nome"]
+        },
+    ],
+    colunasAcao: {
+        editar: true,
+        deletar: true
+    }
+};
+
+export const TesteDataViewConfig: DataViewConfig<NestedKeyOf<Teste>> = {
+    colunas: [
+        {
+            titulo: "Nome",
+            propriedade: ["nome", "num"]
         },
     ],
     colunasAcao: {

@@ -1,15 +1,16 @@
 import { TemplateRef } from "@angular/core";
+import { NestedKeyOf } from "../utils/script.extension";
 
-export interface DataViewConfig {
-    colunas: DataColuna[];
+export interface DataViewConfig<T> {
+    colunas: DataColuna<T>[];
     classes?: string[];
     paginacao?: boolean;
     colunasAcao?: ColunasAcao;
 }
 
-export interface DataColuna {
+export interface DataColuna<T> {
     titulo: string;
-    propriedade: string[];
+    propriedade: T[];
     eventCallBack?: boolean;
     template?: TemplateRef<any>;
     mascara?: Mascara;

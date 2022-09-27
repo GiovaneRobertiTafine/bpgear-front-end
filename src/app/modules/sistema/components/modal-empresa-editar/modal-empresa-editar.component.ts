@@ -35,7 +35,7 @@ export class ModalEmpresaEditarComponent implements OnInit, OnDestroy {
         this.form = this.fb.group<EmpresaEditar>({
             id: [this.empresa.id],
             idUsuario: [this.authService.getUsuario().value.id],
-            nomeEmpresa: [this.empresa.nomeEmpresa, [Validators.required, Validators.minLength(3), Validators.maxLength(70)]],
+            nomeEmpresa: [this.empresa.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(70)]],
             cnpj: [this.empresa.cnpj, [Validators.required, CpfCnpjValidator]],
             razaoSocial: [this.empresa.razaoSocial, [Validators.required, Validators.minLength(5), Validators.maxLength(70)]],
             responsavel: [this.empresa.responsavel, [Validators.required, Validators.minLength(10), Validators.maxLength(70)]],

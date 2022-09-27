@@ -6,7 +6,7 @@
         <!-- content -->
         <div class="px-4 w-100" id="content">
             <p class="mb-0 mt-3 fw-bold fst-italic" *ngIf="empresa">
-                {{empresa.nomeEmpresa | uppercase}} <span class="d-none d-md-inline"> / </span>
+                {{empresa.nome | uppercase}} <span class="d-none d-md-inline"> / </span>
                 <br class="d-md-none" />
                 CNPJ: {{empresa.cnpj | mask: 'CPF_CNPJ'}}
             </p>
