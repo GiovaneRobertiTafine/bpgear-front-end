@@ -1,11 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormTypeBuilder, NgTypeFormControlValidator, NgTypeFormGroup } from 'reactive-forms-typed';
+import { FormTypeBuilder, NgTypeFormGroup } from 'reactive-forms-typed';
 import { Subject, takeUntil } from 'rxjs';
 import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
 import { ToastService } from 'src/app/modules/shared/services/toast.service';
-import { CpfCnpjValidator } from 'src/app/modules/shared/utils/cpf-cnpj.validator';
 import { MercadoDataInputDropdown } from '../../models/constants/sistema-data-input-dropdown-config.constant';
 import { Pesquisa } from '../../models/enums/pesquisa.enum';
 import { Mercado } from '../../models/interfaces/mercado.interface';
@@ -43,7 +42,6 @@ export class ModalClienteCriarComponent implements OnInit, OnDestroy {
             idEmpresa: [this.idEmpresa],
             nome: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(70)]],
             email: ["", [Validators.required, Validators.maxLength(70), Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)]],
-            cnpj: ["", [Validators.required, CpfCnpjValidator]],
             razaoSocial: ["", [Validators.required, Validators.minLength(5), Validators.maxLength(70)]],
             responsavel: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(70)]],
             telefone: ["", [Validators.required, Validators.pattern(/^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/)]],
@@ -53,8 +51,7 @@ export class ModalClienteCriarComponent implements OnInit, OnDestroy {
 
         this.form.setFormErrors({
             nome: { required: "Nome é requerido.", minlength: "Mínimo de 3 caracteres.", maxlength: "Máximo de 70 caracteres." },
-            email: { required: "E-mail é requerido.", pettern: "E-mail inválido.", maxlength: "Máximo de 70 caracteres." },
-            cnpj: { required: "CNPJ é requerido.", mask: "CNPJ inválido.", invalidCpfCnpj: "CNPJ inválido." },
+            email: { required: "E-mail é requerido.", pattern: "E-mail inválido.", maxlength: "Máximo de 70 caracteres." },
             razaoSocial: { required: "Razão Social é requerido.", minlength: "Mínimo de 5 caracteres.", maxlength: "Máximo de 70 caracteres." },
             responsavel: { required: "Responsável é requerido.", minlength: "Mínimo de 10 caracteres.", maxlength: "Máximo de 70 caracteres." },
             telefone: { required: "Telefone é requerido.", mask: "Telefone inválido", pattern: "Telefone inválido" },
@@ -62,6 +59,7 @@ export class ModalClienteCriarComponent implements OnInit, OnDestroy {
             pesquisa: {},
             idEmpresa: {}
         });
+
     }
 
     criarCliente(): void {

@@ -24,12 +24,12 @@
                     <input type="text" class="form-control validator" id="inputUsuario" formControlName="usuario">
                     <small class="text-danger" formControlOnErrorItem="usuario"></small>
                 </div> -->
-                <div class="col-12">
+                <!-- <div class="col-12">
                     <label for="inputCnpj" class="form-label">CNPJ:</label>
                     <input type="text" class="form-control validator" id="inputCnpj" formControlName="cnpj"
                         mask="CPF_CNPJ">
                     <small class="text-danger" formControlOnErrorItem="cnpj"></small>
-                </div>
+                </div> -->
                 <div class="col-12">
                     <label for="inputRazaoSocial" class="form-label">Razão Social:</label>
                     <input type="text" class="form-control validator" id="inputRazaoSocial"
@@ -58,13 +58,13 @@
                 <div class="col-12">
                     <label for="inputPesquisa" class="form-label">Pesquisa:</label> <br>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="inputRadioPesquisaAtivada" [value]="0"
-                            formControlName="pesquisa">
+                        <input class="form-check-input" type="radio" id="inputRadioPesquisaAtivada"
+                            [value]="pesquisa.ATIVADA" formControlName="pesquisa">
                         <label class="form-check-label" for="inputRadioPesquisaAtivada">Ativada</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="inputRadioPesquisaDesativada" [value]="1"
-                            formControlName="pesquisa">
+                        <input class="form-check-input" type="radio" id="inputRadioPesquisaDesativada"
+                            [value]="pesquisa.DESATIVADA" formControlName="pesquisa">
                         <label class="form-check-label" for="inputRadioPesquisaDesativada">Desativada</label>
                     </div>
                     <small class="text-danger" formControlOnErrorItem="pesquisa"></small>

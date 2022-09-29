@@ -6,7 +6,7 @@ export interface Cliente {
     // usuario: string;
     nome: string;
     razaoSocial: string;
-    cnpj: string;
+    // cnpj: string;
     responsavel: string;
     telefone: string;
     email: string;

@@ -21,3 +21,4 @@ export type NestedKeyOfDot<ObjectType extends object> =
         ? `${Key}` | `${Key}.${NestedKeyOfDot<ObjectType[Key]>}`
         : `${Key}`
     }[keyof ObjectType & (string | number)];
+

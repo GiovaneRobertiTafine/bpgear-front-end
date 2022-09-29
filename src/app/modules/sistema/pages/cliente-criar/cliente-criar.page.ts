@@ -58,7 +58,7 @@ export class ClienteCriarPage implements OnInit, OnDestroy {
             //         return { notMatch: true };
             //     }]
             // ],
-            cnpj: ["", [Validators.required, CpfCnpjValidator]],
+            // cnpj: ["", [Validators.required, CpfCnpjValidator]],
             razaoSocial: ["", [Validators.required, Validators.minLength(5), Validators.maxLength(70)]],
             responsavel: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(70)]],
             telefone: ["", [Validators.required, Validators.pattern(/^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/)]],
@@ -72,7 +72,7 @@ export class ClienteCriarPage implements OnInit, OnDestroy {
             // usuario: { required: "Usuário é requerido.", minlength: "Mínimo de 5 caracteres.", maxlength: "Máximo de 50 caracteres.", pattern: "Somente números, letras minúsculas e maiúsculas." },
             // senha: { required: "Senha é requerido.", minlength: "Mínimo de 10 caracteres.", maxlength: "Máximo de 70 caracteres.", pattern: "Somente números, letras minúsculas, letra maiúsculas e os seguintes códigos: .!@#$%&* ." },
             // confirmarSenha: { required: "Confirmar senha é requerido.", notMatch: "Senha diferente." },
-            cnpj: { required: "CNPJ é requerido.", mask: "CNPJ inválido.", invalidCpfCnpj: "CNPJ inválido." },
+            // cnpj: { required: "CNPJ é requerido.", mask: "CNPJ inválido.", invalidCpfCnpj: "CNPJ inválido." },
             razaoSocial: { required: "Razão Social é requerido.", minlength: "Mínimo de 5 caracteres.", maxlength: "Máximo de 70 caracteres." },
             responsavel: { required: "Responsável é requerido.", minlength: "Mínimo de 10 caracteres.", maxlength: "Máximo de 70 caracteres." },
             telefone: { required: "Telefone é requerido.", mask: "Telefone inválido", pattern: "Telefone inválido" },

@@ -92,11 +92,11 @@ export const ClienteDataViewConfig: DataViewConfig<NestedKeyOf<Cliente>> = {
             titulo: "Nome",
             propriedade: ["nome"]
         },
-        {
-            titulo: "CNPJ",
-            propriedade: ["cnpj"],
-            mascara: { token: MaskPipe, arg: "CPF_CNPJ" },
-        },
+        // {
+        //     titulo: "CNPJ",
+        //     propriedade: ["cnpj"],
+        //     mascara: { token: MaskPipe, arg: "CPF_CNPJ" },
+        // },
         {
             titulo: "Mercado",
             propriedade: ["mercado", "nome"]
@@ -128,11 +128,11 @@ export const ClienteDetalharViewConfig: DataViewConfig<NestedKeyOf<Cliente>> = {
             titulo: "Razao Social",
             propriedade: ["razaoSocial"]
         },
-        {
-            titulo: "CNPJ",
-            propriedade: ["cnpj"],
-            mascara: { token: MaskPipe, arg: "CPF_CNPJ" },
-        },
+        // {
+        //     titulo: "CNPJ",
+        //     propriedade: ["cnpj"],
+        //     mascara: { token: MaskPipe, arg: "CPF_CNPJ" },
+        // },
         {
             titulo: "Responsável",
             propriedade: ["responsavel"]
