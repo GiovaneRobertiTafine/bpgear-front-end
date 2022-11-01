@@ -23,9 +23,10 @@ export class ApiService {
         ) as Observable<T>;
     }
 
-    protected get<T>(path: string): Observable<T> {
+    protected get<T, K = undefined>(path: string, p?: K): Observable<T> {
         return this.httpClient.get<T>(
-            `${this.url}/${path}`
+            `${this.url}/${path}`,
+            { params: p || {} }
         ) as Observable<T>;
     }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { ItemLinkSideBar } from '../../models/constants/item-link-side-bar.constants';
+import { ItemLinkSideBar } from '../../models/constants/item-link-side-bar.constant';
 @Component({
     selector: 'bpgear-side-bar',
     templateUrl: './side-bar.component.html',

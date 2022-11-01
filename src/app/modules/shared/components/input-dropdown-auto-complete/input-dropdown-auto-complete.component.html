@@ -1,6 +1,6 @@
 <div class="box-input-dropdown-auto-complete dropdown w-100">
     <input [name]="name" type="text" [formControl]="formControl"
-        [class]="'form-control input-dropdown-auto-complete validator dropdown-toggle' + classes.join(' ')"
+        [class]="'form-control input-dropdown-auto-complete validator dropdown-toggle ' + classes.join(' ')"
         aria-describedby="input-dropdown-auto-complete" #inputDropdownAutoComplete id="dropdown-auto-complete"
         data-bs-toggle="dropdown" aria-expanded="false" (input)="searchItem($event.target['value']); myDrop.open();"
         autocomplete="off">

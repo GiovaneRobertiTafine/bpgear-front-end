@@ -9,12 +9,12 @@ import { EmpresaPage } from './pages/empresa/empresa.page';
 import { MercadoPage } from './pages/mercado/mercado.page';
 import { SetorPage } from './pages/setor/setor.page';
 import { ValorPage } from './pages/valor/valor.page';
-import { ClienteGuard } from './services/guards/cliente.guard';
 import { EmpresaGuard } from './services/guards/empresa.guard';
 import { LayoutTemplate } from './templates/layout/layout.template';
 import { ColaboradorCriarGuard } from './services/guards/colaborador-criar.guard';
 import { TokenGuard } from '../auth/services/guards/token.guard';
 import { AuthGuard } from '../auth/services/guards/auth.guard';
+import { ClienteCriarGuard } from './services/guards/cliente-criar.guard';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'empresa' },
@@ -75,7 +75,7 @@ const routes: Routes = [
     {
         path: 'cliente-criar',
         component: ClienteCriarPage,
-        canActivate: [ClienteGuard]
+        canActivate: [ClienteCriarGuard]
     }
 ];
 

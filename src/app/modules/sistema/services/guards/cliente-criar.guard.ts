@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
-export class ClienteGuard implements CanActivate {
+export class ClienteCriarGuard implements CanActivate {
     private helper = new JwtHelperService();
 
     constructor(
