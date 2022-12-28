@@ -9,9 +9,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReactiveFormsTypedModule } from 'reactive-forms-typed';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { M2Page } from './pages/m2/m2.page';
+import { M3Page } from './pages/m3/m3.page';
 @NgModule({
     declarations: [
-        M1Page
+        M1Page,
+        M2Page,
+        M3Page
     ],
     imports: [
         CommonModule,

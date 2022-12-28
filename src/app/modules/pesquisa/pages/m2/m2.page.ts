@@ -6,23 +6,23 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormTypeBuilder, NgTypeFormGroup } from 'reactive-forms-typed';
 import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
 import { ToastService } from 'src/app/modules/shared/services/toast.service';
-import { SetorDataInputDropdown } from '../../models/constants/pesquisa-data-input-dropdown-config.constant';
-import { PesquisaM1 } from '../../models/interfaces/pesquisa-m1.dto';
-import { AcaoM1, PesquisaM1Inserir, ValorM1 } from '../../models/requests/pesquisa-m1-inserir.request';
-import { PesquisaM1Obter } from '../../models/requests/pesquisa-m1-obter.request';
+import { PesquisaM2 } from '../../models/interfaces/pesquisa-m2.dto';
+import { NotaM2, PesquisaM2Inserir, ValorM2 } from '../../models/requests/pesquisa-m2-inserir.request';
+import { PesquisaM2Obter } from '../../models/requests/pesquisa-m2-obter.request';
+import { PesquisaM3Inserir } from '../../models/requests/pesquisa-m3-inserir.request';
 import { PesquisaService } from '../../services/pesquisa.service';
 
 @Component({
-    selector: 'bpgear-m1',
-    templateUrl: './m1.page.html',
-    styleUrls: ['./m1.page.scss']
+    selector: 'bpgear-m2',
+    templateUrl: './m2.page.html',
+    styleUrls: ['./m2.page.scss']
 })
-export class M1Page implements OnInit {
-    pesquisaM1: PesquisaM1 = null;
-    setorDataInputDropdown = SetorDataInputDropdown;
-    form: NgTypeFormGroup<PesquisaM1Inserir>;
-    iconDetalhar = faInfoCircle;
+export class M2Page implements OnInit {
+    pesquisaM2: PesquisaM2 = null;
+    form: NgTypeFormGroup<PesquisaM2Inserir>;
     finalizarPesquisa = false;
+    iconDetalhar = faInfoCircle;
+    valoresNotas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     constructor(
         private route: ActivatedRoute,
@@ -39,9 +39,9 @@ export class M1Page implements OnInit {
         const idColaborador: string = this.route.snapshot.queryParamMap.get('col');
 
         if (idEmpresa && idColaborador) {
-            const request: PesquisaM1Obter = { emp: idEmpresa, col: idColaborador };
+            const request: PesquisaM2Obter = { emp: idEmpresa, col: idColaborador };
             this.spinnerService.show();
-            this.pesquisaService.obterDadosM1(request)
+            this.pesquisaService.obterDadosM2(request)
                 .subscribe(
                     (response) => {
                         this.spinnerService.hide();
@@ -57,28 +57,32 @@ export class M1Page implements OnInit {
                             return;
                         }
 
-                        this.pesquisaM1 = response.data;
+                        this.pesquisaM2 = response.data;
 
-                        this.form = this.fb.group<PesquisaM1Inserir>({
+                        this.form = this.fb.group<PesquisaM2Inserir>({
                             idEmpresa: [idEmpresa],
                             idColaborador: [idColaborador],
-                            valores: this.fb.array(this.pesquisaM1.valor.map((v) => {
-                                return this.fb.group<ValorM1>({
+                            valores: this.fb.array(this.pesquisaM2.valor.map((v) => {
+                                return this.fb.group<ValorM2>({
                                     idValor: [v.id],
-                                    acoes: this.fb.array([this.initItemRows()])
+                                    notas: this.fb.array(this.pesquisaM2.bemServico.map((b) => {
+                                        return this.fb.group<NotaM2>({
+                                            idBemServico: [b.id],
+                                            nota: ['', [Validators.required]]
+                                        });
+                                    }))
                                 });
                             }))
                         });
                     }
                 );
         }
-
     }
 
     inserirDados(): void {
-        const request: PesquisaM1Inserir = this.form.value;
+        const request: PesquisaM2Inserir = this.form.value;
         this.spinnerService.show();
-        this.pesquisaService.inserirDadosM1(request)
+        this.pesquisaService.inserirDadosM2(request)
             .subscribe(
                 (response) => {
                     this.spinnerService.hide();
@@ -89,54 +93,35 @@ export class M1Page implements OnInit {
                     this.modalService.dismissAll();
                     this.toastService.success(response.resultStatus.message);
                     this.finalizarPesquisa = true;
-                }
-            );
+                });
     }
+
 
     get formArrValores() {
         return this.form.get('valores') as FormArray;
     }
 
-    valorAcoes(empIndex: number): FormArray {
+    valorNotas(empIndex: number): FormArray {
         return this.formArrValores
             .at(empIndex)
-            .get('acoes') as FormArray;
+            .get('notas') as FormArray;
     }
 
     get formGroup() {
         return this.form as FormGroup;
     }
 
-    initItemRows() {
-        return this.fb.group<AcaoM1>({
-            acao: ["", [Validators.required, Validators.maxLength(500)]],
-            idEnvolvido: [],
-            idResponsavel: []
-        });
-    }
-
-    adicionarAcao(iValor: number): void {
-        this.valorAcoes(iValor).push(this.initItemRows());
-    }
-
     obterNomeValor(idValor): string {
         let nomeValor = "";
-        this.pesquisaM1.valor.forEach((v) => {
+        this.pesquisaM2.valor.forEach((v) => {
             if (idValor === v.id) nomeValor = v.nome;
         });
         return nomeValor;
     }
 
-    convertFormGroup(formGroup): FormGroup {
-        return formGroup as FormGroup;
-    }
-
-    removerAcao(iValor: number, iAcoes: number) {
-        this.valorAcoes(iValor).removeAt(iAcoes);
-    }
-
     openModal(content, size = 'xl') {
         this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: size });
     }
+
 
 }

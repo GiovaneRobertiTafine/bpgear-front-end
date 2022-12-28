@@ -38,7 +38,8 @@ body {
 }
 
 /* FORM INPUT */
-.form-control {
+.form-control,
+.form-select {
     border-radius: 0;
 }
 
@@ -150,5 +151,17 @@ textarea.validator.ng-valid.ng-touched {
 }
 
 textarea.validator.ng-valid[formControlName] {
+    border: 1px solid $success;
+}
+
+select.validator.ng-invalid.ng-touched {
+    border: 1px solid $danger;
+}
+
+select.validator.ng-valid.ng-touched {
+    border: 1px solid $success;
+}
+
+select.validator.ng-valid[formControlName] {
     border: 1px solid $success;
 }

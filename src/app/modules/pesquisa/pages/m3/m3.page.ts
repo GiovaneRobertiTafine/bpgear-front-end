@@ -6,23 +6,22 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormTypeBuilder, NgTypeFormGroup } from 'reactive-forms-typed';
 import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
 import { ToastService } from 'src/app/modules/shared/services/toast.service';
-import { SetorDataInputDropdown } from '../../models/constants/pesquisa-data-input-dropdown-config.constant';
-import { PesquisaM1 } from '../../models/interfaces/pesquisa-m1.dto';
-import { AcaoM1, PesquisaM1Inserir, ValorM1 } from '../../models/requests/pesquisa-m1-inserir.request';
-import { PesquisaM1Obter } from '../../models/requests/pesquisa-m1-obter.request';
+import { PesquisaM3 } from '../../models/interfaces/pesquisa-m3.dto';
+import { NotaM3, PesquisaM3Inserir, ValorM3 } from '../../models/requests/pesquisa-m3-inserir.request';
+import { PesquisaM3Obter } from '../../models/requests/pesquisa-m3-obter.request';
 import { PesquisaService } from '../../services/pesquisa.service';
 
 @Component({
-    selector: 'bpgear-m1',
-    templateUrl: './m1.page.html',
-    styleUrls: ['./m1.page.scss']
+    selector: 'bpgear-m3',
+    templateUrl: './m3.page.html',
+    styleUrls: ['./m3.page.scss']
 })
-export class M1Page implements OnInit {
-    pesquisaM1: PesquisaM1 = null;
-    setorDataInputDropdown = SetorDataInputDropdown;
-    form: NgTypeFormGroup<PesquisaM1Inserir>;
-    iconDetalhar = faInfoCircle;
+export class M3Page implements OnInit {
+    pesquisaM3: PesquisaM3 = null;
+    form: NgTypeFormGroup<PesquisaM3Inserir>;
     finalizarPesquisa = false;
+    iconDetalhar = faInfoCircle;
+    valoresNotas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'N/A'];
 
     constructor(
         private route: ActivatedRoute,
@@ -36,12 +35,12 @@ export class M1Page implements OnInit {
 
     ngOnInit(): void {
         const idEmpresa: string = this.route.snapshot.queryParamMap.get('emp');
-        const idColaborador: string = this.route.snapshot.queryParamMap.get('col');
+        const idCliente: string = this.route.snapshot.queryParamMap.get('cli');
 
-        if (idEmpresa && idColaborador) {
-            const request: PesquisaM1Obter = { emp: idEmpresa, col: idColaborador };
+        if (idEmpresa && idCliente) {
+            const request: PesquisaM3Obter = { emp: idEmpresa, cli: idCliente };
             this.spinnerService.show();
-            this.pesquisaService.obterDadosM1(request)
+            this.pesquisaService.obterDadosM3(request)
                 .subscribe(
                     (response) => {
                         this.spinnerService.hide();
@@ -57,28 +56,33 @@ export class M1Page implements OnInit {
                             return;
                         }
 
-                        this.pesquisaM1 = response.data;
+                        this.pesquisaM3 = response.data;
 
-                        this.form = this.fb.group<PesquisaM1Inserir>({
+                        this.form = this.fb.group<PesquisaM3Inserir>({
                             idEmpresa: [idEmpresa],
-                            idColaborador: [idColaborador],
-                            valores: this.fb.array(this.pesquisaM1.valor.map((v) => {
-                                return this.fb.group<ValorM1>({
+                            idCliente: [idCliente],
+                            valores: this.fb.array(this.pesquisaM3.valor.map((v) => {
+                                return this.fb.group<ValorM3>({
                                     idValor: [v.id],
-                                    acoes: this.fb.array([this.initItemRows()])
+                                    observacao: ['', [Validators.maxLength(500)]],
+                                    notas: this.fb.array(this.pesquisaM3.bemServico.map((b) => {
+                                        return this.fb.group<NotaM3>({
+                                            idBemServico: [b.id],
+                                            nota: ['', [Validators.required]]
+                                        });
+                                    }))
                                 });
                             }))
                         });
                     }
                 );
         }
-
     }
 
     inserirDados(): void {
-        const request: PesquisaM1Inserir = this.form.value;
+        const request: PesquisaM3Inserir = this.form.value;
         this.spinnerService.show();
-        this.pesquisaService.inserirDadosM1(request)
+        this.pesquisaService.inserirDadosM3(request)
             .subscribe(
                 (response) => {
                     this.spinnerService.hide();
@@ -89,54 +93,16 @@ export class M1Page implements OnInit {
                     this.modalService.dismissAll();
                     this.toastService.success(response.resultStatus.message);
                     this.finalizarPesquisa = true;
-                }
-            );
-    }
-
-    get formArrValores() {
-        return this.form.get('valores') as FormArray;
-    }
-
-    valorAcoes(empIndex: number): FormArray {
-        return this.formArrValores
-            .at(empIndex)
-            .get('acoes') as FormArray;
+                });
     }
 
     get formGroup() {
         return this.form as FormGroup;
     }
 
-    initItemRows() {
-        return this.fb.group<AcaoM1>({
-            acao: ["", [Validators.required, Validators.maxLength(500)]],
-            idEnvolvido: [],
-            idResponsavel: []
-        });
-    }
-
-    adicionarAcao(iValor: number): void {
-        this.valorAcoes(iValor).push(this.initItemRows());
-    }
-
-    obterNomeValor(idValor): string {
-        let nomeValor = "";
-        this.pesquisaM1.valor.forEach((v) => {
-            if (idValor === v.id) nomeValor = v.nome;
-        });
-        return nomeValor;
-    }
-
-    convertFormGroup(formGroup): FormGroup {
-        return formGroup as FormGroup;
-    }
-
-    removerAcao(iValor: number, iAcoes: number) {
-        this.valorAcoes(iValor).removeAt(iAcoes);
-    }
-
     openModal(content, size = 'xl') {
         this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: size });
     }
+
 
 }
