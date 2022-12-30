@@ -1,0 +1,26 @@
+<h3 class="fst-italic mt-3">Relatórios</h3>
+
+<ng-container *ngIf="!tipoRelatorio">
+    <div class="d-flex flex-column gap-3">
+        <span class="text-decoration-underline fw-bold cursor-pointer text-secondary"
+            (click)="tipoRelatorio = 'm1'; obterRelatorioM1()">Acessar Relatório M1
+            Colaboradores</span>
+        <span class="text-decoration-underline fw-bold cursor-pointer text-secondary">Acessar Relatório M2
+            Colaboradores</span>
+        <span class="text-decoration-underline fw-bold cursor-pointer text-secondary">Acessar Relatório M3
+            Clientes</span>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="tipoRelatorio === 'm1'">
+    <button class="btn btn-secondary" (click)="tipoRelatorio = null">Voltar</button>
+    <h5 class="fst-italic mt-3">Relatório M1</h5>
+    <bpgear-table [dataViewConfig]="relatorioM1DataViewConfig" [data]="relatorioM1" #tableRelatorioM1>
+        <!-- <ng-template #colAcessar let-cel="dataCallBack">
+                <div class="text-center" (click)="logEmpresas()">
+                    <fa-icon [icon]="iconAcessar" class="cursor-pointer" [fixedWidth]="true">
+                    </fa-icon>
+                </div>
+            </ng-template> -->
+    </bpgear-table>
+</ng-container>

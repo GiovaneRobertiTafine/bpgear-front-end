@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { IDataReturn } from '../../shared/models/data-return.model';
 import { ApiService } from '../../shared/services/api.service';
+import { PesquisaM1Relatorio } from '../models/interfaces/pesquisa-m1-relatorio.dto';
 import { PesquisaM1 } from '../models/interfaces/pesquisa-m1.dto';
 import { PesquisaM2 } from '../models/interfaces/pesquisa-m2.dto';
 import { PesquisaM3 } from '../models/interfaces/pesquisa-m3.dto';
@@ -33,6 +34,13 @@ export class PesquisaService extends ApiService {
         return this.post<IDataReturn<null>>('pesquisa/m1-inserir', request)
             .pipe(
                 catchError(this.handleError<IDataReturn<null>>('inserirDadosM1'))
+            );
+    }
+
+    public obterRelatorioM1(idEmpresa: string): Observable<IDataReturn<PesquisaM1Relatorio[]>> {
+        return this.get<IDataReturn<PesquisaM1Relatorio[]>, string>('pesquisa/m1-relatorio/' + idEmpresa)
+            .pipe(
+                catchError(this.handleError<IDataReturn<PesquisaM1Relatorio[]>>('obterRelatorioM1'))
             );
     }
 

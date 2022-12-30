@@ -15,6 +15,7 @@ import { ColaboradorCriarGuard } from './services/guards/colaborador-criar.guard
 import { TokenGuard } from '../auth/services/guards/token.guard';
 import { AuthGuard } from '../auth/services/guards/auth.guard';
 import { ClienteCriarGuard } from './services/guards/cliente-criar.guard';
+import { RelatoriosPage } from './pages/relatorios/relatorios.page';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'empresa' },
@@ -63,6 +64,12 @@ const routes: Routes = [
                 path: 'bem-servico/:id',
                 component: BemServicoPage,
                 data: { title: "Bens e Serviços" },
+                canActivate: [EmpresaGuard]
+            },
+            {
+                path: 'relatorios/:id',
+                component: RelatoriosPage,
+                data: { title: "Relatórios" },
                 canActivate: [EmpresaGuard]
             }
         ]

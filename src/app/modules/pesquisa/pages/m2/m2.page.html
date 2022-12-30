@@ -31,7 +31,12 @@
                             </tr>
                             <ng-container formArrayName="valores">
                                 <tr *ngFor="let valor of pesquisaM2.valor; let iValor = index" [formGroupName]="iValor">
-                                    <td>{{valor.nome}}</td>
+                                    <td>
+                                        {{valor.nome}}
+                                        <fa-icon class="ms-2" [icon]="iconDetalhar" [fixedWidth]="true" container="body"
+                                            placement="top" [ngbTooltip]="pesquisaM2.valor[iValor].definicaoValor">
+                                        </fa-icon>
+                                    </td>
                                     <ng-container formArrayName="notas">
                                         <td *ngFor="let bemServico of pesquisaM2.bemServico; let iBemServico = index"
                                             [formGroupName]="iBemServico">

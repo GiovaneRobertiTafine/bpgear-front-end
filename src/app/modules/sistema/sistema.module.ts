@@ -45,6 +45,7 @@ import { ModalBemServicoCriarComponent } from './components/modal-bem-servico-cr
 import { ModalBemServicoEditarComponent } from './components/modal-bem-servico-editar/modal-bem-servico-editar.component';
 import { ModalClienteCriarComponent } from './components/modal-cliente-criar/modal-cliente-criar.component';
 import { ModalColaboradorCriarComponent } from './components/modal-colaborador-criar/modal-colaborador-criar.component';
+import { RelatoriosPage } from './pages/relatorios/relatorios.page';
 @NgModule({
     declarations: [
         LayoutTemplate,
@@ -79,6 +80,7 @@ import { ModalColaboradorCriarComponent } from './components/modal-colaborador-c
         ModalBemServicoEditarComponent,
         ModalClienteCriarComponent,
         ModalColaboradorCriarComponent,
+        RelatoriosPage,
     ],
     imports: [
         CommonModule,

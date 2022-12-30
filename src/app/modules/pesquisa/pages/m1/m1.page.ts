@@ -88,7 +88,8 @@ export class M1Page implements OnInit {
                     }
                     this.modalService.dismissAll();
                     this.toastService.success(response.resultStatus.message);
-                    this.finalizarPesquisa = true;
+                    // this.finalizarPesquisa = true;
+                    this.router.navigate(['/pesquisa/m2'], { queryParams: { emp: request.idEmpresa, col: request.idColaborador } });
                 }
             );
     }

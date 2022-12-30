@@ -238,3 +238,28 @@ export const TesteKeyOfDataViewConfig: DataViewConfig<keyof Teste> = {
         deletar: true
     }
 };
+
+export const RelatorioM1DataViewConfig: DataViewConfig<NestedKeyOf<any>> = {
+    colunas: [
+        {
+            titulo: "Colaborador",
+            propriedade: ["colaborador"],
+        },
+        {
+            titulo: "Valor",
+            propriedade: ["valor"],
+        },
+        {
+            titulo: "Ações que geram ampliam estimulam o valor",
+            propriedade: ["acao"],
+        },
+        {
+            titulo: "Responsável",
+            propriedade: ["setorResponsavel"],
+        },
+        {
+            titulo: "Envolvido",
+            propriedade: ["setorEnvolvido"],
+        },
+    ],
+};

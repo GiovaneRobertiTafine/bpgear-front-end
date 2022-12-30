@@ -1,5 +1,5 @@
 import { LinkItemConfig } from "../interfaces/link-item-config.interface";
-import { faIdCardClip, faAddressCard, faStore, faCubes, faCity, faIndustry, faUsersGear, faGears } from '@fortawesome/free-solid-svg-icons';
+import { faIdCardClip, faAddressCard, faStore, faCubes, faCity, faIndustry, faUsersGear, faGears, faChartColumn } from '@fortawesome/free-solid-svg-icons';
 
 export const ItemLinkSideBar: LinkItemConfig[] = [
     {
@@ -31,5 +31,10 @@ export const ItemLinkSideBar: LinkItemConfig[] = [
         title: 'Bens e Serviços',
         path: '/sistema/bem-servico',
         icon: faIndustry
+    },
+    {
+        title: 'Relatórios',
+        path: '/sistema/relatorios',
+        icon: faChartColumn
     }
 ];
