@@ -1,4 +1,6 @@
 import { MaskPipe } from 'ngx-mask';
+import { PesquisaM1Relatorio } from 'src/app/modules/pesquisa/models/interfaces/pesquisa-m1-relatorio.dto';
+import { PesquisaM2Relatorio } from 'src/app/modules/pesquisa/models/interfaces/pesquisa-m2-relatorio.dto';
 import { DataViewConfig } from 'src/app/modules/shared/models/data-view-config.model';
 import { TelefonePipe } from 'src/app/modules/shared/pipes/telefone.pipe';
 import { NestedKeyOf, NestedKeyOfDot } from 'src/app/modules/shared/utils/script.extension';
@@ -239,7 +241,7 @@ export const TesteKeyOfDataViewConfig: DataViewConfig<keyof Teste> = {
     }
 };
 
-export const RelatorioM1DataViewConfig: DataViewConfig<NestedKeyOf<any>> = {
+export const RelatorioM1DataViewConfig: DataViewConfig<NestedKeyOf<PesquisaM1Relatorio>> = {
     colunas: [
         {
             titulo: "Colaborador",
@@ -261,5 +263,19 @@ export const RelatorioM1DataViewConfig: DataViewConfig<NestedKeyOf<any>> = {
             titulo: "Envolvido",
             propriedade: ["setorEnvolvido"],
         },
+    ],
+};
+
+export const RelatorioM2DataViewConfig: DataViewConfig<NestedKeyOf<PesquisaM2Relatorio>> = {
+    colunas: [
+        {
+            titulo: "Colaborador",
+            propriedade: ["nomeColaborador"],
+        },
+        {
+            titulo: "Valor",
+            propriedade: ["valores"],
+        },
+
     ],
 };

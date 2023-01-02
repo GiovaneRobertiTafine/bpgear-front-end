@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { PesquisaM1Relatorio } from 'src/app/modules/pesquisa/models/interfaces/pesquisa-m1-relatorio.dto';
+import { PesquisaM2Relatorio } from 'src/app/modules/pesquisa/models/interfaces/pesquisa-m2-relatorio.dto';
+import { PesquisaM3Relatorio } from 'src/app/modules/pesquisa/models/interfaces/pesquisa-m3-relatorio.dto';
 import { PesquisaService } from 'src/app/modules/pesquisa/services/pesquisa.service';
 import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
 import { ToastService } from 'src/app/modules/shared/services/toast.service';
-import { RelatorioM1DataViewConfig } from '../../models/constants/sistema-data-view-config.constant';
+import { RelatorioM1DataViewConfig, RelatorioM2DataViewConfig } from '../../models/constants/sistema-data-view-config.constant';
 import { EmpresaService } from '../../services/empresa.service';
 
 @Component({
@@ -15,8 +17,11 @@ import { EmpresaService } from '../../services/empresa.service';
 export class RelatoriosPage implements OnInit {
     tipoRelatorio: 'm1' | 'm2' | 'm3' | null = null;
     relatorioM1DataViewConfig = RelatorioM1DataViewConfig;
+    relatorioM2DataViewConfig = RelatorioM2DataViewConfig;
     relatorioM1: PesquisaM1Relatorio[] = [];
-
+    relatorioM2: PesquisaM2Relatorio[] = [];
+    relatorioM3: PesquisaM3Relatorio[] = [];
+    @ViewChild('colValores') colValores;
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
@@ -33,7 +38,12 @@ export class RelatoriosPage implements OnInit {
         console.log(tipoRelatorio);
     }
 
+    ngAfterViewInit(): void {
+        this.relatorioM2DataViewConfig.colunas[1].template = this.colValores;
+    }
+
     obterRelatorioM1(): void {
+        this.relatorioM1 = null;
         this.spinnerService.show();
         this.pesquisaService.obterRelatorioM1(this.empresaService.getEmpresa().value.id)
             .pipe(takeUntil(this.unsubscribe$))
@@ -45,6 +55,38 @@ export class RelatoriosPage implements OnInit {
                 }
 
                 this.relatorioM1 = response.data;
+            });
+    }
+
+    obterRelatorioM2(): void {
+        this.relatorioM2 = null;
+        this.spinnerService.show();
+        this.pesquisaService.obterRelatorioM2(this.empresaService.getEmpresa().value.id)
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((response) => {
+                this.spinnerService.hide();
+                if (response.resultStatus.code !== 200) {
+                    this.toastService.error(response.resultStatus.message);
+                    return;
+                }
+
+                this.relatorioM2 = response.data;
+            });
+    }
+
+    obterRelatorioM3(): void {
+        this.relatorioM3 = null;
+        this.spinnerService.show();
+        this.pesquisaService.obterRelatorioM3(this.empresaService.getEmpresa().value.id)
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((response) => {
+                this.spinnerService.hide();
+                if (response.resultStatus.code !== 200) {
+                    this.toastService.error(response.resultStatus.message);
+                    return;
+                }
+
+                this.relatorioM3 = response.data;
             });
     }
 

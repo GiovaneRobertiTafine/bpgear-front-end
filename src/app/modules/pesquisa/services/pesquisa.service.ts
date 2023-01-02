@@ -5,7 +5,9 @@ import { IDataReturn } from '../../shared/models/data-return.model';
 import { ApiService } from '../../shared/services/api.service';
 import { PesquisaM1Relatorio } from '../models/interfaces/pesquisa-m1-relatorio.dto';
 import { PesquisaM1 } from '../models/interfaces/pesquisa-m1.dto';
+import { PesquisaM2Relatorio } from '../models/interfaces/pesquisa-m2-relatorio.dto';
 import { PesquisaM2 } from '../models/interfaces/pesquisa-m2.dto';
+import { PesquisaM3Relatorio } from '../models/interfaces/pesquisa-m3-relatorio.dto';
 import { PesquisaM3 } from '../models/interfaces/pesquisa-m3.dto';
 import { PesquisaM1Inserir } from '../models/requests/pesquisa-m1-inserir.request';
 import { PesquisaM1Obter } from '../models/requests/pesquisa-m1-obter.request';
@@ -58,6 +60,13 @@ export class PesquisaService extends ApiService {
             );
     }
 
+    public obterRelatorioM2(idEmpresa: string): Observable<IDataReturn<PesquisaM2Relatorio[]>> {
+        return this.get<IDataReturn<PesquisaM2Relatorio[]>, string>('pesquisa/m2-relatorio/' + idEmpresa)
+            .pipe(
+                catchError(this.handleError<IDataReturn<PesquisaM2Relatorio[]>>('obterRelatorioM2'))
+            );
+    }
+
     public obterDadosM3(params: PesquisaM3Obter): Observable<IDataReturn<PesquisaM3>> {
         return this.get<IDataReturn<PesquisaM3>, PesquisaM3Obter>('pesquisa/m3', params)
             .pipe(
@@ -69,6 +78,13 @@ export class PesquisaService extends ApiService {
         return this.post<IDataReturn<null>>('pesquisa/m3-inserir', request)
             .pipe(
                 catchError(this.handleError<IDataReturn<null>>('inserirDadosM2'))
+            );
+    }
+
+    public obterRelatorioM3(idEmpresa: string): Observable<IDataReturn<PesquisaM3Relatorio[]>> {
+        return this.get<IDataReturn<PesquisaM3Relatorio[]>, string>('pesquisa/m3-relatorio/' + idEmpresa)
+            .pipe(
+                catchError(this.handleError<IDataReturn<PesquisaM3Relatorio[]>>('obterRelatorioM3'))
             );
     }
 }

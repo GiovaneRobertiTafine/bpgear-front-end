@@ -5,9 +5,11 @@
         <span class="text-decoration-underline fw-bold cursor-pointer text-secondary"
             (click)="tipoRelatorio = 'm1'; obterRelatorioM1()">Acessar Relatório M1
             Colaboradores</span>
-        <span class="text-decoration-underline fw-bold cursor-pointer text-secondary">Acessar Relatório M2
+        <span class="text-decoration-underline fw-bold cursor-pointer text-secondary"
+            (click)="tipoRelatorio = 'm2'; obterRelatorioM2()">Acessar Relatório M2
             Colaboradores</span>
-        <span class="text-decoration-underline fw-bold cursor-pointer text-secondary">Acessar Relatório M3
+        <span class="text-decoration-underline fw-bold cursor-pointer text-secondary"
+            (click)="tipoRelatorio = 'm3'; obterRelatorioM3()">Acessar Relatório M3
             Clientes</span>
     </div>
 </ng-container>
@@ -16,11 +18,83 @@
     <button class="btn btn-secondary" (click)="tipoRelatorio = null">Voltar</button>
     <h5 class="fst-italic mt-3">Relatório M1</h5>
     <bpgear-table [dataViewConfig]="relatorioM1DataViewConfig" [data]="relatorioM1" #tableRelatorioM1>
-        <!-- <ng-template #colAcessar let-cel="dataCallBack">
-                <div class="text-center" (click)="logEmpresas()">
-                    <fa-icon [icon]="iconAcessar" class="cursor-pointer" [fixedWidth]="true">
-                    </fa-icon>
-                </div>
-            </ng-template> -->
     </bpgear-table>
+</ng-container>
+
+<ng-container *ngIf="tipoRelatorio === 'm2'">
+    <button class="btn btn-secondary" (click)="tipoRelatorio = null">Voltar</button>
+    <h5 class="fst-italic mt-3">Relatório M2</h5>
+    <div>
+        <ng-scrollbar track="horizontal" [autoHeightDisabled]="false">
+            <div class="table-responsive">
+                <table class="table border mt-3 shadow-sm">
+                    <thead class="bg-danger text-light">
+                        <tr>
+                            <th class="text-nowrap">Colaboradores</th>
+                            <th class="text-nowrap">Valores</th>
+                            <ng-container *ngIf="relatorioM2; else bensServicosM2Nulo">
+                                <th class="text-nowrap" *ngFor="let b of relatorioM2[0].valores[0].bensServicos">
+                                    {{b.nomeBemServico}}</th>
+                            </ng-container>
+                            <ng-template #bensServicosM2Nulo>
+                                <th>Bens e Serviços</th>
+                            </ng-template>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-light border-top-0" *ngIf="relatorioM2">
+                        <ng-container *ngFor="let c of relatorioM2">
+                            <ng-container *ngFor="let v of c.valores">
+                                <tr>
+                                    <td>{{c.nomeColaborador}}</td>
+                                    <td>{{v.nomeValor}}</td>
+                                    <td *ngFor="let b of v.bensServicos">{{b.nota}}</td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </ng-scrollbar>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="tipoRelatorio === 'm3'">
+    <button class="btn btn-secondary" (click)="tipoRelatorio = null">Voltar</button>
+    <h5 class="fst-italic mt-3">Relatório M3</h5>
+    <div>
+        <ng-scrollbar track="horizontal" [autoHeightDisabled]="false">
+            <div class="table-responsive">
+                <table class="table border mt-3 shadow-sm">
+                    <thead class="bg-danger text-light">
+                        <tr>
+                            <th class="text-nowrap">Clientes</th>
+                            <th class="text-nowrap">Mercados</th>
+                            <th class="text-nowrap">Valores</th>
+                            <ng-container *ngIf="relatorioM3; else bensServicosM3Nulo">
+                                <th class="text-nowrap" *ngFor="let b of relatorioM3[0].valores[0].bensServicos">
+                                    {{b.nomeBemServico}}</th>
+                            </ng-container>
+                            <ng-template #bensServicosM3Nulo>
+                                <th>Bens e Serviços</th>
+                            </ng-template>
+                            <th class="text-nowrap">Observação</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-light border-top-0" *ngIf="relatorioM3">
+                        <ng-container *ngFor="let c of relatorioM3">
+                            <ng-container *ngFor="let v of c.valores; let iValor = index">
+                                <tr>
+                                    <td>{{c.nomeCliente}}</td>
+                                    <td>{{c.nomeMercado}}</td>
+                                    <td>{{v.nomeValor}}</td>
+                                    <td *ngFor="let b of v.bensServicos">{{b.nota}}</td>
+                                    <td>{{v.observacao}}</td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </ng-scrollbar>
+    </div>
 </ng-container>
