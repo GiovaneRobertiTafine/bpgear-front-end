@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { PesquisaM1Relatorio } from 'src/app/modules/pesquisa/models/interfaces/pesquisa-m1-relatorio.dto';
 import { PesquisaM2Relatorio } from 'src/app/modules/pesquisa/models/interfaces/pesquisa-m2-relatorio.dto';
@@ -14,14 +14,14 @@ import { EmpresaService } from '../../services/empresa.service';
     templateUrl: './relatorios.page.html',
     styleUrls: ['./relatorios.page.scss']
 })
-export class RelatoriosPage implements OnInit {
+export class RelatoriosPage implements OnInit, OnDestroy {
     tipoRelatorio: 'm1' | 'm2' | 'm3' | null = null;
     relatorioM1DataViewConfig = RelatorioM1DataViewConfig;
     relatorioM2DataViewConfig = RelatorioM2DataViewConfig;
     relatorioM1: PesquisaM1Relatorio[] = [];
     relatorioM2: PesquisaM2Relatorio[] = [];
     relatorioM3: PesquisaM3Relatorio[] = [];
-    @ViewChild('colValores') colValores;
+
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
@@ -34,16 +34,11 @@ export class RelatoriosPage implements OnInit {
     ngOnInit(): void {
     }
 
-    acessarRelatorio(tipoRelatorio: string): void {
-        console.log(tipoRelatorio);
-    }
-
     ngAfterViewInit(): void {
-        this.relatorioM2DataViewConfig.colunas[1].template = this.colValores;
     }
 
     obterRelatorioM1(): void {
-        this.relatorioM1 = null;
+        this.relatorioM1 = [];
         this.spinnerService.show();
         this.pesquisaService.obterRelatorioM1(this.empresaService.getEmpresa().value.id)
             .pipe(takeUntil(this.unsubscribe$))
@@ -59,7 +54,7 @@ export class RelatoriosPage implements OnInit {
     }
 
     obterRelatorioM2(): void {
-        this.relatorioM2 = null;
+        this.relatorioM2 = [];
         this.spinnerService.show();
         this.pesquisaService.obterRelatorioM2(this.empresaService.getEmpresa().value.id)
             .pipe(takeUntil(this.unsubscribe$))
@@ -75,7 +70,7 @@ export class RelatoriosPage implements OnInit {
     }
 
     obterRelatorioM3(): void {
-        this.relatorioM3 = null;
+        this.relatorioM3 = [];
         this.spinnerService.show();
         this.pesquisaService.obterRelatorioM3(this.empresaService.getEmpresa().value.id)
             .pipe(takeUntil(this.unsubscribe$))
@@ -90,4 +85,8 @@ export class RelatoriosPage implements OnInit {
             });
     }
 
+    ngOnDestroy(): void {
+        this.unsubscribe$.next(true);
+        this.unsubscribe$.unsubscribe();
+    }
 }

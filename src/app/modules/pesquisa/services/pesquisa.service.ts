@@ -9,6 +9,7 @@ import { PesquisaM2Relatorio } from '../models/interfaces/pesquisa-m2-relatorio.
 import { PesquisaM2 } from '../models/interfaces/pesquisa-m2.dto';
 import { PesquisaM3Relatorio } from '../models/interfaces/pesquisa-m3-relatorio.dto';
 import { PesquisaM3 } from '../models/interfaces/pesquisa-m3.dto';
+import { PesquisaM1EnviarEmail } from '../models/requests/pesquisa-m1-enviar-email.request';
 import { PesquisaM1Inserir } from '../models/requests/pesquisa-m1-inserir.request';
 import { PesquisaM1Obter } from '../models/requests/pesquisa-m1-obter.request';
 import { PesquisaM2Inserir } from '../models/requests/pesquisa-m2-inserir.request';
@@ -43,6 +44,13 @@ export class PesquisaService extends ApiService {
         return this.get<IDataReturn<PesquisaM1Relatorio[]>, string>('pesquisa/m1-relatorio/' + idEmpresa)
             .pipe(
                 catchError(this.handleError<IDataReturn<PesquisaM1Relatorio[]>>('obterRelatorioM1'))
+            );
+    }
+
+    public enviarEmailM1(request: PesquisaM1EnviarEmail): Observable<IDataReturn<null>> {
+        return this.post<IDataReturn<null>>('pesquisa/m1-enviar-email', request)
+            .pipe(
+                catchError(this.handleError<IDataReturn<null>>('enviarEmailM1'))
             );
     }
 

@@ -1,3 +1,4 @@
+import { faEnvelope, faVoicemail } from '@fortawesome/free-solid-svg-icons';
 import { MaskPipe } from 'ngx-mask';
 import { PesquisaM1Relatorio } from 'src/app/modules/pesquisa/models/interfaces/pesquisa-m1-relatorio.dto';
 import { PesquisaM2Relatorio } from 'src/app/modules/pesquisa/models/interfaces/pesquisa-m2-relatorio.dto';
@@ -79,6 +80,12 @@ export const ColaboradorDataViewConfig: DataViewConfig<NestedKeyOf<Colaborador>>
         {
             titulo: "Ativar/Desativar Pesquisa",
             propriedade: ["pesquisa"],
+        },
+        {
+            titulo: "",
+            iconTituloFA: faEnvelope,
+            propriedade: ["pesquisa"],
+            tooltipTitulo: "Enviar pesquisa por e-mail"
         }
     ],
     colunasAcao: {
@@ -110,6 +117,12 @@ export const ClienteDataViewConfig: DataViewConfig<NestedKeyOf<Cliente>> = {
         {
             titulo: "Ativar/Desativar Pesquisa",
             propriedade: ["pesquisa"],
+        },
+        {
+            titulo: "",
+            iconTituloFA: faEnvelope,
+            propriedade: ["pesquisa"],
+            tooltipTitulo: "Enviar pesquisa por e-mail"
         }
     ],
     colunasAcao: {

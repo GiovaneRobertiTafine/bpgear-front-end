@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, takeUntil } from 'rxjs';
 import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
@@ -27,6 +28,8 @@ export class ClientePage implements OnInit, AfterViewInit {
     clientes: Cliente[] = [];
     pesquisa = Pesquisa;
     @ViewChild('colAlterarPesquisa') colAlterarPesquisa;
+    @ViewChild('colEnviarPesquisa') colEnviarPesquisa;
+    faEnvelope = faEnvelope;
 
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
@@ -45,7 +48,8 @@ export class ClientePage implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.clienteDataViewConfig.colunas[this.clienteDataViewConfig.colunas.length - 1].template = this.colAlterarPesquisa;
+        this.clienteDataViewConfig.colunas[this.clienteDataViewConfig.colunas.length - 2].template = this.colAlterarPesquisa;
+        this.clienteDataViewConfig.colunas[this.clienteDataViewConfig.colunas.length - 1].template = this.colEnviarPesquisa;
     }
 
     obterClientes(): void {
@@ -145,6 +149,14 @@ export class ClientePage implements OnInit, AfterViewInit {
                         .catch((err) => err);
                 }
             );
+    }
+
+    enviarEmailPesquisaM1(): void {
+
+    }
+
+    openModal(content, size = 'xl') {
+        this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: size });
     }
 
 }

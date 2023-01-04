@@ -67,6 +67,12 @@ tbody {
         th:nth-child(4) {
             text-align: center;
         }
+
+        th:nth-child(5) {
+            text-align: center;
+            border-left: 1px solid #dee2e6 !important;
+            width: 50px !important;
+        }
     }
 
     tbody>tr {
@@ -80,6 +86,15 @@ tbody {
             }
         }
 
+        td:nth-child(5) {
+            text-align: center;
+            border-left: 1px solid #dee2e6 !important;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
     }
 
 }
@@ -89,6 +104,12 @@ tbody {
     thead>tr {
         th:nth-child(4) {
             text-align: center;
+        }
+
+        th:nth-child(5) {
+            text-align: center;
+            border-left: 1px solid #dee2e6 !important;
+            width: 50px !important;
         }
     }
 
@@ -100,6 +121,15 @@ tbody {
             &:hover {
                 cursor: pointer;
                 text-decoration: underline;
+            }
+        }
+
+        td:nth-child(5) {
+            text-align: center;
+            border-left: 1px solid #dee2e6 !important;
+
+            &:hover {
+                cursor: pointer;
             }
         }
 

@@ -1,4 +1,5 @@
 import { TemplateRef } from "@angular/core";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { NestedKeyOf } from "../utils/script.extension";
 
 export interface DataViewConfig<T> {
@@ -15,6 +16,8 @@ export interface DataColuna<T> {
     template?: TemplateRef<any>;
     mascara?: Mascara;
     ordenacao?: DirecaoOrdenacao;
+    iconTituloFA?: IconProp;
+    tooltipTitulo?: string;
 }
 
 interface Mascara {

@@ -32,7 +32,7 @@
                         <tr>
                             <th class="text-nowrap">Colaboradores</th>
                             <th class="text-nowrap">Valores</th>
-                            <ng-container *ngIf="relatorioM2; else bensServicosM2Nulo">
+                            <ng-container *ngIf="relatorioM2.length; else bensServicosM2Nulo">
                                 <th class="text-nowrap" *ngFor="let b of relatorioM2[0].valores[0].bensServicos">
                                     {{b.nomeBemServico}}</th>
                             </ng-container>
@@ -41,7 +41,7 @@
                             </ng-template>
                         </tr>
                     </thead>
-                    <tbody class="bg-light border-top-0" *ngIf="relatorioM2">
+                    <tbody class="bg-light border-top-0" *ngIf="relatorioM2.length">
                         <ng-container *ngFor="let c of relatorioM2">
                             <ng-container *ngFor="let v of c.valores">
                                 <tr>
@@ -70,7 +70,7 @@
                             <th class="text-nowrap">Clientes</th>
                             <th class="text-nowrap">Mercados</th>
                             <th class="text-nowrap">Valores</th>
-                            <ng-container *ngIf="relatorioM3; else bensServicosM3Nulo">
+                            <ng-container *ngIf="relatorioM3.length; else bensServicosM3Nulo">
                                 <th class="text-nowrap" *ngFor="let b of relatorioM3[0].valores[0].bensServicos">
                                     {{b.nomeBemServico}}</th>
                             </ng-container>
@@ -80,7 +80,7 @@
                             <th class="text-nowrap">Observação</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-light border-top-0" *ngIf="relatorioM3">
+                    <tbody class="bg-light border-top-0" *ngIf="relatorioM3.length">
                         <ng-container *ngFor="let c of relatorioM3">
                             <ng-container *ngFor="let v of c.valores; let iValor = index">
                                 <tr>
