@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, takeUntil } from 'rxjs';
+import { PesquisaM3EnviarEmail } from 'src/app/modules/pesquisa/models/requests/pesquisa-m3-enviar-email.request';
+import { PesquisaService } from 'src/app/modules/pesquisa/services/pesquisa.service';
 import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
 import { ToastService } from 'src/app/modules/shared/services/toast.service';
 import { ModalAlterarPesquisaComponent } from '../../components/modal-alterar-pesquisa/modal-alterar-pesquisa.component';
@@ -40,6 +42,7 @@ export class ClientePage implements OnInit, AfterViewInit {
         private mercadoService: MercadoService,
         private empresaService: EmpresaService,
         private clienteService: ClienteService,
+        private pesquisaService: PesquisaService,
         private router: Router
     ) { }
 
@@ -151,8 +154,24 @@ export class ClientePage implements OnInit, AfterViewInit {
             );
     }
 
-    enviarEmailPesquisaM1(): void {
+    enviarEmailPesquisaM1(cliente: Cliente): void {
+        if (+Pesquisa[cliente.pesquisa] === Pesquisa.DESATIVADA)
+            return this.toastService.warning("Não é possível enviar e-mail de pesquisa, com pesquisa desativada.");
+        this.spinnerService.show();
+        const request: PesquisaM3EnviarEmail = { idCliente: cliente.id };
+        this.pesquisaService.enviarEmailM3(request)
+            .subscribe(
+                (response) => {
+                    this.spinnerService.hide();
+                    if (response.resultStatus.code !== 200) {
+                        this.toastService.error(response.resultStatus.message);
+                        return;
+                    }
 
+                    this.toastService.success(response.resultStatus.message);
+                    this.modalService.dismissAll();
+                }
+            );
     }
 
     openModal(content, size = 'xl') {

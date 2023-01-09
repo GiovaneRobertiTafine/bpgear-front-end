@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, takeUntil } from 'rxjs';
+import { Paginacao } from 'src/app/modules/shared/models/paginacao.model';
 import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
 import { ToastService } from 'src/app/modules/shared/services/toast.service';
 import { ModalDeletarComponent } from '../../components/modal-deletar/modal-deletar.component';
@@ -19,6 +20,10 @@ import { MercadoService } from '../../services/mercado.service';
 export class MercadoPage implements OnInit, OnDestroy {
     mercadoDataViewConfig = MercadoDataViewConfig;
     mercados: Mercado[] = [];
+    paginacao: Paginacao = {
+        pagina: 1,
+        paginaTamanho: 5
+    };
 
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
@@ -36,7 +41,7 @@ export class MercadoPage implements OnInit, OnDestroy {
 
     obterMercados(): void {
         this.spinnerService.show();
-        this.mercadoService.obterMercados(this.empresaService.getEmpresa().value.id)
+        this.mercadoService.obterMercados(this.empresaService.getEmpresa().value.id, this.paginacao)
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe(
                 (response) => {
@@ -47,6 +52,8 @@ export class MercadoPage implements OnInit, OnDestroy {
                     }
 
                     this.mercados = response.data;
+                    console.log(response.resultPaginacao.colecaoTamanho);
+                    this.paginacao.colecaoTamanho = response.resultPaginacao.colecaoTamanho;
                 }
             );
     }

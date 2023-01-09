@@ -1,6 +1,7 @@
 import { TemplateRef } from "@angular/core";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { NestedKeyOf } from "../utils/script.extension";
+import { Paginacao } from "./paginacao.model";
 
 export interface DataViewConfig<T> {
     colunas: DataColuna<T>[];

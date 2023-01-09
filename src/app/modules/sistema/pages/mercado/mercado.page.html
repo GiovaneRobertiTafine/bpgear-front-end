@@ -4,6 +4,6 @@
 </div>
 
 <bpgear-table [dataViewConfig]="mercadoDataViewConfig" [data]="mercados" (deletarItemEvent)="deletarMercado($event)"
-    (editarItemEvent)="editarMercado($event)">
+    (editarItemEvent)="editarMercado($event)" [(paginacao)]="paginacao" (paginacaoChange)="obterMercados()">
 
 </bpgear-table>

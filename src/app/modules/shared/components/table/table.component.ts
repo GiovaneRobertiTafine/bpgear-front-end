@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { InjectorPipe } from '../../pipes/injector.pipe';
 import { DataColuna, DataViewConfig } from '../../models/data-view-config.model';
 import { faInfoCircle, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { getNestedValue } from '../../utils/script.extension';
+import { Paginacao } from '../../models/paginacao.model';
 
 @Component({
     selector: 'bpgear-table',
@@ -14,6 +15,8 @@ export class TableComponent implements OnInit {
     iconDeletar = faTrashCan;
     iconDetalhar = faInfoCircle;
 
+    @Input() paginacao: Paginacao;
+
     @Input() dataViewConfig: DataViewConfig<string>;
     @Input() data: any[];
 
@@ -21,12 +24,12 @@ export class TableComponent implements OnInit {
     @Output() editarItemEvent = new EventEmitter<any>();
     @Output() detalharItemEvent = new EventEmitter<any>();
     @Output() eventCallBack = new EventEmitter<any>();
+    @Output() paginacaoChange = new EventEmitter<Paginacao>();
 
     constructor(private dynamicPipe: InjectorPipe) {
     }
 
     ngOnInit(): void {
-
     }
 
     obterValorPropriedade(obj: {}, col: DataColuna<string>): string {
@@ -61,6 +64,10 @@ export class TableComponent implements OnInit {
 
     emitEventCallBack(obj: any): void {
         this.eventCallBack.emit(obj);
+    }
+
+    emitPaginacaoCallBack(): void {
+        this.paginacaoChange.emit(this.paginacao);
     }
 
 }

@@ -179,6 +179,7 @@ export const MercadoDataViewConfig: DataViewConfig<NestedKeyOf<Mercado>> = {
             propriedade: ["nome"]
         },
     ],
+    paginacao: true,
     colunasAcao: {
         editar: true,
         deletar: true

@@ -3,6 +3,10 @@ interface IStatusReturn {
     message?: string;
 }
 
+interface IPaginacaoReturn {
+    colecaoTamanho: number;
+}
+
 interface IPaginatedData<T> {
     resultado: T;
     tamanhoColecao: number;
@@ -10,6 +14,7 @@ interface IPaginatedData<T> {
 export interface IDataReturn<T> {
     data: T;
     resultStatus: IStatusReturn;
+    resultPaginacao?: IPaginacaoReturn;
 }
 
 export interface IServicePaginatedDataReturn<T> {

@@ -62,3 +62,15 @@
         </table>
     </div>
 </ng-scrollbar>
+<div class="d-flex justify-content-between p-2" *ngIf="dataViewConfig.paginacao">
+    <ngb-pagination [collectionSize]="paginacao.colecaoTamanho" class="rounded-0" [(page)]="paginacao.pagina"
+        [pageSize]="paginacao.paginaTamanho" (pageChange)="emitPaginacaoCallBack()">
+    </ngb-pagination>
+
+    <select class="form-select small py-0" style="width: auto; height: 38px;" [(ngModel)]="paginacao.paginaTamanho"
+        (ngModelChange)="emitPaginacaoCallBack()">
+        <option [ngValue]="5">5 itens por página</option>
+        <option [ngValue]="10">10 itens por página</option>
+        <option [ngValue]="15">15 itens por página</option>
+    </select>
+</div>

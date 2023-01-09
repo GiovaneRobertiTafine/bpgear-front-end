@@ -11,19 +11,20 @@
     <ng-template #colEnviarPesquisa let-data="dataCallBack" let-item="itemCallBack">
         <fa-icon [icon]="faEnvelope" (click)="openModal(modalConfirmarEnvioEmail, 'md')">
         </fa-icon>
+        <ng-template #modalConfirmarEnvioEmail let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Enviar e-mail para pesquisa:</h4>
+                <button type="button" class="btn-close" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')"></button>
+            </div>
+            <div class="modal-body">
+                <p>Confirma envio da pesqiusa para este cliente:</p>
+                {{item.nome}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" (click)="modal.close()">Fechar</button>
+                <button type="submit" class="btn btn-success" (click)="enviarEmailPesquisaM1(item)">Confirmar</button>
+            </div>
+        </ng-template>
     </ng-template>
 </bpgear-table>
-
-<ng-template #modalConfirmarEnvioEmail let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Enviar e-mail para pesquisa:</h4>
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-        <p>Confirma envio da pesqiusa para este cliente</p>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="modal.close()">Fechar</button>
-        <button type="submit" class="btn btn-success">Confirmar</button>
-    </div>
-</ng-template>
