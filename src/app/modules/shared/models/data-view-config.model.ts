@@ -6,7 +6,7 @@ import { Paginacao } from "./paginacao.model";
 export interface DataViewConfig<T> {
     colunas: DataColuna<T>[];
     classes?: string[];
-    paginacao?: boolean;
+    paginacao?: Paginacao;
     colunasAcao?: ColunasAcao;
 }
 
@@ -32,7 +32,7 @@ interface ColunasAcao {
     deletar?: boolean;
 }
 
-enum DirecaoOrdenacao {
+export enum DirecaoOrdenacao {
     PADRAO,
     ASC,
     DESC

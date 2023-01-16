@@ -4,11 +4,23 @@
             [class]="dataViewConfig?.classes?.length && obterClassesTabela()">
             <thead class="bg-danger text-light">
                 <tr>
-                    <th *ngFor="let col of dataViewConfig.colunas">
+                    <th *ngFor="let col of dataViewConfig.colunas" [ngClass]="{'cursor-pointer': col.ordenacao}"
+                        (click)="col.ordenacao? ordenarColuna(col.propriedade.join('.')): null">
                         {{ col.titulo }}
                         <ng-container *ngIf="col.iconTituloFA">
                             <fa-icon [icon]="col.iconTituloFA" [fixedWidth]="true" container="body" placement="top"
                                 [ngbTooltip]="col.tooltipTitulo">
+                            </fa-icon>
+                        </ng-container>
+                        <ng-container *ngIf="col.ordenacao">
+                            <fa-icon [icon]="iconArrowUp" [fixedWidth]="true" container="body" placement="top"
+                                *ngIf="ordenacaoTemplate[col.propriedade.join('.')] === direcaoOrdenacao.ASC">
+                            </fa-icon>
+                            <fa-icon [icon]="iconArrowDown" [fixedWidth]="true" container="body" placement="top"
+                                *ngIf="ordenacaoTemplate[col.propriedade.join('.')] === direcaoOrdenacao.DESC">
+                            </fa-icon>
+                            <fa-icon [icon]="iconArrowsUpDown" [fixedWidth]="true" container="body" placement="top"
+                                *ngIf="ordenacaoTemplate[col.propriedade.join('.')] === direcaoOrdenacao.PADRAO">
                             </fa-icon>
                         </ng-container>
                     </th>
@@ -63,7 +75,7 @@
     </div>
 </ng-scrollbar>
 <div class="d-flex justify-content-between p-2" *ngIf="dataViewConfig.paginacao">
-    <ngb-pagination [collectionSize]="paginacao.colecaoTamanho" class="rounded-0" [(page)]="paginacao.pagina"
+    <ngb-pagination [collectionSize]="colecaoTamanho" class="rounded-0" [(page)]="paginacao.pagina"
         [pageSize]="paginacao.paginaTamanho" (pageChange)="emitPaginacaoCallBack()">
     </ngb-pagination>
 

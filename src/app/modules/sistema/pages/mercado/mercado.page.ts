@@ -1,6 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject, takeUntil } from 'rxjs';
+import { map, merge, startWith, Subject, switchMap, takeUntil } from 'rxjs';
+import { DirecaoOrdenacao } from 'src/app/modules/shared/models/data-view-config.model';
+import { Ordenacao } from 'src/app/modules/shared/models/ordenacao.model';
 import { Paginacao } from 'src/app/modules/shared/models/paginacao.model';
 import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
 import { ToastService } from 'src/app/modules/shared/services/toast.service';
@@ -17,13 +19,11 @@ import { MercadoService } from '../../services/mercado.service';
     templateUrl: './mercado.page.html',
     styleUrls: ['./mercado.page.scss']
 })
-export class MercadoPage implements OnInit, OnDestroy {
+export class MercadoPage implements OnInit, OnDestroy, AfterViewInit {
     mercadoDataViewConfig = MercadoDataViewConfig;
     mercados: Mercado[] = [];
-    paginacao: Paginacao = {
-        pagina: 1,
-        paginaTamanho: 5
-    };
+
+    @ViewChild('table') table: any;
 
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
@@ -36,26 +36,52 @@ export class MercadoPage implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-        this.obterMercados();
     }
 
-    obterMercados(): void {
-        this.spinnerService.show();
-        this.mercadoService.obterMercados(this.empresaService.getEmpresa().value.id, this.paginacao)
-            .pipe(takeUntil(this.unsubscribe$))
-            .subscribe(
-                (response) => {
+    ngAfterViewInit(): void {
+        merge(this.table.paginacaoChange, this.table.ordenacaoChange)
+            .pipe(
+                startWith({}),
+                switchMap(() => {
+                    this.spinnerService.show();
+                    return this.mercadoService.obterMercados(
+                        this.empresaService.getEmpresa().value.id,
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
+                }),
+                map(response => {
                     this.spinnerService.hide();
-                    if (response.resultStatus.code !== 200) {
-                        this.toastService.error(response.resultStatus.message);
-                        return;
-                    }
-
-                    this.mercados = response.data;
-                    console.log(response.resultPaginacao.colecaoTamanho);
-                    this.paginacao.colecaoTamanho = response.resultPaginacao.colecaoTamanho;
+                    return response;
+                }),
+            )
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe(response => {
+                if (response.resultStatus.code !== 200) {
+                    this.toastService.error(response.resultStatus.message);
+                    return;
                 }
-            );
+
+                this.mercados = response.data;
+                this.table.colecaoTamanho = response.resultPaginacao.colecaoTamanho;
+
+            });
+    }
+
+    obterMercados(paginacao?: Paginacao, ordenacao?: Ordenacao): void {
+        this.spinnerService.show();
+        this.mercadoService.obterMercados(this.empresaService.getEmpresa().value.id, paginacao, ordenacao)
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe(response => {
+                this.spinnerService.hide();
+                if (response.resultStatus.code !== 200) {
+                    this.toastService.error(response.resultStatus.message);
+                    return;
+                }
+
+                this.mercados = response.data;
+                this.table.colecaoTamanho = response.resultPaginacao.colecaoTamanho;
+            });
     }
 
     criarMercado(): void {
@@ -63,7 +89,10 @@ export class MercadoPage implements OnInit, OnDestroy {
         modalRef.result
             .then((res) => {
                 if (res) {
-                    this.obterMercados();
+                    this.obterMercados(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
                 }
             })
             .catch((err) => err);
@@ -75,7 +104,10 @@ export class MercadoPage implements OnInit, OnDestroy {
         modalRef.result
             .then((res) => {
                 if (res) {
-                    this.obterMercados();
+                    this.obterMercados(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
                 }
             })
             .catch((err) => err);
@@ -87,7 +119,10 @@ export class MercadoPage implements OnInit, OnDestroy {
         modalRef.result
             .then((res) => {
                 if (res) {
-                    this.obterMercados();
+                    this.obterMercados(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
                 }
             })
             .catch((err) => err);

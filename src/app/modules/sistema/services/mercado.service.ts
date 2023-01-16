@@ -2,6 +2,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { IDataReturn } from '../../shared/models/data-return.model';
+import { DirecaoOrdenacao } from '../../shared/models/data-view-config.model';
+import { Ordenacao } from '../../shared/models/ordenacao.model';
 import { Paginacao } from '../../shared/models/paginacao.model';
 import { ApiService } from '../../shared/services/api.service';
 import { Mercado } from '../models/interfaces/mercado.interface';
@@ -18,8 +20,8 @@ export class MercadoService extends ApiService {
         super(httpClient);
     }
 
-    public obterMercados(idEmpresa: string, paginacao?: Paginacao): Observable<IDataReturn<Mercado[]>> {
-        return this.get<IDataReturn<Mercado[]>, Paginacao>('mercado/' + idEmpresa, paginacao)
+    public obterMercados(idEmpresa: string, paginacao?: Paginacao, ordenacao?: Ordenacao | null): Observable<IDataReturn<Mercado[]>> {
+        return this.get<IDataReturn<Mercado[]>, Paginacao>('mercado/' + idEmpresa, { ...paginacao, ...ordenacao })
             .pipe(
                 catchError(this.handleError<IDataReturn<Mercado[]>>('obterMercado'))
             );

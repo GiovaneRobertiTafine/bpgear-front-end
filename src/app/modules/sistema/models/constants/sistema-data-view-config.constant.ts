@@ -2,7 +2,7 @@ import { faEnvelope, faVoicemail } from '@fortawesome/free-solid-svg-icons';
 import { MaskPipe } from 'ngx-mask';
 import { PesquisaM1Relatorio } from 'src/app/modules/pesquisa/models/interfaces/pesquisa-m1-relatorio.dto';
 import { PesquisaM2Relatorio } from 'src/app/modules/pesquisa/models/interfaces/pesquisa-m2-relatorio.dto';
-import { DataViewConfig } from 'src/app/modules/shared/models/data-view-config.model';
+import { DataViewConfig, DirecaoOrdenacao } from 'src/app/modules/shared/models/data-view-config.model';
 import { TelefonePipe } from 'src/app/modules/shared/pipes/telefone.pipe';
 import { NestedKeyOf, NestedKeyOfDot } from 'src/app/modules/shared/utils/script.extension';
 import { BemServico } from '../interfaces/bem-servico.interface';
@@ -176,10 +176,14 @@ export const MercadoDataViewConfig: DataViewConfig<NestedKeyOf<Mercado>> = {
     colunas: [
         {
             titulo: "Nome",
-            propriedade: ["nome"]
+            propriedade: ["nome"],
+            ordenacao: DirecaoOrdenacao.ASC
         },
     ],
-    paginacao: true,
+    paginacao: {
+        pagina: 1,
+        paginaTamanho: 5,
+    },
     colunasAcao: {
         editar: true,
         deletar: true
