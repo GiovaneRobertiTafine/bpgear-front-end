@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { IDataReturn } from '../../shared/models/data-return.model';
+import { Ordenacao } from '../../shared/models/ordenacao.model';
+import { Paginacao } from '../../shared/models/paginacao.model';
 import { ApiService } from '../../shared/services/api.service';
 import { Setor } from '../models/interfaces/setor.interface';
 import { SetorCriar } from '../models/requests/setor-criar.request';
@@ -17,8 +19,8 @@ export class SetorService extends ApiService {
         super(httpClient);
     }
 
-    public obterSetores(idEmpresa): Observable<IDataReturn<Setor[]>> {
-        return this.get<IDataReturn<Setor[]>>('setor/' + idEmpresa)
+    public obterSetores(idEmpresa: string, paginacao?: Paginacao, ordenacao?: Ordenacao | null): Observable<IDataReturn<Setor[]>> {
+        return this.get<IDataReturn<Setor[]>, Paginacao>('setor/' + idEmpresa, { ...paginacao, ...ordenacao })
             .pipe(
                 catchError(this.handleError<IDataReturn<Setor[]>>('obterSetores'))
             );

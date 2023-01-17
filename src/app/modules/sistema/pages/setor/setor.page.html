@@ -3,7 +3,7 @@
     <button class="btn btn-outline-success float-end" (click)="criarSetor()">Novo Setor</button>
 </div>
 
-<bpgear-table [dataViewConfig]="setorDataViewConfig" [data]="setores" (deletarItemEvent)="deletarSetor($event)"
+<bpgear-table #table [dataViewConfig]="setorDataViewConfig" [data]="setores" (deletarItemEvent)="deletarSetor($event)"
     (editarItemEvent)="editarSetor($event)">
 
 </bpgear-table>

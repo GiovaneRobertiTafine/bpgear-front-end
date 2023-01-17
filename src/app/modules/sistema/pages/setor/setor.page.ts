@@ -1,6 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject, takeUntil } from 'rxjs';
+import { merge, map, startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { TableComponent } from 'src/app/modules/shared/components/table/table.component';
+import { Ordenacao } from 'src/app/modules/shared/models/ordenacao.model';
+import { Paginacao } from 'src/app/modules/shared/models/paginacao.model';
 import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
 import { ToastService } from 'src/app/modules/shared/services/toast.service';
 import { ModalDeletarComponent } from '../../components/modal-deletar/modal-deletar.component';
@@ -16,9 +19,11 @@ import { SetorService } from '../../services/setor.service';
     templateUrl: './setor.page.html',
     styleUrls: ['./setor.page.scss']
 })
-export class SetorPage implements OnInit, OnDestroy {
+export class SetorPage implements OnInit, OnDestroy, AfterViewInit {
     setorDataViewConfig = SetorDataViewConfig;
     setores: Setor[] = [];
+
+    @ViewChild('table') table;
 
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
@@ -31,12 +36,26 @@ export class SetorPage implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-        this.obterSetores();
     }
 
-    obterSetores(): void {
+    ngAfterViewInit(): void {
+        merge(this.table.paginacaoChange, this.table.ordenacaoChange)
+            .pipe(
+                startWith({}),
+                tap(() => {
+                    this.obterSetores(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
+                }),
+                takeUntil(this.unsubscribe$)
+            )
+            .subscribe(response => response);
+    }
+
+    obterSetores(paginacao?: Paginacao, ordenacao?: Ordenacao): void {
         this.spinnerService.show();
-        this.setorService.obterSetores(this.empresaService.getEmpresa().value.id)
+        this.setorService.obterSetores(this.empresaService.getEmpresa().value.id, paginacao, ordenacao)
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe(
                 (response) => {
@@ -56,7 +75,10 @@ export class SetorPage implements OnInit, OnDestroy {
         modalRef.result
             .then((res) => {
                 if (res) {
-                    this.obterSetores();
+                    this.obterSetores(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
                 }
             })
             .catch((err) => err);
@@ -68,7 +90,10 @@ export class SetorPage implements OnInit, OnDestroy {
         modalRef.result
             .then((res) => {
                 if (res) {
-                    this.obterSetores();
+                    this.obterSetores(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
                 }
             })
             .catch((err) => err);
@@ -80,7 +105,10 @@ export class SetorPage implements OnInit, OnDestroy {
         modalRef.result
             .then((res) => {
                 if (res) {
-                    this.obterSetores();
+                    this.obterSetores(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
                 }
             })
             .catch((err) => err);

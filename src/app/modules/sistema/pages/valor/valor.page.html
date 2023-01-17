@@ -3,7 +3,7 @@
     <button class="btn btn-outline-success float-end" (click)="criarValor()">Novo Valor</button>
 </div>
 
-<bpgear-table [dataViewConfig]="valorDataViewConfig" [data]="valores" #tableEmpresa
-    (deletarItemEvent)="deletarValor($event)" (editarItemEvent)="editarValor($event)">
+<bpgear-table [dataViewConfig]="valorDataViewConfig" [data]="valores" #table (deletarItemEvent)="deletarValor($event)"
+    (editarItemEvent)="editarValor($event)">
 
 </bpgear-table>

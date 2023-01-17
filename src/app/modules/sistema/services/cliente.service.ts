@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { IDataReturn } from '../../shared/models/data-return.model';
+import { Ordenacao } from '../../shared/models/ordenacao.model';
+import { Paginacao } from '../../shared/models/paginacao.model';
 import { ApiService } from '../../shared/services/api.service';
 import { Cliente } from '../models/interfaces/cliente.interface';
 import { ClienteAlterarPesquisa } from '../models/requests/cliente-alterar-pesquisa.request';
@@ -19,8 +21,8 @@ export class ClienteService extends ApiService {
         super(httpClient);
     }
 
-    public obterClientes(idEmpresa): Observable<IDataReturn<Cliente[]>> {
-        return this.get<IDataReturn<Cliente[]>>('cliente/' + idEmpresa)
+    public obterClientes(idEmpresa: string, paginacao?: Paginacao, ordenacao?: Ordenacao | null): Observable<IDataReturn<Cliente[]>> {
+        return this.get<IDataReturn<Cliente[]>, Paginacao>('cliente/' + idEmpresa, { ...paginacao, ...ordenacao })
             .pipe(
                 catchError(this.handleError<IDataReturn<Cliente[]>>('obterClientes'))
             );

@@ -1,6 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject, takeUntil } from 'rxjs';
+import { merge, startWith, Subject, takeUntil, tap } from 'rxjs';
+import { Ordenacao } from 'src/app/modules/shared/models/ordenacao.model';
+import { Paginacao } from 'src/app/modules/shared/models/paginacao.model';
 import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
 import { ToastService } from 'src/app/modules/shared/services/toast.service';
 import { ModalBemServicoCriarComponent } from '../../components/modal-bem-servico-criar/modal-bem-servico-criar.component';
@@ -20,6 +22,8 @@ export class BemServicoPage implements OnInit, OnDestroy {
     bemServico: BemServico[] = [];
     bemServicoDataViewConfig = BemServicoDataViewConfig;
 
+    @ViewChild('table') table;
+
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
@@ -31,12 +35,26 @@ export class BemServicoPage implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-        this.obterBensServicos();
     }
 
-    obterBensServicos(): void {
+    ngAfterViewInit(): void {
+        merge(this.table.paginacaoChange, this.table.ordenacaoChange)
+            .pipe(
+                startWith({}),
+                tap(() => {
+                    this.obterBensServicos(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
+                }),
+                takeUntil(this.unsubscribe$)
+            )
+            .subscribe(response => response);
+    }
+
+    obterBensServicos(paginacao?: Paginacao, ordenacao?: Ordenacao): void {
         this.spinnerService.show();
-        this.bemServicoService.obterBensServicos(this.empresaService.getEmpresa().value.id)
+        this.bemServicoService.obterBensServicos(this.empresaService.getEmpresa().value.id, paginacao, ordenacao)
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe(
                 (response) => {
@@ -56,7 +74,10 @@ export class BemServicoPage implements OnInit, OnDestroy {
         modalRef.result
             .then((res) => {
                 if (res) {
-                    this.obterBensServicos();
+                    this.obterBensServicos(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
                 }
             })
             .catch((err) => err);
@@ -68,7 +89,10 @@ export class BemServicoPage implements OnInit, OnDestroy {
         modalRef.result
             .then((res) => {
                 if (res) {
-                    this.obterBensServicos();
+                    this.obterBensServicos(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
                 }
             })
             .catch((err) => err);
@@ -80,7 +104,10 @@ export class BemServicoPage implements OnInit, OnDestroy {
         modalRef.result
             .then((res) => {
                 if (res) {
-                    this.obterBensServicos();
+                    this.obterBensServicos(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
                 }
             })
             .catch((err) => err);

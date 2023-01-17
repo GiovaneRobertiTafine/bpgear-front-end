@@ -1,9 +1,12 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject, takeUntil } from 'rxjs';
+import { map, startWith, Subject, switchMap, takeUntil, merge, tap } from 'rxjs';
 import { PesquisaM1EnviarEmail } from 'src/app/modules/pesquisa/models/requests/pesquisa-m1-enviar-email.request';
 import { PesquisaService } from 'src/app/modules/pesquisa/services/pesquisa.service';
+import { TableComponent } from 'src/app/modules/shared/components/table/table.component';
+import { Ordenacao } from 'src/app/modules/shared/models/ordenacao.model';
+import { Paginacao } from 'src/app/modules/shared/models/paginacao.model';
 import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
 import { ToastService } from 'src/app/modules/shared/services/toast.service';
 import { ModalAlterarPesquisaComponent } from '../../components/modal-alterar-pesquisa/modal-alterar-pesquisa.component';
@@ -30,6 +33,8 @@ export class ColaboradorPage implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('colEnviarPesquisa') colEnviarPesquisa;
     @ViewChild('modalConfirmarEnvioEmail') modalConfirmarEnvioEmail;
 
+    @ViewChild('table') table: TableComponent;
+
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
@@ -43,17 +48,29 @@ export class ColaboradorPage implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnInit(): void {
-        this.obterColaboradores();
     }
 
     ngAfterViewInit(): void {
         this.colaboradorDataViewConfig.colunas[this.colaboradorDataViewConfig.colunas.length - 2].template = this.colAlterarPesquisa;
         this.colaboradorDataViewConfig.colunas[this.colaboradorDataViewConfig.colunas.length - 1].template = this.colEnviarPesquisa;
+
+        merge(this.table.paginacaoChange, this.table.ordenacaoChange)
+            .pipe(
+                startWith({}),
+                tap(() => {
+                    this.obterColaboradores(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
+                }),
+                takeUntil(this.unsubscribe$)
+            )
+            .subscribe(response => response);
     }
 
-    obterColaboradores(): void {
+    obterColaboradores(paginacao?: Paginacao, ordenacao?: Ordenacao): void {
         this.spinnerService.show();
-        this.colaboradorService.obterColaboradores(this.empresaService.getEmpresa().value.id)
+        this.colaboradorService.obterColaboradores(this.empresaService.getEmpresa().value.id, paginacao, ordenacao)
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe(
                 (response) => {
@@ -73,7 +90,10 @@ export class ColaboradorPage implements OnInit, OnDestroy, AfterViewInit {
         modalRef.result
             .then(
                 (res) => {
-                    if (res) this.obterColaboradores();
+                    if (res) this.obterColaboradores(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
                 }
             )
             .catch((err) => err);
@@ -85,7 +105,10 @@ export class ColaboradorPage implements OnInit, OnDestroy, AfterViewInit {
         modalRef.result
             .then((res) => {
                 if (res) {
-                    this.obterColaboradores();
+                    this.obterColaboradores(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
                 }
             })
             .catch((err) => err);
@@ -97,7 +120,10 @@ export class ColaboradorPage implements OnInit, OnDestroy, AfterViewInit {
         modalRef.result
             .then((res) => {
                 if (res) {
-                    this.obterColaboradores();
+                    this.obterColaboradores(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
                 }
             })
             .catch((err) => err);

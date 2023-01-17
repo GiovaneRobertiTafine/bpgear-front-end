@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { IDataReturn } from '../../shared/models/data-return.model';
+import { Ordenacao } from '../../shared/models/ordenacao.model';
+import { Paginacao } from '../../shared/models/paginacao.model';
 import { ApiService } from '../../shared/services/api.service';
 import { BemServico } from '../models/interfaces/bem-servico.interface';
 import { BemServicoCriar } from '../models/requests/bem-servico-criar.request';
@@ -17,8 +19,8 @@ export class BemServicoService extends ApiService {
         super(httpClient);
     }
 
-    public obterBensServicos(idEmpresa): Observable<IDataReturn<BemServico[]>> {
-        return this.get<IDataReturn<BemServico[]>>('bem-servico/' + idEmpresa)
+    public obterBensServicos(idEmpresa, paginacao?: Paginacao, ordenacao?: Ordenacao | null): Observable<IDataReturn<BemServico[]>> {
+        return this.get<IDataReturn<BemServico[]>, Paginacao>('bem-servico/' + idEmpresa, { ...paginacao, ...ordenacao })
             .pipe(
                 catchError(this.handleError<IDataReturn<BemServico[]>>('obterBensServicos'))
             );

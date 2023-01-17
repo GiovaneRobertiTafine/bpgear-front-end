@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { IDataReturn } from '../../shared/models/data-return.model';
+import { Ordenacao } from '../../shared/models/ordenacao.model';
+import { Paginacao } from '../../shared/models/paginacao.model';
 import { ApiService } from '../../shared/services/api.service';
 import { Colaborador } from '../models/interfaces/colaborador.interface';
 import { ColaboradorAlterarPesquisa } from '../models/requests/colaborador-alterar-pesquisa.request';
@@ -18,8 +20,8 @@ export class ColaboradorService extends ApiService {
         super(httpClient);
     }
 
-    public obterColaboradores(idEmpresa: string): Observable<IDataReturn<Colaborador[]>> {
-        return this.get<IDataReturn<Colaborador[]>>('colaborador/' + idEmpresa)
+    public obterColaboradores(idEmpresa: string, paginacao?: Paginacao, ordenacao?: Ordenacao | null): Observable<IDataReturn<Colaborador[]>> {
+        return this.get<IDataReturn<Colaborador[]>, Paginacao>('colaborador/' + idEmpresa, { ...paginacao, ...ordenacao })
             .pipe(
                 catchError(this.handleError<IDataReturn<Colaborador[]>>('obterColaborador'))
             );

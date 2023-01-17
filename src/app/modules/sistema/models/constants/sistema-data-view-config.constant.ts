@@ -63,7 +63,8 @@ export const ColaboradorDataViewConfig: DataViewConfig<NestedKeyOf<Colaborador>>
     colunas: [
         {
             titulo: "Nome",
-            propriedade: ["nome"]
+            propriedade: ["nome"],
+            ordenacao: DirecaoOrdenacao.ASC
         },
         // {
         //     titulo: "Usuário",
@@ -76,6 +77,7 @@ export const ColaboradorDataViewConfig: DataViewConfig<NestedKeyOf<Colaborador>>
         {
             titulo: "Pesquisa",
             propriedade: ["pesquisa"],
+            ordenacao: DirecaoOrdenacao.ASC
         },
         {
             titulo: "Ativar/Desativar Pesquisa",
@@ -88,6 +90,10 @@ export const ColaboradorDataViewConfig: DataViewConfig<NestedKeyOf<Colaborador>>
             tooltipTitulo: "Enviar pesquisa por e-mail"
         }
     ],
+    paginacao: {
+        pagina: 1,
+        paginaTamanho: 5,
+    },
     colunasAcao: {
         // editar: true,
         deletar: true
@@ -99,7 +105,8 @@ export const ClienteDataViewConfig: DataViewConfig<NestedKeyOf<Cliente>> = {
     colunas: [
         {
             titulo: "Nome",
-            propriedade: ["nome"]
+            propriedade: ["nome"],
+            ordenacao: DirecaoOrdenacao.ASC
         },
         // {
         //     titulo: "CNPJ",
@@ -108,11 +115,13 @@ export const ClienteDataViewConfig: DataViewConfig<NestedKeyOf<Cliente>> = {
         // },
         {
             titulo: "Mercado",
-            propriedade: ["mercado", "nome"]
+            propriedade: ["mercado", "nome"],
+            ordenacao: DirecaoOrdenacao.ASC
         },
         {
             titulo: "Pesquisa",
             propriedade: ["pesquisa"],
+            ordenacao: DirecaoOrdenacao.ASC
         },
         {
             titulo: "Ativar/Desativar Pesquisa",
@@ -125,6 +134,10 @@ export const ClienteDataViewConfig: DataViewConfig<NestedKeyOf<Cliente>> = {
             tooltipTitulo: "Enviar pesquisa por e-mail"
         }
     ],
+    paginacao: {
+        pagina: 1,
+        paginaTamanho: 5,
+    },
     colunasAcao: {
         editar: true,
         deletar: true,
@@ -137,11 +150,12 @@ export const ClienteDetalharViewConfig: DataViewConfig<NestedKeyOf<Cliente>> = {
     colunas: [
         {
             titulo: "Nome",
-            propriedade: ["nome"]
+            propriedade: ["nome"],
         },
         {
             titulo: "Razao Social",
-            propriedade: ["razaoSocial"]
+            propriedade: ["razaoSocial"],
+
         },
         // {
         //     titulo: "CNPJ",
@@ -194,13 +208,18 @@ export const ValorDataViewConfig: DataViewConfig<NestedKeyOf<Valor>> = {
     colunas: [
         {
             titulo: "Nome",
-            propriedade: ["nome"]
+            propriedade: ["nome"],
+            ordenacao: DirecaoOrdenacao.ASC
         },
         {
             titulo: "Definição de Valor",
             propriedade: ["definicaoValor"]
         },
     ],
+    paginacao: {
+        pagina: 1,
+        paginaTamanho: 5,
+    },
     colunasAcao: {
         editar: true,
         deletar: true
@@ -211,9 +230,14 @@ export const SetorDataViewConfig: DataViewConfig<NestedKeyOf<Setor>> = {
     colunas: [
         {
             titulo: "Nome",
-            propriedade: ["nome"]
+            propriedade: ["nome"],
+            ordenacao: DirecaoOrdenacao.ASC
         },
     ],
+    paginacao: {
+        pagina: 1,
+        paginaTamanho: 5,
+    },
     colunasAcao: {
         editar: true,
         deletar: true
@@ -224,9 +248,14 @@ export const BemServicoDataViewConfig: DataViewConfig<NestedKeyOf<BemServico>> =
     colunas: [
         {
             titulo: "Nome",
-            propriedade: ["nome"]
+            propriedade: ["nome"],
+            ordenacao: DirecaoOrdenacao.ASC
         },
     ],
+    paginacao: {
+        pagina: 1,
+        paginaTamanho: 5,
+    },
     colunasAcao: {
         editar: true,
         deletar: true

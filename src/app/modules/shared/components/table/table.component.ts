@@ -5,6 +5,7 @@ import { faArrowDown, faArrowsUpDown, faArrowUp, faInfoCircle, faPenToSquare, fa
 import { getNestedValue } from '../../utils/script.extension';
 import { Paginacao } from '../../models/paginacao.model';
 import { Observable } from 'rxjs';
+import { Ordenacao } from '../../models/ordenacao.model';
 
 @Component({
     selector: 'bpgear-table',
@@ -26,7 +27,7 @@ export class TableComponent implements OnInit {
     $paginacao: Observable<Paginacao>;
 
     ordenacaoTemplate: { [index: string]: DirecaoOrdenacao; };
-    ordenacao: { [index: string]: string; } = {};
+    ordenacao: Ordenacao = null;
     direcaoOrdenacao = DirecaoOrdenacao;
 
     @Input() dataViewConfig: DataViewConfig<string>;
@@ -44,12 +45,11 @@ export class TableComponent implements OnInit {
 
     ngOnInit(): void {
         this.paginacao = Object.assign({}, this.dataViewConfig?.paginacao);
-        this.dataViewConfig.colunas.forEach((v, i) => {
-            if (v.ordenacao && i === 0) {
+        this.dataViewConfig.colunas.forEach((v) => {
+            if (v.ordenacao && !this.ordenacao) {
                 this.ordenacaoTemplate = { ...this.ordenacaoTemplate, [v.propriedade.join('.')]: v.ordenacao };
-                this.ordenacao = { [DirecaoOrdenacao[v.ordenacao]]: v.propriedade.join('.') };
-            }
-            if (v.ordenacao && i !== 0) {
+                this.ordenacao = { [DirecaoOrdenacao[v.ordenacao].toLowerCase()]: v.propriedade.join('.') };
+            } else if (v.ordenacao && this.ordenacao) {
                 this.ordenacaoTemplate = { ...this.ordenacaoTemplate, [v.propriedade.join('.')]: DirecaoOrdenacao.PADRAO };
             }
         });
@@ -114,6 +114,10 @@ export class TableComponent implements OnInit {
             default:
                 break;
         }
+
+        Object.keys(this.ordenacaoTemplate).forEach(v => {
+            if (v !== coluna) this.ordenacaoTemplate[v] = DirecaoOrdenacao.PADRAO;
+        });
     }
 
 }

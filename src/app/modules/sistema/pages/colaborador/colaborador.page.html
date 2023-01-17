@@ -3,7 +3,7 @@
     <button class="btn btn-outline-success float-end" (click)="criarColaborador()">Novo Colaborador</button>
 </div>
 
-<bpgear-table [dataViewConfig]="colaboradorDataViewConfig" [data]="colaboradores" #tableColaborador
+<bpgear-table [dataViewConfig]="colaboradorDataViewConfig" [data]="colaboradores" #table
     (deletarItemEvent)="deletarColaborador($event)">
     <ng-template #colAlterarPesquisa let-data="dataCallBack" let-item="itemCallBack">
         <span (click)="alterarPesquisa(item)">{{ data | transformValue: "acao-alterar-pesquisa" }}</span>

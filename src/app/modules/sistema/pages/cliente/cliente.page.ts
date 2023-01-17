@@ -1,10 +1,12 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject, takeUntil } from 'rxjs';
+import { map, merge, startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { PesquisaM3EnviarEmail } from 'src/app/modules/pesquisa/models/requests/pesquisa-m3-enviar-email.request';
 import { PesquisaService } from 'src/app/modules/pesquisa/services/pesquisa.service';
+import { Ordenacao } from 'src/app/modules/shared/models/ordenacao.model';
+import { Paginacao } from 'src/app/modules/shared/models/paginacao.model';
 import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
 import { ToastService } from 'src/app/modules/shared/services/toast.service';
 import { ModalAlterarPesquisaComponent } from '../../components/modal-alterar-pesquisa/modal-alterar-pesquisa.component';
@@ -25,13 +27,15 @@ import { MercadoService } from '../../services/mercado.service';
     templateUrl: './cliente.page.html',
     styleUrls: ['./cliente.page.scss']
 })
-export class ClientePage implements OnInit, AfterViewInit {
+export class ClientePage implements OnInit, OnDestroy, AfterViewInit {
     clienteDataViewConfig = ClienteDataViewConfig;
     clientes: Cliente[] = [];
     pesquisa = Pesquisa;
     @ViewChild('colAlterarPesquisa') colAlterarPesquisa;
     @ViewChild('colEnviarPesquisa') colEnviarPesquisa;
     faEnvelope = faEnvelope;
+
+    @ViewChild('table') table: any;
 
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
@@ -47,17 +51,29 @@ export class ClientePage implements OnInit, AfterViewInit {
     ) { }
 
     ngOnInit(): void {
-        this.obterClientes();
     }
 
     ngAfterViewInit(): void {
         this.clienteDataViewConfig.colunas[this.clienteDataViewConfig.colunas.length - 2].template = this.colAlterarPesquisa;
         this.clienteDataViewConfig.colunas[this.clienteDataViewConfig.colunas.length - 1].template = this.colEnviarPesquisa;
+
+        merge(this.table.paginacaoChange, this.table.ordenacaoChange)
+            .pipe(
+                startWith({}),
+                tap(() => {
+                    this.obterClientes(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
+                }),
+                takeUntil(this.unsubscribe$)
+            )
+            .subscribe(response => response);
     }
 
-    obterClientes(): void {
+    obterClientes(paginacao?: Paginacao, ordenacao?: Ordenacao): void {
         this.spinnerService.show();
-        this.clienteService.obterClientes(this.empresaService.getEmpresa().value.id)
+        this.clienteService.obterClientes(this.empresaService.getEmpresa().value.id, paginacao, ordenacao)
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe(
                 (response) => {
@@ -90,7 +106,10 @@ export class ClientePage implements OnInit, AfterViewInit {
                         .then(
                             (res) => {
                                 if (typeof (res) === "string") this.router.navigateByUrl(res);
-                                if (res) this.obterClientes();
+                                if (res) this.obterClientes(
+                                    this.table.paginacao,
+                                    this.table.ordenacao
+                                );
                             }
                         )
                         .catch((err) => err);
@@ -104,7 +123,10 @@ export class ClientePage implements OnInit, AfterViewInit {
         modalRef.result
             .then((res) => {
                 if (res) {
-                    this.obterClientes();
+                    this.obterClientes(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
                 }
             })
             .catch((err) => err);
@@ -122,7 +144,10 @@ export class ClientePage implements OnInit, AfterViewInit {
         modalRef.result
             .then((res) => {
                 if (res) {
-                    this.obterClientes();
+                    this.obterClientes(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
                 }
             })
             .catch((err) => err);
@@ -146,7 +171,10 @@ export class ClientePage implements OnInit, AfterViewInit {
                     modalRef.result
                         .then((res) => {
                             if (res) {
-                                this.obterClientes();
+                                this.obterClientes(
+                                    this.table.paginacao,
+                                    this.table.ordenacao
+                                );
                             }
                         })
                         .catch((err) => err);
@@ -176,6 +204,11 @@ export class ClientePage implements OnInit, AfterViewInit {
 
     openModal(content, size = 'xl') {
         this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: size });
+    }
+
+    ngOnDestroy(): void {
+        this.unsubscribe$.next(true);
+        this.unsubscribe$.unsubscribe();
     }
 
 }

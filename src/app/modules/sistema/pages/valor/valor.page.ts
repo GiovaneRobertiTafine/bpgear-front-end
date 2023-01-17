@@ -1,6 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject, takeUntil } from 'rxjs';
+import { map, merge, startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { Ordenacao } from 'src/app/modules/shared/models/ordenacao.model';
+import { Paginacao } from 'src/app/modules/shared/models/paginacao.model';
 import { SpinnerService } from 'src/app/modules/shared/services/spinner.service';
 import { ToastService } from 'src/app/modules/shared/services/toast.service';
 import { ModalDeletarComponent } from '../../components/modal-deletar/modal-deletar.component';
@@ -16,9 +18,11 @@ import { ValorService } from '../../services/valor.service';
     templateUrl: './valor.page.html',
     styleUrls: ['./valor.page.scss']
 })
-export class ValorPage implements OnInit, OnDestroy {
+export class ValorPage implements OnInit, OnDestroy, AfterViewInit {
     valorDataViewConfig = ValorDataViewConfig;
     valores: Valor[] = [];
+
+    @ViewChild('table') table: any;
 
     unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
@@ -31,12 +35,26 @@ export class ValorPage implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-        this.obterValores();
     }
 
-    obterValores(): void {
+    ngAfterViewInit(): void {
+        merge(this.table.paginacaoChange, this.table.ordenacaoChange)
+            .pipe(
+                startWith({}),
+                tap(() => {
+                    this.obterValores(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
+                }),
+                takeUntil(this.unsubscribe$)
+            )
+            .subscribe(response => response);
+    }
+
+    obterValores(paginacao?: Paginacao, ordenacao?: Ordenacao): void {
         this.spinnerService.show();
-        this.valorService.obterValores(this.empresaService.getEmpresa().value.id)
+        this.valorService.obterValores(this.empresaService.getEmpresa().value.id, paginacao, ordenacao)
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe(
                 (response) => {
@@ -47,6 +65,7 @@ export class ValorPage implements OnInit, OnDestroy {
                     }
 
                     this.valores = response.data;
+                    this.table.colecaoTamanho = response.resultPaginacao.colecaoTamanho;
                 }
             );
     }
@@ -56,7 +75,10 @@ export class ValorPage implements OnInit, OnDestroy {
         modalRef.result
             .then((res) => {
                 if (res) {
-                    this.obterValores();
+                    this.obterValores(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
                 }
             })
             .catch((err) => err);
@@ -68,7 +90,10 @@ export class ValorPage implements OnInit, OnDestroy {
         modalRef.result
             .then((res) => {
                 if (res) {
-                    this.obterValores();
+                    this.obterValores(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
                 }
             })
             .catch((err) => err);
@@ -80,7 +105,10 @@ export class ValorPage implements OnInit, OnDestroy {
         modalRef.result
             .then((res) => {
                 if (res) {
-                    this.obterValores();
+                    this.obterValores(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
                 }
             })
             .catch((err) => err);

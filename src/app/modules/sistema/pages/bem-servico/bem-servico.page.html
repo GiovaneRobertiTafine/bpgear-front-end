@@ -3,7 +3,7 @@
     <button class="btn btn-outline-success float-end" (click)="criarBemServico()">Novo Bem e Serviço</button>
 </div>
 
-<bpgear-table [dataViewConfig]="bemServicoDataViewConfig" [data]="bemServico"
+<bpgear-table #table [dataViewConfig]="bemServicoDataViewConfig" [data]="bemServico"
     (deletarItemEvent)="deletarBemServico($event)" (editarItemEvent)="editarBemServico($event)">
 
 </bpgear-table>

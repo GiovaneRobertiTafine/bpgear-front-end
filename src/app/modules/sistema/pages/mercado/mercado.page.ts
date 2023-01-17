@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { map, merge, startWith, Subject, switchMap, takeUntil } from 'rxjs';
+import { map, merge, startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { DirecaoOrdenacao } from 'src/app/modules/shared/models/data-view-config.model';
 import { Ordenacao } from 'src/app/modules/shared/models/ordenacao.model';
 import { Paginacao } from 'src/app/modules/shared/models/paginacao.model';
@@ -42,30 +42,15 @@ export class MercadoPage implements OnInit, OnDestroy, AfterViewInit {
         merge(this.table.paginacaoChange, this.table.ordenacaoChange)
             .pipe(
                 startWith({}),
-                switchMap(() => {
-                    this.spinnerService.show();
-                    return this.mercadoService.obterMercados(
-                        this.empresaService.getEmpresa().value.id,
+                tap(() => {
+                    this.obterMercados(
                         this.table.paginacao,
                         this.table.ordenacao
                     );
                 }),
-                map(response => {
-                    this.spinnerService.hide();
-                    return response;
-                }),
+                takeUntil(this.unsubscribe$)
             )
-            .pipe(takeUntil(this.unsubscribe$))
-            .subscribe(response => {
-                if (response.resultStatus.code !== 200) {
-                    this.toastService.error(response.resultStatus.message);
-                    return;
-                }
-
-                this.mercados = response.data;
-                this.table.colecaoTamanho = response.resultPaginacao.colecaoTamanho;
-
-            });
+            .subscribe(response => response);
     }
 
     obterMercados(paginacao?: Paginacao, ordenacao?: Ordenacao): void {

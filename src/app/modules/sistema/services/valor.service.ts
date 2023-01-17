@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { IDataReturn } from '../../shared/models/data-return.model';
+import { Ordenacao } from '../../shared/models/ordenacao.model';
+import { Paginacao } from '../../shared/models/paginacao.model';
 import { ApiService } from '../../shared/services/api.service';
 import { Valor } from '../models/interfaces/valor.inteface';
 import { ValorCriar } from '../models/requests/valor-criar.request';
@@ -17,8 +19,8 @@ export class ValorService extends ApiService {
         super(httpClient);
     }
 
-    public obterValores(idEmpresa): Observable<IDataReturn<Valor[]>> {
-        return this.get<IDataReturn<Valor[]>>('valor/' + idEmpresa)
+    public obterValores(idEmpresa: string, paginacao?: Paginacao, ordenacao?: Ordenacao | null): Observable<IDataReturn<Valor[]>> {
+        return this.get<IDataReturn<Valor[]>, Paginacao>('valor/' + idEmpresa, { ...paginacao, ...ordenacao })
             .pipe(
                 catchError(this.handleError<IDataReturn<Valor[]>>('obterValores'))
             );
