@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { map, merge, startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { PesquisaM3EnviarEmailLista } from 'src/app/modules/pesquisa/models/requests/pesquisa-m3-enviar-email-lista.request';
 import { PesquisaM3EnviarEmail } from 'src/app/modules/pesquisa/models/requests/pesquisa-m3-enviar-email.request';
 import { PesquisaService } from 'src/app/modules/pesquisa/services/pesquisa.service';
 import { Ordenacao } from 'src/app/modules/shared/models/ordenacao.model';
@@ -18,6 +19,7 @@ import { ModalDetalharComponent } from '../../components/modal-detalhar/modal-de
 import { ClienteDataViewConfig, ClienteDetalharViewConfig } from '../../models/constants/sistema-data-view-config.constant';
 import { Pesquisa } from '../../models/enums/pesquisa.enum';
 import { Cliente } from '../../models/interfaces/cliente.interface';
+import { ClienteAlterarPesquisaLista } from '../../models/requests/cliente-alterar-pesquisa-lista.request';
 import { ClienteService } from '../../services/cliente.service';
 import { EmpresaService } from '../../services/empresa.service';
 import { MercadoService } from '../../services/mercado.service';
@@ -33,7 +35,11 @@ export class ClientePage implements OnInit, OnDestroy, AfterViewInit {
     pesquisa = Pesquisa;
     @ViewChild('colAlterarPesquisa') colAlterarPesquisa;
     @ViewChild('colEnviarPesquisa') colEnviarPesquisa;
+    @ViewChild('colSelecionarTodos') colSelecionarTodos;
+    @ViewChild('colSelecionarItem') colSelecionarItem;
     faEnvelope = faEnvelope;
+
+    selecaoCliente: string[] = [];
 
     @ViewChild('table') table: any;
 
@@ -56,6 +62,8 @@ export class ClientePage implements OnInit, OnDestroy, AfterViewInit {
     ngAfterViewInit(): void {
         this.clienteDataViewConfig.colunas[this.clienteDataViewConfig.colunas.length - 2].template = this.colAlterarPesquisa;
         this.clienteDataViewConfig.colunas[this.clienteDataViewConfig.colunas.length - 1].template = this.colEnviarPesquisa;
+        setTimeout(() => { this.clienteDataViewConfig.colunas[0].templateTitulo = this.colSelecionarTodos; });
+        this.clienteDataViewConfig.colunas[0].template = this.colSelecionarItem;
 
         merge(this.table.paginacaoChange, this.table.ordenacaoChange)
             .pipe(
@@ -82,8 +90,9 @@ export class ClientePage implements OnInit, OnDestroy, AfterViewInit {
                         this.toastService.error(response.resultStatus.message);
                         return;
                     }
-
+                    (document.getElementById('inputSelecionarTodos') as HTMLInputElement).checked = false;
                     this.clientes = response.data;
+                    this.selecaoCliente = [];
                 }
             );
     }
@@ -204,6 +213,85 @@ export class ClientePage implements OnInit, OnDestroy, AfterViewInit {
 
     openModal(content, size = 'xl') {
         this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: size });
+    }
+
+    selecionarCliente(id?: string): void {
+        if (id) {
+            const index = this.selecaoCliente.findIndex((v) => v === id);
+            if (index === -1) {
+                this.selecaoCliente.push(id);
+                if (this.clientes.length === this.selecaoCliente.length) {
+                    (document.getElementById('inputSelecionarTodos') as HTMLInputElement).checked = true;
+                }
+            } else {
+                this.selecaoCliente.splice(index, 1);
+                (document.getElementById('inputSelecionarTodos') as HTMLInputElement).checked = false;
+            }
+        } else {
+            if ((document.getElementById('inputSelecionarTodos') as HTMLInputElement).checked) {
+                this.clientes.forEach((v) => {
+                    if (!this.selecaoCliente.includes(v.id)) {
+                        this.selecaoCliente.push(v.id);
+                        (document.getElementById(v.id) as HTMLInputElement).checked = true;
+                    }
+                });
+            } else {
+                this.selecaoCliente.forEach((v) => {
+                    (document.getElementById(v) as HTMLInputElement).checked = false;
+                });
+                this.selecaoCliente = [];
+            }
+        }
+    }
+
+    ativarDesativarPesquisaSelecaoCliente(pesquisa: Pesquisa): void {
+        if (!this.selecaoCliente.length) return this.toastService.warning("Selecione pelo menos um cliente.");
+        this.spinnerService.show();
+        const request: ClienteAlterarPesquisaLista = { pesquisa: pesquisa, listaIdCliente: this.selecaoCliente };
+        this.clienteService.alterarPesquisaClienteLista(request)
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe(
+                (response) => {
+                    this.spinnerService.hide();
+                    if (response.resultStatus.code !== 200) {
+                        this.toastService.error(response.resultStatus.message);
+                        return;
+                    }
+
+                    this.toastService.success(response.resultStatus.message);
+                    (document.getElementById('inputSelecionarTodos') as HTMLInputElement).checked = false;
+                    this.obterClientes(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
+                    this.modalService.dismissAll();
+                }
+            );
+    }
+
+    enviarPesquisaSelecaoCliente(): void {
+        if (!this.selecaoCliente.length) return this.toastService.warning("Selecione pelo menos um cliente.");
+        this.spinnerService.show();
+        const request: PesquisaM3EnviarEmailLista = { listaIdCliente: this.selecaoCliente };
+        this.pesquisaService.enviarEmailM3Lista(request)
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe(
+                (response) => {
+                    this.spinnerService.hide();
+                    if (response.resultStatus.code !== 200) {
+                        this.toastService.error(response.resultStatus.message);
+                        return;
+                    }
+
+                    this.toastService.success(response.resultStatus.message);
+                    (document.getElementById('inputSelecionarTodos') as HTMLInputElement).checked = false;
+                    this.obterClientes(
+                        this.table.paginacao,
+                        this.table.ordenacao
+                    );
+                    this.modalService.dismissAll();
+                }
+            );
     }
 
     ngOnDestroy(): void {

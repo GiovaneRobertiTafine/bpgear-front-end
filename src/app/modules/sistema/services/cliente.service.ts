@@ -6,6 +6,7 @@ import { Ordenacao } from '../../shared/models/ordenacao.model';
 import { Paginacao } from '../../shared/models/paginacao.model';
 import { ApiService } from '../../shared/services/api.service';
 import { Cliente } from '../models/interfaces/cliente.interface';
+import { ClienteAlterarPesquisaLista } from '../models/requests/cliente-alterar-pesquisa-lista.request';
 import { ClienteAlterarPesquisa } from '../models/requests/cliente-alterar-pesquisa.request';
 import { ClienteCriarEmail } from '../models/requests/cliente-criar-enviar-email.request';
 import { ClienteCriar } from '../models/requests/cliente-criar.request';
@@ -53,6 +54,13 @@ export class ClienteService extends ApiService {
         return this.put<IDataReturn<null>>('cliente/alterar-pesquisa', request)
             .pipe(
                 catchError(this.handleError<IDataReturn<null>>('clienteAlterarPesquisa'))
+            );
+    }
+
+    public alterarPesquisaClienteLista(request: ClienteAlterarPesquisaLista): Observable<IDataReturn<null>> {
+        return this.put<IDataReturn<null>>('cliente/alterar-pesquisa-lista', request)
+            .pipe(
+                catchError(this.handleError<IDataReturn<null>>('alterarPesquisaClienteLista'))
             );
     }
 

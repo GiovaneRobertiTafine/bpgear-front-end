@@ -14,6 +14,7 @@ export interface DataColuna<T> {
     titulo: string;
     propriedade: T[];
     eventCallBack?: boolean;
+    templateTitulo?: TemplateRef<any>;
     template?: TemplateRef<any>;
     mascara?: Mascara;
     ordenacao?: DirecaoOrdenacao;

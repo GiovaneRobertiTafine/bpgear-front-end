@@ -104,6 +104,11 @@ export const ColaboradorDataViewConfig: DataViewConfig<NestedKeyOf<Colaborador>>
 export const ClienteDataViewConfig: DataViewConfig<NestedKeyOf<Cliente>> = {
     colunas: [
         {
+            titulo: 'Selecionar Todos',
+            propriedade: [],
+            tooltipTitulo: 'Selecionar Todos'
+        },
+        {
             titulo: "Nome",
             propriedade: ["nome"],
             ordenacao: DirecaoOrdenacao.ASC

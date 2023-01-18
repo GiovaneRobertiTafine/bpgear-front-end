@@ -5,11 +5,18 @@
             <thead class="bg-danger text-light">
                 <tr>
                     <th *ngFor="let col of dataViewConfig.colunas" [ngClass]="{'cursor-pointer': col.ordenacao}"
-                        (click)="col.ordenacao? ordenarColuna(col.propriedade.join('.')): null">
-                        {{ col.titulo }}
+                        (click)="col.ordenacao? ordenarColuna(col.propriedade.join('.')): null" container="body"
+                        placement="top" [ngbTooltip]="col.tooltipTitulo">
+                        <span *ngIf="!col?.templateTitulo; else ngContainerTitulo">
+                            {{ col.titulo }}
+                        </span>
+                        <ng-template #ngContainerTitulo>
+                            <ng-container [ngTemplateOutlet]="col.templateTitulo"
+                                [ngTemplateOutletContext]="{ itemCallBack: col }">
+                            </ng-container>
+                        </ng-template>
                         <ng-container *ngIf="col.iconTituloFA">
-                            <fa-icon [icon]="col.iconTituloFA" [fixedWidth]="true" container="body" placement="top"
-                                [ngbTooltip]="col.tooltipTitulo">
+                            <fa-icon [icon]="col.iconTituloFA" [fixedWidth]="true">
                             </fa-icon>
                         </ng-container>
                         <ng-container *ngIf="col.ordenacao">

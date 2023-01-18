@@ -24,8 +24,6 @@ export class TableComponent implements OnInit {
     paginacao: Paginacao;
     @Input() colecaoTamanho: number = 0;
 
-    $paginacao: Observable<Paginacao>;
-
     ordenacaoTemplate: { [index: string]: DirecaoOrdenacao; };
     ordenacao: Ordenacao = null;
     direcaoOrdenacao = DirecaoOrdenacao;

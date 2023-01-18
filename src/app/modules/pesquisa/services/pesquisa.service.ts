@@ -14,6 +14,7 @@ import { PesquisaM1Inserir } from '../models/requests/pesquisa-m1-inserir.reques
 import { PesquisaM1Obter } from '../models/requests/pesquisa-m1-obter.request';
 import { PesquisaM2Inserir } from '../models/requests/pesquisa-m2-inserir.request';
 import { PesquisaM2Obter } from '../models/requests/pesquisa-m2-obter.request';
+import { PesquisaM3EnviarEmailLista } from '../models/requests/pesquisa-m3-enviar-email-lista.request';
 import { PesquisaM3EnviarEmail } from '../models/requests/pesquisa-m3-enviar-email.request';
 import { PesquisaM3Inserir } from '../models/requests/pesquisa-m3-inserir.request';
 import { PesquisaM3Obter } from '../models/requests/pesquisa-m3-obter.request';
@@ -101,6 +102,13 @@ export class PesquisaService extends ApiService {
         return this.post<IDataReturn<null>>('pesquisa/m3-enviar-email', request)
             .pipe(
                 catchError(this.handleError<IDataReturn<null>>('enviarEmailM3'))
+            );
+    }
+
+    public enviarEmailM3Lista(request: PesquisaM3EnviarEmailLista): Observable<IDataReturn<null>> {
+        return this.post<IDataReturn<null>>('pesquisa/m3-enviar-email-lista', request)
+            .pipe(
+                catchError(this.handleError<IDataReturn<null>>('enviarEmailM3Lista'))
             );
     }
 }
