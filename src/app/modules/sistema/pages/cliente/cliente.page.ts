@@ -278,12 +278,19 @@ export class ClientePage implements OnInit, OnDestroy, AfterViewInit {
             .subscribe(
                 (response) => {
                     this.spinnerService.hide();
-                    if (response.resultStatus.code !== 200) {
+
+                    if (response.resultStatus.code !== 200 &&
+                        response.resultStatus.code !== 207) {
                         this.toastService.error(response.resultStatus.message);
                         return;
                     }
 
-                    this.toastService.success(response.resultStatus.message);
+                    if (response.resultStatus.code === 207) {
+                        this.toastService.warning(response.resultStatus.message, 10000);
+                    } else {
+                        this.toastService.success(response.resultStatus.message);
+                    }
+
                     (document.getElementById('inputSelecionarTodos') as HTMLInputElement).checked = false;
                     this.obterClientes(
                         this.table.paginacao,

@@ -9,16 +9,16 @@ export class ToastService {
 
     constructor() { }
 
-    success(textOrTpl: string | TemplateRef<any>) {
-        this.toasts.push({ textOrTpl, className: "bg-success text-light" });
+    success(textOrTpl: string | TemplateRef<any>, delay: number = 5000) {
+        this.toasts.push({ textOrTpl, className: "bg-success text-light", delay: delay });
     }
 
-    error(textOrTpl: string | TemplateRef<any>) {
-        this.toasts.push({ textOrTpl, className: "bg-danger text-light" });
+    error(textOrTpl: string | TemplateRef<any>, delay: number = 5000) {
+        this.toasts.push({ textOrTpl, className: "bg-danger text-light", delay: delay });
     }
 
-    warning(textOrTpl: string | TemplateRef<any>) {
-        this.toasts.push({ textOrTpl, className: "bg-warning" });
+    warning(textOrTpl: string | TemplateRef<any>, delay: number = 5000) {
+        this.toasts.push({ textOrTpl, className: "bg-warning", delay: delay });
     }
 
     remove(toast) {

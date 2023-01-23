@@ -1,5 +1,12 @@
-<div class="w-100 d-flex mt-3 align-items-baseline">
+<div class="w-100 d-flex mt-3 gap-3 align-items-baseline">
     <h3 class="fst-italic me-auto">Colaboradores</h3>
+    <span class="fw-bold small">Selecionados:</span>
+    <button class="btn btn-outline-primary"
+        (click)="modalService.open(modalConfirmarEnviarEmailPesquisa, {size: 'md'})">
+        Enviar Pesquisa por E-mail</button>
+    <button class="btn btn-outline-primary"
+        (click)="modalService.open(modalConfirmarAtivarDesativarPesquisa, {size: 'md'})">Ativar/Desativar
+        Pesquisa</button>
     <button class="btn btn-outline-success" (click)="criarColaborador()">Novo Colaborador</button>
 </div>
 
@@ -11,6 +18,15 @@
     <ng-template #colEnviarPesquisa let-data="dataCallBack" let-item="itemCallBack">
         <fa-icon [icon]="faEnvelope" (click)="enviarEmailPesquisaM1(item)">
         </fa-icon>
+    </ng-template>
+
+    <ng-template #colSelecionarTodos let-item="itemCallBack">
+        <input class="form-check-input" type="checkbox" name="selecionarTodos" id="inputSelecionarTodos"
+            (change)="selecionarColaborador()">
+    </ng-template>
+    <ng-template #colSelecionarItem let-data="dataCallBack" let-item="itemCallBack">
+        <input class="form-check-input" type="checkbox" name="selecionarItem" [id]="item.id"
+            (change)="selecionarColaborador(item.id)">
     </ng-template>
 </bpgear-table>
 
@@ -29,5 +45,38 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" (click)="modal.close()">Fechar</button>
         <button type="submit" class="btn btn-success" (click)="modal.close(true)">Confirmar</button>
+    </div>
+</ng-template>
+
+<ng-template #modalConfirmarAtivarDesativarPesquisa let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Ativar/Desativar Pesquisa:</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>Ative ou Desative a pesquisa de clientes selecionados:</p>
+        <div class="d-flex justify-content-center gap-3">
+            <button type="submit" class="btn btn-primary w-25"
+                (click)="ativarDesativarPesquisaSelecaoCliente(pesquisa.ATIVADA)">Ativar</button>
+            <button type="submit" class="btn btn-primary w-25"
+                (click)="ativarDesativarPesquisaSelecaoCliente(pesquisa.DESATIVADA)">Desativar</button>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.close()">Fechar</button>
+    </div>
+</ng-template>
+
+<ng-template #modalConfirmarEnviarEmailPesquisa let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Enviar Pesquisa:</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>Confirme o envio da pesquisa por e-mail para os clientes selecionados:</p>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success" (click)="enviarPesquisaSelecaoColaborador()">Confirmar</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.close()">Fechar</button>
     </div>
 </ng-template>

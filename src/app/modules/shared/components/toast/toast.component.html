@@ -1,4 +1,4 @@
-<ngb-toast *ngFor="let toast of toastService.toasts" [class]="toast.className" [autohide]="true" [delay]="5000"
+<ngb-toast *ngFor="let toast of toastService.toasts" [class]="toast.className" [autohide]="true" [delay]="toast.delay"
     (hidden)="toastService.remove(toast)">
     <fa-icon [icon]="iconClose" class="cursor-pointer float-end ms-2" size="lg" (click)="toastService.remove(toast)">
     </fa-icon>

@@ -62,6 +62,11 @@ export const EmpresaDataViewConfig: DataViewConfig<NestedKeyOf<Empresa>> = {
 export const ColaboradorDataViewConfig: DataViewConfig<NestedKeyOf<Colaborador>> = {
     colunas: [
         {
+            titulo: 'Selecionar Todos',
+            propriedade: [],
+            tooltipTitulo: 'Selecionar Todos'
+        },
+        {
             titulo: "Nome",
             propriedade: ["nome"],
             ordenacao: DirecaoOrdenacao.ASC
@@ -112,6 +117,10 @@ export const ClienteDataViewConfig: DataViewConfig<NestedKeyOf<Cliente>> = {
             titulo: "Nome",
             propriedade: ["nome"],
             ordenacao: DirecaoOrdenacao.ASC
+        },
+        {
+            titulo: "E-mail",
+            propriedade: ["email"]
         },
         // {
         //     titulo: "CNPJ",

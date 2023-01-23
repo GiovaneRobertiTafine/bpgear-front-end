@@ -6,6 +6,7 @@ import { Ordenacao } from '../../shared/models/ordenacao.model';
 import { Paginacao } from '../../shared/models/paginacao.model';
 import { ApiService } from '../../shared/services/api.service';
 import { Colaborador } from '../models/interfaces/colaborador.interface';
+import { ColaboradorAlterarPesquisaLista } from '../models/requests/colaborador-alterar-pesquisa-lista.request';
 import { ColaboradorAlterarPesquisa } from '../models/requests/colaborador-alterar-pesquisa.request';
 import { ColaboradorCriarEmail } from '../models/requests/colaborador-criar-email.request';
 import { ColaboradorCriar } from '../models/requests/colaborador-criar.request';
@@ -52,6 +53,13 @@ export class ColaboradorService extends ApiService {
         return this.put<IDataReturn<null>>('colaborador/alterar-pesquisa', request)
             .pipe(
                 catchError(this.handleError<IDataReturn<null>>('colaboradorAlterarPesquisa'))
+            );
+    }
+
+    public alterarPesquisaColaboradorLista(request: ColaboradorAlterarPesquisaLista): Observable<IDataReturn<null>> {
+        return this.put<IDataReturn<null>>('colaborador/alterar-pesquisa-lista', request)
+            .pipe(
+                catchError(this.handleError<IDataReturn<null>>('alterarPesquisaColaboradorLista'))
             );
     }
 }

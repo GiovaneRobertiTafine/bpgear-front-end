@@ -67,6 +67,10 @@ input[type="radio"]:checked {
     background-color: $success;
 }
 
+.form-check-input[type=checkbox] {
+    border-radius: 0;
+}
+
 /* WIDTH */
 
 /* SM breakpoint */
